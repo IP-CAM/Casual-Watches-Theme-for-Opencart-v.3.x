@@ -3,7 +3,7 @@
     //Elements
     &__group {
         padding: 18px 0;
-        border-bottom: 1px solid var(--border);
+        //border-bottom: 1px solid var(--border);
 
         &:first-child {
             padding-top: 0;
@@ -54,39 +54,11 @@
         display: block;
         padding: 12px 0;
     }
-}
 
-.qty {
-    display: inline-flex;
-    flex-flow: row nowrap;
-    background-color: #ebebeb;
-    padding: 7px 1em;
-    border-radius: 20px;
-
-    //Elements
-    &__btn {
-        border: none;
-        background-color: transparent;
-        padding: 0;
+    &__buy {
+        border: 1px solid #ebebeb;
+        padding: 20px;
     }
-
-    &__icon {
-        width: 12px;
-        height: 12px;
-        stroke: #000;
-        stroke-width: 5px;
-    }
-
-    &__input {
-        width: 80px;
-        background-color: transparent;
-        border: 0;
-        margin: 0 8px;
-        font: inherit;
-        font-weight: bold;
-        text-align: center;
-    }
-
 }
 
 .attributes {
@@ -120,7 +92,7 @@
 }
 
 .seller-features {
-    background-color: var(--accent);
+    //background-color: #ebebeb;
     padding: 12px 24px;
     font-size: .9em;
 

@@ -41,7 +41,7 @@
 </head>
 <body>
 
-<header class="header{% if route == '/' %} header_bg_dark{% endif %}">
+<header class="header{% if route == '/' %} header_bg_dark_{% endif %}">
     <div class="container">
         <ul class="top-menu">
             <li class="top-menu__item">
@@ -60,7 +60,7 @@
                 <div class="logo-placeholder"></div>
             </div>
 
-            <div class="header__contact">
+            <!--div class="header__contact">
                 <a class="header__tel" href="#">8 495 532-82-40</a>
 
                 <div class="header__schedule">
@@ -74,14 +74,21 @@
                 <div class="header__callback">
                     <button class="button button_size_xs">Перезвоните мне</button>
                 </div>
-            </div>
+            </div-->
+
+            {# search #}
 
             <span class="header__line-break"></span>
 
             {{ menu }}
 
             <div class="header-controls">
-                {{ search }}
+                <button class="header-button">
+                    <svg class="header-button__icon">
+                        <use href="#find" />
+                    </svg>
+                </button>
+
 
                 <button class="header-button">
                     <svg class="header-button__icon">

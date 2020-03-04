@@ -23,7 +23,8 @@
     &__tel {
         display: block;
         text-decoration: none;
-        color: currentColor;
+        color: var(--accent);
+        font-weight: bold;
     }
 
     &__callback {
@@ -37,7 +38,7 @@
     }
 
     &__search-box {
-        margin-right: 12px;
+        margin-left: auto;
     }
 
     //Mods
@@ -192,6 +193,6 @@
         text-transform: uppercase;
         font-weight: bold;
         color: currentColor;
-        font-size: .9em;
+        font-size: .8em;
     }
 }
