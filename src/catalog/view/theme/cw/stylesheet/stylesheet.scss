@@ -1,1 +1,17 @@
+@import './abstracts/variables';
+
+@import './base/fonts';
+@import './base/base';
+
+@import './vendors/bootstrap';
+
+@import './components/buttons';
+@import './components/breadcrumbs';
+
+@import './layout/header';
+@import './layout/footer';
+
+@import './pages/home';
+@import './pages/product';
+
 @import './shame';

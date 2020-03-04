@@ -1,0 +1,153 @@
+{{ header }}
+<div class="container pt-1 pb-1">
+
+    <div class="breadcrumbs">
+        <ul class="breadcrumbs__list">
+            {% for breadcrumb in breadcrumbs %}
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <span>&larr; <a class="breadcrumbs__back">Назад</a></span>
+    </div>
+
+</div>
+
+<main class="container">
+    <div class="row pt-3 pb-3">
+        {# Images #}
+        <div class="col-6">
+            <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
+        </div>
+
+        {# Info #}
+        <div class="col">
+            <div class="product__group">
+
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        {% if manufacturer %}
+                            <a class="product__manufacturer" href="{{ manufacturers }}">{{ manufacturer }}</a>
+                        {% endif %}
+                        <h1 class="product__title">
+                            {{ heading_title }}
+                        </h1>
+                        {% if price %}
+                            <p class="product__price">
+                                1999₽{# price #}
+                            </p>
+                        {% endif %}
+
+                        <p class="product__stock">В наличии{# stock #}</p>
+                        <p class="product__stock" style="color: #ccc; font-size: .8em; margin-top: 8px">Код товара: tst4</p>
+                    </div>
+
+                    <div class="align-self-end">
+                        <button class="favorites-button">
+                            <svg class="favorites-button__icon">
+                                <use href="#fav" />
+                            </svg>
+                            В избранное
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="product__group">
+                <div class="row">
+                    <div class="col align-self-center">
+
+                        <div class="product__group">
+
+                            <div id="product">
+
+                                <div class="qty">
+                                    <button class="qty__btn">
+                                        <svg class="qty__icon">
+                                            <use href="#minus" />
+                                        </svg>
+                                    </button>
+
+                                    <input class="qty__input" value="1" />
+
+                                    <button class="qty__btn">
+                                        <svg class="qty__icon">
+                                            <use href="#plus" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <button class="button">
+                                    В корзину
+                                </button>
+                            </div>
+
+                            <div class="product_or">или</div>
+
+                            <div>
+                                <button class="button" style="width: 100%">
+                                    Купить в&nbsp;один&nbsp;клик
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="seller-features">
+                            <ul class="seller-features__list">
+                                <li class="seller-features__el">
+                                    <strong>
+                                        Только новые и оригинальные часы
+                                    </strong>
+                                </li>
+                                <li class="seller-features__el">
+                                    Гарантия производителя
+                                </li>
+                                <li class="seller-features__el">
+                                    Оплата после получения и проверки
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+            <div class="product__group">
+                <table class="attributes__table">
+                    {% for attribute_group in attribute_groups %}
+                        <thead>
+                            <tr>
+                                <td class="attributes__group-title" colspan="2">
+                                    {{ attribute_group.name }}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attribute in attribute_group.attribute %}
+                            <tr class="attributes__row">
+                                <td class="attributes__attribute">{{ attribute.name }}</td>
+                                <td class="attributes__value">{{ attribute.text }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+
+
+            <div class="product__group">
+                {{ description }}
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{{ footer }}

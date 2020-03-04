@@ -1,0 +1,29 @@
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="footer__tel">
+                    8 800 550-42-52
+                </div>
+            </div>
+
+            <div class="col-3">
+            </div>
+
+            <div class="col-3">
+            </div>
+        </div>
+    </div>
+</footer>
+
+{# SVG sprites #}
+<div hidden>
+    {% include "/cw/image/sprites.svg" %}
+</div>
+
+{% for script in scripts %}
+    <script src="{{ script }}"></script>
+{% endfor %}
+
+</body>
+</html>

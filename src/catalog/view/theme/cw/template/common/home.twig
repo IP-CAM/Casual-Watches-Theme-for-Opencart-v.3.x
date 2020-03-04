@@ -1,11 +1,73 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cw</title>
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
-</html>
+{{ header }}
+
+
+    <div class="promo">
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="test">
+                        <img
+                            src="catalog/view/theme/cw/image/demo/01.jpeg"
+                            style="max-width: 100%"
+                         />
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+
+
+    </div>
+
+
+        <div class="container">
+            <h2>Бренды</h2>
+            {{ promo_bottom }}
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ content_top }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container placeholder">
+    </div>
+
+
+
+
+<script>
+  var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    loop: true,
+    slidesPerView: 1.4,
+    spaceBetween: 30,
+    centeredSlides: true,
+
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // And if we need scrollbar
+    //scrollbar: {
+    //  el: '.swiper-scrollbar',
+    //},
+  })
+</script>
+
+{{ footer }}

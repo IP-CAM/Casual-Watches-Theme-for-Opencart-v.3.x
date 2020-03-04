@@ -1,4 +1,6 @@
-const {src, dest, parallel} = require('gulp')
+const {src, dest, parallel, watch} = require('gulp')
+const debug = require('gulp-debug')
+const rename = require('gulp-rename')
 
 const stylesheet = () => {
     const sass = require('gulp-sass')
@@ -6,13 +8,62 @@ const stylesheet = () => {
 
     return src('./src/catalog/view/theme/cw/stylesheet/stylesheet.scss', { base: './src' })
         .pipe(sass().on('error', err => {
-            log.error(err.message)
+            console.error(err.message)
         }))
         .pipe(autoprefixer())
+        .pipe(debug({ title: 'sass:' }))
         .pipe(dest('./opencart'))
 }
 
-const copy = () => src(['./src/**/*', '!./src/catalog/view/theme/cw/stylesheet/**/*.scss'], { base: './src' })
-    .pipe(dest('./opencart'))
+const copy = () => {
+    const newer = require('gulp-newer')
 
-exports.default = parallel(stylesheet, copy)
+    return src(['./src/**/*', '!./src/catalog/view/theme/cw/stylesheet/**/*'], { base: './src' })
+        .pipe(newer('./opencart'))
+        .pipe(debug({ title: 'copying:' }))
+        .pipe(dest('./opencart'))
+}
+
+const sprites = () => {
+    const svgSprite = require('gulp-svgstore')
+    const cheerio = require('gulp-cheerio')
+
+    return src('./src/catalog/view/theme/cw/image/sprites/**/*.svg')
+        .pipe(cheerio({
+            run: function ($) {
+				$('[style]').removeAttr('style')
+			},
+			parserOptions: { xmlMode: true },
+        }))
+        .pipe(svgSprite({ inlineSvg: true }))
+        .pipe(rename({
+            dirname: 'catalog/view/theme/cw/image',
+            basename: 'sprites',
+            extname: '.svg'
+        }))
+        .pipe(dest('./opencart'))
+}
+
+const javascript = () => {
+    const babel = require('gulp-babel')
+
+    return src('./src/catalog/view/theme/cw/javascript/**/*.js', { base: './src' })
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(dest('./opencart'))
+}
+
+const serve = () => {
+    watch('./src/catalog/view/theme/cw/stylesheet/**/*.scss', stylesheet)
+    watch([
+        './src/**/*',
+        '!./src/catalog/view/theme/cw/stylesheet/*',
+        '!./src/catalog/view/theme/cw/sprites/*',
+    ], copy)
+    watch('./src/catalog/view/theme/cw/image/sprites/**/*.svg', sprites)
+    watch('./src/catalog/view/theme/cw/javascript/**/*.js', javascript)
+}
+
+exports.default = serve
+exports.build = parallel(stylesheet, copy, sprites, javascript)

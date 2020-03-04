@@ -1,0 +1,155 @@
+.product {
+
+    //Elements
+    &__group {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+    }
+
+    &__manufacturer {
+        color: currentColor;
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+    }
+
+    &__title {
+        margin: 0;
+        padding: 0;
+        font-size: 2em;
+    }
+
+    &__price {
+        font-size: 3em;
+        font-weight: bold;
+        color: var(--accent);
+        margin: 0;
+        padding: 0;
+    }
+
+    &__sku {
+        padding: 0;
+        margin: 0;
+        color: #ccc;
+    }
+
+    &__stock {
+        margin: 4px 0 0;
+        padding: 0;
+    }
+
+    &__image {
+        max-width: 100%;
+    }
+
+    &_or {
+        display: block;
+        padding: 12px 0;
+    }
+}
+
+.qty {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    background-color: #ebebeb;
+    padding: 7px 1em;
+    border-radius: 20px;
+
+    //Elements
+    &__btn {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &__icon {
+        width: 12px;
+        height: 12px;
+        stroke: #000;
+        stroke-width: 5px;
+    }
+
+    &__input {
+        width: 80px;
+        background-color: transparent;
+        border: 0;
+        margin: 0 8px;
+        font: inherit;
+        font-weight: bold;
+        text-align: center;
+    }
+
+}
+
+.attributes {
+
+    //Elements
+    &__table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    &__row {
+
+        &:nth-child(odd) {
+            background-color: #ebebeb;
+        }
+    }
+
+    &__attribute,
+    &__value,
+    &__group-title {
+        padding: 8px 12px;
+    }
+
+    &__group-title {
+        font-size: .8em;
+    }
+
+    &__value {
+        font-weight: bold;
+    }
+}
+
+.seller-features {
+    background-color: var(--accent);
+    padding: 12px 24px;
+    font-size: .9em;
+
+    //Elements
+    &__list {
+        padding: 0;
+        margin: 0;
+    }
+
+    &__el {
+        list-style: none;
+        margin: 12px 0;
+    }
+}
+
+.favorites-button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+
+    //Elements
+    &__icon {
+        height: 24px;
+        width: 24px;
+        stroke: #ff948a;
+        fill: none;
+        stroke-width: 3px;
+        margin-right: 6px;
+    }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Casual Watches must-use modifications</name>
+    <version>1.0.0</version>
+    <code>cw-mu</code>
+
+    <!--
+    Throws a request route into the header template
+    Using in header.twig:
+
+    {% if route == '/' %}
+    -->
+    <file path="catalog/controller/common/header.php">
+        <operation>
+        <search index="0">
+            <![CDATA[
+return $this->load->view('common/header', $data);
+            ]]>
+        </search>
+        <add position="before">
+            <![CDATA[
+$data['route'] = $_SERVER['REQUEST_URI'];
+            ]]>
+        </add>
+        </operation>
+    </file>
+
+</modification>
