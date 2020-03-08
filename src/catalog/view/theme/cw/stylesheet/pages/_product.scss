@@ -24,7 +24,7 @@
     &__title {
         margin: 0;
         padding: 0;
-        font-size: 2em;
+        font-size: 3em;
     }
 
     &__price {
@@ -53,11 +53,6 @@
     &_or {
         display: block;
         padding: 12px 0;
-    }
-
-    &__buy {
-        border: 1px solid #ebebeb;
-        padding: 20px;
     }
 }
 

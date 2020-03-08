@@ -41,7 +41,99 @@
 </head>
 <body>
 
-<header class="header{% if route == '/' %} header_bg_dark_{% endif %}">
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-auto mr-auto">
+                    <ul class="header__links-list header-link-list">
+                        <li class="header-link-list__item">
+                            <a class="header-link-list__link" href="">
+                                <span>Доставка и оплата</span>
+                            </a>
+                        </li>
+                        <li class="header-link-list__item">
+                            <a class="header-link-list__link" href="">
+                                <span>Контакты</span>
+                            </a>
+                        </li>
+                        <li class="header-link-list__item">
+                            <a class="header-link-list__link" href="">
+                                <span>Гарантия</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-auto">
+                    <div class="header__contacts header-contacts">
+                        <a class="header-contacts__tel" href="">8 800 550-42-52</a>,
+                        <a class="header-contacts__tel" href="">8 495 532-82-40</a>
+                        <span class="header-contacts__schedule"> – по будням с 11-00 до 20-00, по выходным до 15-00</span>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <button class="button button_size_xs">Заказать звонок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header__main">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-auto mr-auto">
+                    <div class="logo">
+                        <div class="logo__placeholder">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-auto m-auto">
+                    <div class="search">
+                        <input class="search__input" type="text" placeholder="Бренд или модель" />
+                        <button class="header-button">
+                            <svg class="header-button__icon" style="width: 18px; height: 18px; margin-right: 12px; stroke: #ccc">
+                                <use href="#find" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="d-flex">
+                        <button class="header-button">
+                            ВХОД
+                        </button>
+
+                        <button class="header-button">
+                            <svg class="header-button__icon">
+                                <use href="#fav" />
+                            </svg>
+                        </button>
+
+                        <button class="header-button">
+                            <svg class="header-button__icon">
+                                <use href="#cart" />
+                            </svg>
+
+                            <span class="header-button__badge">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header__bottom">
+        <div class="container">
+            {{ menu }}
+        </div>
+    </div>
+</header>
+<!--header class="header{% if route == '/' %} header_bg_dark_{% endif %}">
     <div class="container">
         <ul class="top-menu">
             <li class="top-menu__item">
@@ -74,7 +166,7 @@
                 <div class="header__callback">
                     <button class="button button_size_xs">Перезвоните мне</button>
                 </div>
-            </div-->
+            </div>
 
             {# search #}
 
@@ -83,12 +175,6 @@
             {{ menu }}
 
             <div class="header-controls">
-                <button class="header-button">
-                    <svg class="header-button__icon">
-                        <use href="#find" />
-                    </svg>
-                </button>
-
 
                 <button class="header-button">
                     <svg class="header-button__icon">
@@ -106,4 +192,4 @@
             </div>
         </div>
     </div>
-</header>
+</header-->

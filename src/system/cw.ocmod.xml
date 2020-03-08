@@ -25,4 +25,22 @@ $data['route'] = $_SERVER['REQUEST_URI'];
         </operation>
     </file>
 
+    <!--
+    Remove sort orders
+    -->
+    <file path="catalog/controller/product/category.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.price&order=DESC' . $url)
+            ]]>
+            </search>
+            <add position="replace" offset="26"><![CDATA[
+'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.price&order=DESC' . $url)
+            ]]>
+            </add>
+        </operation>
+  </file>
+
+
 </modification>

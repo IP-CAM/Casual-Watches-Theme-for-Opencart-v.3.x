@@ -1,0 +1,15 @@
+  <div id="carousel{{ module }}" class="swiper-container">
+    <div class="swiper-wrapper">{% for banner in banners %}
+      <div class="swiper-slide text-center">{% if banner.link %}<a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" style="filter: grayscale(100%)" /></a>{% else %}<img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" style="filter: grayscale(100%);" />{% endif %}</div>
+      {% endfor %}</div>
+  </div>
+  <div class="swiper-pagination carousel{{ module }}"></div>
+
+<script type="text/javascript"><!--
+    $('#carousel{{ module }}').swiper({
+        mode: 'horizontal',
+        slidesPerView: 10,
+        autoplay: 2500,
+        loop: true,
+    })
+--></script>

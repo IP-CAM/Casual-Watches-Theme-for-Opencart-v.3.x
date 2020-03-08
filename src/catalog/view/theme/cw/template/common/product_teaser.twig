@@ -1,0 +1,30 @@
+{% macro product_teaser(product) %}
+    <div class="product-teaser">
+
+        <img src="{{ product.thumb }}" alt="{{ product.name }}" class="product-teaser__thumb" />
+
+        <div class="product-teaser__badges"></div>
+
+        <a href="{{ product.href }}" class="product-teaser__title">
+            {{ product.name }}
+        </a>
+
+        <div class="product-teaser__price price">
+            {% if product.special %}
+                <span class="price__price price__price_special">{{ product.special }}</span>
+                <span class="price__price price__price_old">{{ product.price }}</span>
+            {% else %}
+                <span class="price__price">{{ product.price }}</span>
+            {% endif %}
+        </div>
+
+
+        <button class="product-teaser__fav-button" hidden></button>
+
+        <div class="product-teaser__controls">
+            <button class="button">Купить</button>
+            <button class="button">К сравнению</button>
+        </div>
+    </div>
+{% endmacro %}
+

@@ -1,8 +1,48 @@
 .footer {
-    padding: 60px;
+    padding-top: 42px;
+
+    &__main {
+        padding: 36px 0;
+        border-top: 1px solid var(--border);
+    }
+
+    &__copyright {
+        padding: 24px 0;
+        border-top: 1px solid var(--border);
+    }
+
+    &__footnote {
+        padding: 24px 0;
+        font-size: .6em;
+    }
+}
+
+
+.footer-contacts {
 
     &__tel {
         font-size: 2em;
         font-weight: bold;
+        margin-bottom: 16px;
+    }
+
+    &__schedule {
+        color: #ccc;
+    }
+}
+
+
+.footer-link-list {
+    padding: 0;
+
+    &__item {
+        list-style: none;
+    }
+
+    &__link {
+        display: block;
+        padding: 6px 0;
+        color: #ccc;
+        text-decoration: none;
     }
 }

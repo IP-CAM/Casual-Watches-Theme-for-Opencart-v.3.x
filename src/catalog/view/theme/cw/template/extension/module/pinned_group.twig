@@ -1,22 +1,15 @@
+{% from 'cw/template/common/product_teaser.twig' import product_teaser %}
+
 <div class="module">
-    <h3 class="pinned-group">{{ title }}</h3>
+    <h3 class="pinned-group__title">{{ title }}</h3>
     <div class="row">
+
         {% for product in products %}
-            <div class="col">
-                <div class="product-teaser">
-                    <img src="{{ product.thumb }}" alt="{{ product.name }}" class="product-teaser__thumb" />
-                </div>
-
-                <a href="{{ product.href }}" class="bstn-group-item__link">
-                    <span class="bstn-group-item__pseudolink">{{ product.name }}
-                </a>
-
-                {% if product.special %}
-                    <span class="bstn-group-item__price">{{ product.special }}</span>
-                {% else %}
-                    <span class="bstn-group-item__price">{{ product.price }}</span>
-                {% endif %}
+            <div class="col-4">
+                {{ product_teaser(product) }}
             </div>
         {% endfor %}
+
+
     </div>
 </div>

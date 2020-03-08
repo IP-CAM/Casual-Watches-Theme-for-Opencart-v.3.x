@@ -1,17 +1,9 @@
+{% from 'cw/template/common/breadcrumbs.twig' import breadcrumbs %}
+
 {{ header }}
+
 <div class="container pt-1 pb-1">
-
-    <div class="breadcrumbs">
-        <ul class="breadcrumbs__list">
-            {% for breadcrumb in breadcrumbs %}
-                <li class="breadcrumbs__item">
-                    <a class="breadcrumbs__link" href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-        <span>&larr; <a class="breadcrumbs__back">Назад</a></span>
-    </div>
-
+    {{ breadcrumbs(breadcrumbs) }}
 </div>
 
 <main class="container">

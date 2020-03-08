@@ -1,6 +1,133 @@
 /* Please try not to use this file */
 .test {
-    background-color: #888;
+    //background-color: #888;
     height: 100%;
     width: 100%;
+}
+
+
+.search {
+    width: 700px;
+    display: flex;
+    border: 2px solid var(--border);
+
+    &__input {
+        padding: 6px 12px;
+        border: 0;
+        flex-grow: 1;
+        font: inherit;
+//        border: 2px solid var(--border);
+        border-right: 0;
+    }
+
+    &__submit {
+        border-left: 0;
+        //background-color: var(--button-background);
+        font: inherit;
+        color: #000;
+    }
+}
+
+
+.latest-products {
+
+    &__item {
+        background-color: #ebebeb;
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        padding: 5px;
+    }
+
+    &__thumb {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.sale-banner {
+    display: none;
+    padding: 20px 0;
+    font-weight: bold;
+    text-align: center;
+    background-color: #F4796B;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+
+.quicklink {
+
+    &__group {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        text-decoration: none;
+        color: currentColor;
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    &__color {
+        display: block;
+        margin-right: 16px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+
+        &_white {
+            border: 2px solid var(--border);
+        }
+
+        &_black {
+            background-color: #000;
+        }
+
+        &_gold {
+            background-color: gold;
+        }
+
+    }
+}
+
+
+
+.price {
+    margin-top: 4px;
+
+    &__price {
+
+        &_old {
+            text-decoration: line-through;
+        }
+
+        &_special {
+            color: red;
+        }
+
+    }
+}
+
+.sorting {
+    padding: 0;
+    display: flex;
+
+    &__item {
+        list-style: none;
+        margin-right: 1em;
+    }
+
+    &__current {
+
+    }
+
+    &__link {
+        color: var(--secondary-text);
+        text-decoration: none;
+    }
 }
