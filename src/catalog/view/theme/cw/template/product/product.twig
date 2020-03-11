@@ -6,10 +6,10 @@
     {{ breadcrumbs(breadcrumbs) }}
 </div>
 
-<main class="container">
+<main class="container" style="padding: 30px 0">
     <div class="row pt-3 pb-3">
         {# Images #}
-        <div class="col-6">
+        <div class="col-6 align-self-start" style="position: sticky; top: 20px">
             <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
         </div>
 
@@ -47,30 +47,13 @@
 
             </div>
 
-
             <div class="product__group">
-                <div class="row">
-                    <div class="col align-self-center">
+                        <div>
+                            <button class="button button_size_xl product__quick-order-button">Быстрый заказ</button>
 
-                        <div class="product__group product__buy">
-
-                            <div id="product">
-                                <button class="button">
-                                    В корзину
-                                </button>
-                            </div>
-
-                            <div class="product_or">или</div>
-
-                            <div>
-                                <button class="button" style="width: 100%">
-                                    Купить в&nbsp;один&nbsp;клик
-                                </button>
-                            </div>
+                            <button class="button button_size_xl button_view_pseudo">В корзину</button>
                         </div>
-                    </div>
 
-                    <div class="col">
                         <div class="seller-features">
                             <ul class="seller-features__list">
                                 <li class="seller-features__el">
@@ -86,13 +69,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-
-
-
-                </div>
             </div>
-
 
             <div class="product__group">
                 <table class="attributes__table">
@@ -115,7 +92,6 @@
                     {% endfor %}
                 </table>
             </div>
-
 
             <div class="product__group">
                 {{ description }}

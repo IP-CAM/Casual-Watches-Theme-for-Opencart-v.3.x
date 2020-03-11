@@ -1,13 +1,15 @@
 {% macro product_teaser(product) %}
     <div class="product-teaser">
-
         <img src="{{ product.thumb }}" alt="{{ product.name }}" class="product-teaser__thumb" />
 
-        <div class="product-teaser__badges"></div>
+        <div class="product-teaser__badges">
+            {% if product.discount %}
+                <span class="product-teaser__badge">
+                    {{ product.discount }}
+                </span>
+            {% endif %}
+        </div>
 
-        <a href="{{ product.href }}" class="product-teaser__title">
-            {{ product.name }}
-        </a>
 
         <div class="product-teaser__price price">
             {% if product.special %}
@@ -18,12 +20,18 @@
             {% endif %}
         </div>
 
-
-        <button class="product-teaser__fav-button" hidden></button>
+        <a href="{{ product.href }}" class="product-teaser__link">
+            {{ product.name }}
+        </a>
 
         <div class="product-teaser__controls">
             <button class="button">Купить</button>
-            <button class="button">К сравнению</button>
+
+            <button class="product-teaser-button">
+                <svg class="product-teaser-button__icon">
+                    <use href="#fav" />
+                </svg>
+            </button>
         </div>
     </div>
 {% endmacro %}

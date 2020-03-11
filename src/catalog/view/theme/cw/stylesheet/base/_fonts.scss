@@ -1,1 +1,25 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap&subset=cyrillic');
+@font-face {
+    font-family: 'Noah';
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    src: url('../fonts/Noah/Noah-Regular.eot') format('embedded-opentype'),
+         url('../fonts/Noah/Noah-Regular.ttf') format('truetype'),
+         url('../fonts/Noah/Noah-Regular.otf') format("opentype"),
+         url('../fonts/Noah/Noah-Regular.woff') format("woff"),
+         url('../fonts/Noah/Noah-Regular.woff2') format("woff2")
+}
+
+@font-face {
+    font-family: 'Noah';
+    font-display: swap;
+    font-style: normal;
+    font-weight: 700;
+    font-variant: normal;
+    src: url('../fonts/Noah/Noah-Bold.eot') format('embedded-opentype'),
+         url('../fonts/Noah/Noah-Bold.ttf') format('truetype'),
+         url('../fonts/Noah/Noah-Bold.otf') format("opentype"),
+         url('../fonts/Noah/Noah-Bold.woff') format("woff"),
+         url('../fonts/Noah/Noah-Bold.woff2') format("woff2")
+}

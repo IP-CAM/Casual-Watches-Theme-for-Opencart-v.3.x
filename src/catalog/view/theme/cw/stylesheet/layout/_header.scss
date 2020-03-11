@@ -4,6 +4,10 @@
         padding: 12px 0;
     }
 
+    &__bottom {
+        padding: 12px 0;
+    }
+
     &__links-list {
         margin-right: auto;
     }
@@ -39,7 +43,7 @@
     }
 
     &__schedule {
-        color: #ccc;
+        color: var(--secondary-text);
     }
 }
 
@@ -103,8 +107,18 @@
     }
 }
 
+.cart-button {
+    position: relative;
+}
 
-.search {
-
-
+.cart-dropdown {
+    position: absolute;
+    background-color: #fff;
+    border: 2px solid var(--button);
+    max-width: 320px;
+    padding: 20px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 100%;
+    right: 0;
 }

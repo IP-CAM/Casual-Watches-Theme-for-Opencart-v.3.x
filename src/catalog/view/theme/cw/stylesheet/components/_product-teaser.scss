@@ -3,9 +3,9 @@
 .product-teaser {
     display: flex;
     flex-flow: column nowrap;
-    align-items: flex-start;
+    align-items: stretch;
     position: relative;
-    font-size: 14px;
+    font-size: 16px;
 
     $product-teaser-padding: 20px;
     $this: &;
@@ -21,12 +21,21 @@
         align-self: center;
     }
 
-    &__title {
+    &__link {
         display: block;
         text-decoration: none;
         color: currentColor;
         color: #757575;
         margin-bottom: .25em;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
     }
 
     &__price {
@@ -40,7 +49,19 @@
 
     &__controls {
         visibility: hidden;
-        margin: 18px (-$product-teaser-padding) 0;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    &__badge {
+        background-color: red;
+        padding: 2px 4px;
+        display: inline-block;
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: 1px;
+        box-sizing: border-box;
     }
 
     //State
@@ -49,15 +70,16 @@
 
         &::after {
             content: '';
-            z-index: -1;
+            z-index: -2;
             position: absolute;
             top: -$product-teaser-padding;
             left: -$product-teaser-padding;
             width: 100%;
             height: 100%;
-            padding: $product-teaser-padding $product-teaser-padding 0;
-            border: 1px solid #ccc;
+            padding: $product-teaser-padding;
+            border: 2px solid var(--border);
             box-sizing: content-box;
+            background-color: #fff;
         }
 
         #{$this}__thumb {
@@ -67,6 +89,33 @@
         #{$this}__controls {
             visibility: visible;
         }
+    }
+}
+
+.product-teaser-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-left: 16px;
+    position: relative;
+
+    &__icon {
+        width: 22px;
+        height: 22px;
+        stroke: #757575;
+        stroke-width: 3;
+        fill: none;
+    }
+
+    &__badge {
+        position: absolute;
+        bottom: 0;
+        right: -5px;
+        background-color: var(--accent);
+        color: #fff;
+        padding: 2px;
+        min-width: 1.5em;
+        border-radius: 50%;
     }
 }
 

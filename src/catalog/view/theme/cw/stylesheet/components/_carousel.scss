@@ -1,0 +1,10 @@
+.carousel {
+
+    &__item.swiper-slide {
+        width: auto ;
+    }
+
+    &__image {
+        filter: grayscale(100%);;
+    }
+}

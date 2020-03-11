@@ -1,6 +1,7 @@
 const {src, dest, parallel, watch} = require('gulp')
 const debug = require('gulp-debug')
 const rename = require('gulp-rename')
+const newer = require('gulp-newer')
 
 const stylesheet = () => {
     const sass = require('gulp-sass')
@@ -15,14 +16,10 @@ const stylesheet = () => {
         .pipe(dest('./opencart'))
 }
 
-const copy = () => {
-    const newer = require('gulp-newer')
-
-    return src(['./src/**/*', '!./src/catalog/view/theme/cw/stylesheet/**/*'], { base: './src' })
-        .pipe(newer('./opencart'))
-        .pipe(debug({ title: 'copying:' }))
-        .pipe(dest('./opencart'))
-}
+const copy = () => src(['./src/**/*', '!./src/catalog/view/theme/cw/stylesheet/**/*'], { base: './src' })
+    .pipe(newer('./opencart'))
+    .pipe(debug({ title: 'copying:' }))
+    .pipe(dest('./opencart'))
 
 const sprites = () => {
     const svgSprite = require('gulp-svgstore')
@@ -54,6 +51,22 @@ const javascript = () => {
         .pipe(dest('./opencart'))
 }
 
+const vendors = () => src([
+        './node_modules/swiper/js/swiper.min.js',
+        './node_modules/swiper/css/swiper.min.css',
+        './node_modules/slick-carousel/slick/slick.css',
+        './node_modules/slick-carousel/slick/slick-theme.css',
+        './node_modules/slick-carousel/slick/slick.min.js',
+        './node_modules/flickity/dist/flickity.pkgd.min.js',
+        './node_modules/flickity/dist/flickity.min.css',
+        './node_modules/@glidejs/glide/dist/glide.min.js',
+        './node_modules/@glidejs/glide/dist/css/glide.core.min.css',
+        './node_modules/@glidejs/glide/dist/css/glide.theme.min.css',
+    ],
+    { base: 'node_modules' })
+    .pipe(newer('./opencart/catalog/view/theme/cw/vendors'))
+    .pipe(dest('./opencart/catalog/view/theme/cw/vendors'))
+
 const serve = () => {
     watch('./src/catalog/view/theme/cw/stylesheet/**/*.scss', stylesheet)
     watch([
@@ -66,4 +79,4 @@ const serve = () => {
 }
 
 exports.default = serve
-exports.build = parallel(stylesheet, copy, sprites, javascript)
+exports.build = parallel(stylesheet, copy, sprites, javascript, vendors)

@@ -5,27 +5,6 @@
     <code>cw-mu</code>
 
     <!--
-    Throws a request route into the header template
-    Using in header.twig:
-
-    {% if route == '/' %}
-    -->
-    <file path="catalog/controller/common/header.php">
-        <operation>
-        <search index="0">
-            <![CDATA[
-return $this->load->view('common/header', $data);
-            ]]>
-        </search>
-        <add position="before">
-            <![CDATA[
-$data['route'] = $_SERVER['REQUEST_URI'];
-            ]]>
-        </add>
-        </operation>
-    </file>
-
-    <!--
     Remove sort orders
     -->
     <file path="catalog/controller/product/category.php">
@@ -37,6 +16,24 @@ $data['route'] = $_SERVER['REQUEST_URI'];
             </search>
             <add position="replace" offset="26"><![CDATA[
 'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.price&order=DESC' . $url)
+            ]]>
+            </add>
+        </operation>
+  </file>
+
+    <!--
+    Replaces the default swiper links in the carousel module
+    -->
+    <file path="catalog/controller/extension/module/carousel.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.css');
+            ]]>
+            </search>
+            <add position="replace" offset="3"><![CDATA[
+$this->document->addStyle('catalog/view/theme/cw/vendors/swiper/css/swiper.min.css');
+$this->document->addScript('catalog/view/theme/cw/vendors/swiper/js/swiper.min.js');
             ]]>
             </add>
         </operation>

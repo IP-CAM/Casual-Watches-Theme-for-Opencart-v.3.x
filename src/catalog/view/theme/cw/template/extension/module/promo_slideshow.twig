@@ -1,0 +1,25 @@
+<div class="promo-carousel">
+    <div class="glide">
+        <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+                {% for banner in banners %}
+                    <li class="glide__slide">
+                        <img class="promo-carousel__image" src="{{ banner.image }}" />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+var test = new Glide('.glide', {
+    type: 'carousel',
+    perView: 1,
+    focusAt: 'center',
+    peek: 100,
+    gap: 30,
+})
+
+test.mount()
+</script>

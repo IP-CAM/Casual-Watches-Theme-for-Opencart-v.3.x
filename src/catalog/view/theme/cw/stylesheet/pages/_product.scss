@@ -48,12 +48,14 @@
 
     &__image {
         max-width: 100%;
+        margin: 0 auto;
+        display: block;
     }
 
-    &_or {
-        display: block;
-        padding: 12px 0;
+    &__quick-order-button {
+        margin-right: 1em;
     }
+
 }
 
 .attributes {
@@ -87,9 +89,7 @@
 }
 
 .seller-features {
-    //background-color: #ebebeb;
-    padding: 12px 24px;
-    font-size: .9em;
+    margin-top: 60px;
 
     //Elements
     &__list {

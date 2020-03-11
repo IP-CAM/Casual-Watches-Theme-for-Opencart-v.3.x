@@ -1,15 +1,26 @@
-  <div id="carousel{{ module }}" class="swiper-container">
-    <div class="swiper-wrapper">{% for banner in banners %}
-      <div class="swiper-slide text-center">{% if banner.link %}<a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" style="filter: grayscale(100%)" /></a>{% else %}<img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" style="filter: grayscale(100%);" />{% endif %}</div>
-      {% endfor %}</div>
-  </div>
-  <div class="swiper-pagination carousel{{ module }}"></div>
 
-<script type="text/javascript"><!--
-    $('#carousel{{ module }}').swiper({
-        mode: 'horizontal',
-        slidesPerView: 10,
-        autoplay: 2500,
-        loop: true,
-    })
---></script>
+    <div class="swiper-container" id="carousel-{{ module }}" >
+        <div class="swiper-wrapper">
+            {% for banner in banners %}
+                <div class="swiper-slide carousel__item">
+                    {% if banner.link %}
+                        <a href="{{ banner.link }}">
+                            <img class="carousel__image" src="{{ banner.image }}" alt="{{ banner.title }}" />
+                        </a>
+                    {% else %}
+                        <img class="carousel__image" src="{{ banner.image }}" alt="{{ banner.title }}" />
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+<script>
+var carousel{{ module }} = new Swiper('#carousel-{{ module }}', {
+    slidesPerView: 'auto',
+    spaceBetween: 30,
+    autoplay: {
+        delay: 2500,
+    }
+})
+</script>

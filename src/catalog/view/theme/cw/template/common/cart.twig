@@ -1,28 +1,7 @@
-<div id="cart">
-    <button class="header-btn" aria-label="">
-        <svg class="header-btn__icon">
-            <use href="#bag" />
-        </svg>
-        <span class="cart-btn__text" id="cart-total">{# text_items #}</span>
-    </button>
+<button class="header-button cart-button">
+    <svg class="header-button__icon">
+        <use href="#cart" />
+    </svg>
 
-    <div class="cart-dropdown">
-        {% if products or vouchers %}
-            <ul class="cart-dropdown">
-                {% for product in products %}
-                    <li class="">
-                        <article class="">
-                            {{ product.thumb }}
-                            {{ product.name }}
-                            {{ product.qiantity }}
-                            {{ product.total }}
-                            <button class="" aria-label="{{ button_remove }}"></button>
-                        </article>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-center">{{ text_no_results }}</p>
-        {% endif %}
-    </div>
-</div>
+    <span class="header-button__badge">0</span>
+</button>

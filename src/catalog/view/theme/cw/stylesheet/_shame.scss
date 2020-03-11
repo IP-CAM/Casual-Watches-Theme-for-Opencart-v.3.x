@@ -9,22 +9,25 @@
 .search {
     width: 700px;
     display: flex;
-    border: 2px solid var(--border);
+    border: 1px solid var(--border);
 
     &__input {
         padding: 6px 12px;
         border: 0;
         flex-grow: 1;
         font: inherit;
-//        border: 2px solid var(--border);
+        //border: 2px solid var(--border);
         border-right: 0;
     }
 
     &__submit {
+        display: none;
         border-left: 0;
-        //background-color: var(--button-background);
+        background-color: var(--button-background);
         font: inherit;
-        color: #000;
+        color: #fff;
+        border: 0;
+        padding: 0 20px;
     }
 }
 
@@ -101,13 +104,12 @@
     margin-top: 4px;
 
     &__price {
+        font-weight: bold;
+        letter-spacing: 1px;
 
         &_old {
             text-decoration: line-through;
-        }
-
-        &_special {
-            color: red;
+            color: #ccc;
         }
 
     }
@@ -116,6 +118,7 @@
 .sorting {
     padding: 0;
     display: flex;
+    margin-bottom: 20px;
 
     &__item {
         list-style: none;
@@ -130,4 +133,89 @@
         color: var(--secondary-text);
         text-decoration: none;
     }
+}
+
+.promo-slider {
+    height: 400px;
+    background-color: #F4796B;
+}
+
+
+.category-banner {
+    height: 400px;
+    background-color: #ebebeb;
+    box-sizing: border-box;
+    display: flex;
+    padding: 30px;
+    flex-flow: column;
+    justify-content: flex-end;
+    color: #2b2b2b;
+
+    $this: &;
+
+    //Elements
+    &__title {
+        padding: 0;
+        margin: 0;
+        font-size: 2em;
+    }
+
+    &__tags {
+        padding: 0;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    &__tag {
+        list-style: none;
+        margin: 4px 8px 4px 0;
+        background-color: rgb(219, 233, 255);
+        border-radius: 25px;
+        padding: 4px 12px;
+        color: rgb(87, 87, 236);
+        font-weight: bold;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+
+        &_more {
+            background-color: var(--button-background);
+            color: white;
+        }
+
+        &_color {
+
+            &_brown {
+                background-color: brown;
+                color: #fff;
+            }
+
+            &_black {
+                background-color: black;
+                color: #fff;
+            }
+
+            &_silver {
+                background-color: silver;
+                color: #2b2b2b;
+            }
+
+        }
+    }
+
+    //Mods
+    &_woman {
+        background-image: url(../image/demo/banner1.jpg);
+        background-size: cover;
+    }
+
+    &_man {
+        background-image: url(../image/demo/banner2.jpg);
+        background-size: cover;
+
+        #{$this}__title {
+            color: #fff;
+        }
+    }
+
 }
