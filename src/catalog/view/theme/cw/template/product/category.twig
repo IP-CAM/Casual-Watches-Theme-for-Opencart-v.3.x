@@ -13,35 +13,45 @@
     </h1>
 </div>
 
-{% if products %}
-    <div class="category__controls">
-        <div class="container">
-            <ul class="sorting">
-                {% for sorts in sorts %}
-                    <li class="sorting__item">
-                        {% if sorts.value == '%s-%s'|format(sort, order) %}
-                            <span class="sorting__current">{{ sorts.text }}</span>
-                        {% else %}
-                            <a href="{{ sorts.href }}" class="sorting__link">{{ sorts.text }}</a>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+<div class="container">
+    <div class="row">
+        {{ column_left }}
 
-    <div class="container">
-        <div class="row">
-            {% for product in products %}
-                <div class="col-3">
-                    {{ product_teaser(product) }}
+        <div class="col" id="content">
+            {{ content_top }}
+
+            {% if products %}
+                <ul class="sorting">
+                    {% for sorts in sorts %}
+                        <li class="sorting__item">
+                            {% if sorts.value == '%s-%s'|format(sort, order) %}
+                                <span class="sorting__current">{{ sorts.text }}</span>
+                            {% else %}
+                                <a href="{{ sorts.href }}" class="sorting__link">{{ sorts.text }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-4">
+                            {{ product_teaser(product) }}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-    </div>
+            {% endif %}
 
-{% else %}
-    <div class="container">Эта категория пока пуста</div>
-{% endif %}
+            {% if not categories and not products %}
+                {{ text_no_results }}
+                <a href="{{ continue }}">{{ button_continue }}</a>
+            {% endif %}
+
+            {{ content_bottom }}
+        </div>
+
+        {{ column_right }}
+    </div>
+</div>
 
 {{ footer }}

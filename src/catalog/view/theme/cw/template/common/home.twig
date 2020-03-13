@@ -1,78 +1,24 @@
 {{ header }}
 
-    {{ content_promo }}
-
-
-    <div class="container pt-5 pb-5">
-        <div class="row align-items-end">
-            <div class="col-10">
-                <p style="color: #959DA8; font-size: 32px; line-height: 1.5; padding-left: 60px">Наш магазин предлагает только оригинальную часовую продукцию, подлинность которой подтверждена сертификатами, и гарантирует неизменно превосходное качество часов и аксессуаров к ним.</p>
-            </div>
-
-            <div class="col">
-                <small>
-                    Подробнее о гарантии
-                </small>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="category-banner category-banner_woman">
-                    <h3 class="category-banner__title">Женские</h3>
-                    <ul class="category-banner__tags">
-                        <li class="category-banner__tag">Кожаный ремешок</li>
-                        <li class="category-banner__tag">Классический стиль</li>
-                        <li class="category-banner__tag">Металлический ремешок</li>
-                        <li class="category-banner__tag category-banner__tag_color_brown">Коричневые</li>
-                        <li class="category-banner__tag category-banner__tag_color_black">Черные</li>
-                        <li class="category-banner__tag category-banner__tag_more">...</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="category-banner category-banner_man">
-                    <h3 class="category-banner__title">Мужские</h3>
-                    <ul class="category-banner__tags">
-                        <li class="category-banner__tag">Кожаный ремешок</li>
-                        <li class="category-banner__tag">Классический стиль</li>
-                        <li class="category-banner__tag">Металлический ремешок</li>
-                        <li class="category-banner__tag category-banner__tag_color_silver">Серебристые</li>
-                        <li class="category-banner__tag category-banner__tag_color_black">Черные</li>
-                        <li class="category-banner__tag category-banner__tag_more">...</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<div class="promo">
     <div class="container">
         <div class="row">
             <div class="col-8">
-                {{ content_top }}
+                <div class="promo__placeholder"></div>
+            </div>
+
+            <div class="col">
+                <div class="promo__placeholder"></div>
             </div>
         </div>
     </div>
 
-    <div class="container placeholder">
-    </div>
+    {{ content_promo }}
+</div>
 
+<div class="container">
+    {{ content_top }}
+</div>
 
-
-
-<script>
-  var mySwiper = new Swiper('.promo-carousel', {
-    loop: true,
-    slidesPerView: 1.4,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: 4500,
-  })
-</script>
 
 {{ footer }}

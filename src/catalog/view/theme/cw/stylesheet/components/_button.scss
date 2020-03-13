@@ -1,0 +1,66 @@
+.button {
+    display: inline-flex;
+    box-sizing: border-box;
+    padding: 0;
+    align-items: center;
+    border: 1px solid;
+    background-color: transparent;
+    border-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    color: currentColor;
+
+    //Elements
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: none;
+        stroke-width: 3;
+        stroke: #2b2b2b;
+    }
+
+    &__icon + &__text {
+        margin-left: 12px;
+    }
+
+    //Mods
+    &_view {
+
+        &_action {
+            border-color: transparent;
+            background-color: var(--button-background);
+            color: var(--button-text);
+        }
+
+        &_pseudo {
+            background-color: transparent;
+            border-color: var(--button-background);
+            color: var(--button-background);
+        }
+    }
+
+    &_size {
+
+        &_xl {
+            font-size: 18px;
+            padding: 18px 24px;
+        }
+
+        &_xs {
+            font-size: 13px;
+            padding: 4px 8px;
+        }
+    }
+}
+
+.button-group {
+    display: flex;
+
+    &__button {
+        margin-right: 12px;
+    }
+
+    & :last-child {
+        margin-right: 0;
+    }
+}

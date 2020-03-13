@@ -1,4 +1,4 @@
-{% from 'cw/template/common/breadcrumbs.twig' import breadcrumbs %}
+{% from 'cw/template/components/breadcrumbs.twig' import breadcrumbs %}
 
 {{ header }}
 
@@ -6,99 +6,130 @@
     {{ breadcrumbs(breadcrumbs) }}
 </div>
 
-<main class="container" style="padding: 30px 0">
-    <div class="row pt-3 pb-3">
-        {# Images #}
-        <div class="col-6 align-self-start" style="position: sticky; top: 20px">
-            <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
-        </div>
+<div class="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                {% if manufacturer %}
+                    <a class="product__manufacturer" href="{{ manufacturers }}">{{ manufacturer }}</a>
+                {% endif %}
 
-        {# Info #}
-        <div class="col">
-            <div class="product__group">
+                <h1 class="product__title">{{ heading_title }}</h1>
 
-                <div class="d-flex">
-                    <div class="flex-fill">
-                        {% if manufacturer %}
-                            <a class="product__manufacturer" href="{{ manufacturers }}">{{ manufacturer }}</a>
-                        {% endif %}
-                        <h1 class="product__title">
-                            {{ heading_title }}
-                        </h1>
-                        {% if price %}
-                            <p class="product__price">
-                                1999₽{# price #}
-                            </p>
-                        {% endif %}
+                <span class="product__sku">49838kdj09</span>
 
-                        <p class="product__stock">В наличии{# stock #}</p>
-                        <p class="product__stock" style="color: #ccc; font-size: .8em; margin-top: 8px">Код товара: tst4</p>
-                    </div>
+                <div class="product__attributes">
+                    <table class="attributes__table">
+                        {% for attribute_group in attribute_groups %}
+                            <thead>
+                                <tr>
+                                    <td class="attributes__subtitle" colspan="2">
+                                        {{ attribute_group.name }}
+                                    </td>
+                                </tr>
+                            </thead>
 
-                    <div class="align-self-end">
-                        <button class="favorites-button">
-                            <svg class="favorites-button__icon">
-                                <use href="#fav" />
-                            </svg>
-                            В избранное
-                        </button>
-                    </div>
+                            <tbody>
+                                {% for attribute in attribute_group.attribute %}
+                                <tr class="attributes__row">
+                                    <td class="attributes__col">{{ attribute.name }}</td>
+                                    <td class="attributes__col">
+                                        <span class="attributes__value">{{ attribute.text }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% endfor %}
+
+                        {% for attribute_group in attribute_groups %}
+                            <thead>
+                                <tr>
+                                    <td class="attributes__subtitle" colspan="2">
+                                        {{ attribute_group.name }}
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for attribute in attribute_group.attribute %}
+                                <tr class="attributes__row">
+                                    <td class="attributes__col">{{ attribute.name }}</td>
+                                    <td class="attributes__col">
+                                        <span class="attributes__value">{{ attribute.text }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% endfor %}
+
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
+            </div>
+
+            <div class="col-4 align-self-start product__sticky-col">
+                <span class="product__stock">{{ stock }}</span>
+
+                <div class="product__price-wrapper">
+                    <span class="product__price">{{ price }}</span>
                 </div>
 
+                <div class="product__button-wrapper button-group">
+                    <button class="button-group__button button button_view_action button_size_xl">
+                        Быстрый заказ
+                    </button>
+
+                    <button class="button-group__button button button_view_pseudo button_size_xl">
+                        В корзину
+                    </button>
+                </div>
+
+                <div class="product__seller-features seller-features">
+                    <ul class="seller-features__list">
+                        <li class="seller-features__item">
+                            <strong>Только новые и оригинальные часы</strong>
+                        </li>
+                        <li class="seller-features__item">
+                            Гарантия производителя
+                        </li>
+                        <li class="seller-features__item">
+                            Оплата после получения и проверки
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product__links">
+                    <ul class="product-links__list">
+                        <li class="product-links__item">
+                            <a class="product-links__link" href="">Гарантия</a>
+                        </li>
+                        <li class="product-links__item">
+                            <a class="product-links__link" href="">Доставка и оплата</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product__button-wrapper button-group">
+                    <button class="button-group__button button">
+                        <svg class="button__icon">
+                            <use href="#fav" />
+                        </svg>
+
+                        <span class="button__text">В закладки</span>
+                    </button>
+                </div>
+
+
             </div>
 
-            <div class="product__group">
-                        <div>
-                            <button class="button button_size_xl product__quick-order-button">Быстрый заказ</button>
-
-                            <button class="button button_size_xl button_view_pseudo">В корзину</button>
-                        </div>
-
-                        <div class="seller-features">
-                            <ul class="seller-features__list">
-                                <li class="seller-features__el">
-                                    <strong>
-                                        Только новые и оригинальные часы
-                                    </strong>
-                                </li>
-                                <li class="seller-features__el">
-                                    Гарантия производителя
-                                </li>
-                                <li class="seller-features__el">
-                                    Оплата после получения и проверки
-                                </li>
-                            </ul>
-                        </div>
-            </div>
-
-            <div class="product__group">
-                <table class="attributes__table">
-                    {% for attribute_group in attribute_groups %}
-                        <thead>
-                            <tr>
-                                <td class="attributes__group-title" colspan="2">
-                                    {{ attribute_group.name }}
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for attribute in attribute_group.attribute %}
-                            <tr class="attributes__row">
-                                <td class="attributes__attribute">{{ attribute.name }}</td>
-                                <td class="attributes__value">{{ attribute.text }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    {% endfor %}
-                </table>
-            </div>
-
-            <div class="product__group">
+            <div class="col-8">
                 {{ description }}
             </div>
         </div>
     </div>
-
-</main>
+</div>
 
 {{ footer }}

@@ -1,5 +1,5 @@
 <?php
-class ControllerCommonContentPromo extends Controller {
+class ControllerCommonPromoLeft extends Controller {
 	public function index() {
 		$this->load->model('design/layout');
 
@@ -43,7 +43,7 @@ class ControllerCommonContentPromo extends Controller {
 
 		$data['modules'] = array();
 
-		$modules = $this->model_design_layout->getLayoutModules($layout_id, 'content_promo');
+		$modules = $this->model_design_layout->getLayoutModules($layout_id, 'promo_left');
 
 		foreach ($modules as $module) {
 			$part = explode('.', $module['code']);
@@ -69,6 +69,6 @@ class ControllerCommonContentPromo extends Controller {
 			}
 		}
 
-		return $this->load->view('common/content_promo', $data);
+		return $this->load->view('common/promo_left', $data);
 	}
 }

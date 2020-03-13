@@ -4,11 +4,12 @@
     <version>1.0.0</version>
     <code>cw-module-positions</code>
 
+
     <!--
-        Promo
+        Promo left
         Depends on:
-            - catalog/controller/common/content_promo.php
-            - catalog/view/theme/{<Theme name>}/common/content_promo.twig
+            - catalog/controller/common/promo_left.php
+            - catalog/view/theme/{<Theme name>}/common/promo_left.twig
     -->
     <file path="admin/language/en-gb/design/layout.php">
         <operation>
@@ -19,7 +20,7 @@ $_['text_content_bottom']
             </search>
             <add position="before">
                 <![CDATA[
-$_['text_content_promo'] = 'Promo';
+$_['text_promo_left'] = 'Promo left';
                 ]]>
             </add>
         </operation>
@@ -33,15 +34,15 @@ $_['text_content_promo'] = 'Promo';
                 ]]>
             </search>
             <add position="before"><![CDATA[
-<table id="module-content-promo" class="table table-striped table-bordered table-hover">
+<table id="module-promo-left" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-      <td class="text-center">{{ text_content_promo }}</td>
+      <td class="text-center">{{ text_promo_left }}</td>
     </tr>
   </thead>
   <tbody>
     {% for layout_module in layout_modules %}
-    {% if layout_module.position == 'content_promo' %}
+    {% if layout_module.position == 'promo_left' %}
     <tr id="module-row{{ module_row }}">
       <td class="text-right"><div class="input-group">
           <select name="layout_module[{{ module_row }}][code]" class="form-control input-sm">
@@ -94,7 +95,7 @@ $_['text_content_promo'] = 'Promo';
             {% endfor %}
           </select>
           <div class="input-group-btn">
-            <button type="button" onclick="addModule('content-promo');" data-toggle="tooltip" title="{{ button_module_add }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
+            <button type="button" onclick="addModule('promo-left');" data-toggle="tooltip" title="{{ button_module_add }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
           </div>
         </div></td>
     </tr>
@@ -114,42 +115,7 @@ $data['content_top'] = $this->load->controller('common/content_top');
             </search>
             <add position="before">
                 <![CDATA[
-$data['content_promo'] = $this->load->controller('common/content_promo');
-                ]]>
-            </add>
-        </operation>
-    </file>
-
-    <!--
-    Product discount
-    -->
-    <file path="catalog/controller/product/category.php">
-        <operation>
-            <search>
-                <![CDATA[
-$special = false;
-                ]]>
-            </search>
-            <add position="after" offset="1">
-                <![CDATA[
-if ((float)$result['special']) {
-    $discount = '-' . round(100 - $this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')) / $this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')) * 100) . '%';
-} else {
-    $discount = false;
-}
-                ]]>
-            </add>
-        </operation>
-
-        <operation>
-            <search>
-                <![CDATA[
-'special'     => $special,
-                ]]>
-            </search>
-            <add position="after" offset="1">
-                <![CDATA[
-'discount'     => $discount,
+$data['promo_left'] = $this->load->controller('common/promo_left');
                 ]]>
             </add>
         </operation>

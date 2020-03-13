@@ -54,14 +54,7 @@ const javascript = () => {
 const vendors = () => src([
         './node_modules/swiper/js/swiper.min.js',
         './node_modules/swiper/css/swiper.min.css',
-        './node_modules/slick-carousel/slick/slick.css',
-        './node_modules/slick-carousel/slick/slick-theme.css',
-        './node_modules/slick-carousel/slick/slick.min.js',
-        './node_modules/flickity/dist/flickity.pkgd.min.js',
-        './node_modules/flickity/dist/flickity.min.css',
-        './node_modules/@glidejs/glide/dist/glide.min.js',
-        './node_modules/@glidejs/glide/dist/css/glide.core.min.css',
-        './node_modules/@glidejs/glide/dist/css/glide.theme.min.css',
+        './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     ],
     { base: 'node_modules' })
     .pipe(newer('./opencart/catalog/view/theme/cw/vendors'))

@@ -1,22 +1,24 @@
 @import './abstracts/variables';
 
-@import './base/fonts';
 @import './base/base';
+@import './base/fonts';
+@import './base/typography';
 
 @import './vendors/bootstrap';
 
-@import './components/buttons';
+@import './components/button';
 @import './components/breadcrumbs';
 @import './components/product-teaser';
 @import './components/pinned-group';
 @import './components/carousel';
-@import './components/promo-carousel';
+@import './components/slideshow';
+
 
 @import './layout/header';
 @import './layout/footer';
 
-@import './pages/home';
 @import './pages/product';
-@import './pages/category';
+@import './pages/home';
 
 @import './shame';
+@import './shame2';

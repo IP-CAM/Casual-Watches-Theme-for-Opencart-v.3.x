@@ -1,189 +1,116 @@
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <base href="{{ base }}" />
-
     {% if description %}
         <meta name="description" content="{{ description }}" />
     {% endif %}
-
     {% if keywords %}
         <meta name="keywords" content="{{ keywords }}" />
     {% endif %}
-
     <link href="catalog/view/theme/cw/stylesheet/stylesheet.css" rel="stylesheet">
-
     <script
-    src="https://code.jquery.com/jquery-3.4.1.slim.js"
-    integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
-    crossorigin="anonymous"></script>
-
-    <script src="catalog/view/theme/cw/javascript/common.js"></script>
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script src="catalog/view/theme/cw/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     {% for style in styles %}
         <link href="{{ style.href }}" rel="{{ style.rel }}" />
     {% endfor %}
-
     {% for script in scripts %}
         <script src="{{ script }}"></script>
     {% endfor %}
-
     {% for link in links %}
         <link href="{{ link.href }}" rel="{{ link.rel }}" />
     {% endfor %}
-
     {% for analytic in analytics %}
         {{ analytic }}
     {% endfor %}
 </head>
 <body>
-
-<header class="header">
-    <div class="header__top">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-auto mr-auto">
-                    <ul class="header__links-list header-link-list">
-                        <li class="header-link-list__item">
-                            <a class="header-link-list__link" href="">
-                                <span>Доставка и оплата</span>
-                            </a>
-                        </li>
-                        <li class="header-link-list__item">
-                            <a class="header-link-list__link" href="">
-                                <span>Контакты</span>
-                            </a>
-                        </li>
-                        <li class="header-link-list__item">
-                            <a class="header-link-list__link" href="">
-                                <span>Гарантия</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-auto">
-                    <div class="header__contacts header-contacts">
-                        <a class="header-contacts__tel" href="">8 800 550-42-52</a>,
-                        <a class="header-contacts__tel" href="">8 495 532-82-40</a>
-                        <span class="header-contacts__schedule"> – по будням с 11-00 до 20-00, по выходным до 15-00</span>
+    <header>
+        <div class="header__information">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <nav class="header-links">
+                            <ul class="header-links__list">
+                                <li class="header-links__item">
+                                    <a class="header-links__link" href="">Гарантия</a>
+                                </li>
+                                <li class="header-links__item">
+                                    <a class="header-links__link" href="">Доставка и оплата</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                </div>
 
-                <div class="col-auto">
-                    <button class="button button_size_xs">Заказать звонок</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="header__main">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-auto mr-auto">
-                    <div class="logo">
-                        <a href="">
-                            <div class="logo__placeholder"></div>
-                        </a>
+                    <div class="col-auto">
+                        <div class="header__tel">8 800 550-42-52, 8 495 532-82-40 – по будням с 11-00 до 20-00, по выходным до 15-00</div>
                     </div>
-                </div>
 
-                <div class="col-auto m-auto">
-                    <div class="search">
-                        <input class="search__input" type="text" placeholder="Бренд или модель" />
-                        <button class="header-button">
-                            <svg class="header-button__icon" style="width: 18px; height: 18px; margin-right: 12px; stroke: #ccc">
-                                <use href="#find" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="col-auto">
-                    <div class="d-flex">
-                        <button class="header-button">
-                            ВХОД
-                        </button>
-
-                        <button class="header-button">
-                            <svg class="header-button__icon">
-                                <use href="#fav" />
-                            </svg>
-                        </button>
-
-                        {{ cart }}
+                    <div class="col-auto">
+                        <button class="button button_size_xs button_view_pseudo">Перезвоните мне</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="header__bottom">
-        <div class="container">
-            {{ menu }}
-        </div>
-    </div>
-</header>
-<!--header class="header{% if route == '/' %} header_bg_dark_{% endif %}">
-    <div class="container">
-        <ul class="top-menu">
-            <li class="top-menu__item">
-                <a class="top-menu__link" href="#">Доставка</a>
-            </li>
-            <li class="top-menu__item">
-                <a class="top-menu__link" href="#">Самовывоз</a>
-            </li>
-        </ul>
-    </div>
+        <div class="header__main">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-auto">
+                                {# search #}
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="container">
-        <div class="header__container">
+                    <div class="col-auto">
+                        <div class="logotype-placeholder"></div>
+                    </div>
 
-            <div class="header__logo">
-                <div class="logo-placeholder"></div>
-            </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-auto ml-auto">
+                                <div class="button-group">
+                                    <button class="button-group__button button">
+                                        <span class="button__text">Вход</span>
+                                    </button>
 
-            <!--div class="header__contact">
-                <a class="header__tel" href="#">8 495 532-82-40</a>
+                                    <button class="button-group__button button">
+                                        <svg class="button__icon">
+                                            <use href="#find" />
+                                        </svg>
+                                    </button>
 
-                <div class="header__schedule">
-                    ПН-ПТ: 11<sup>00</sup>-20<sup>00</sup>, CБ-ВС: 11<sup>00</sup>-15<sup>00</sup>
+                                    <button class="button-group__button button">
+                                        <svg class="button__icon">
+                                            <use href="#fav" />
+                                        </svg>
+                                    </button>
+
+                                    <button class="button-group__button button">
+                                        <svg class="button__icon">
+                                            <use href="#cart" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-           <div class="header__contact">
-                <a class="header__tel" href="#">8 800 550-42-52</a>
-
-                <div class="header__callback">
-                    <button class="button button_size_xs">Перезвоните мне</button>
-                </div>
-            </div>
-
-            {# search #}
-
-            <span class="header__line-break"></span>
-
-            {{ menu }}
-
-            <div class="header-controls">
-
-                <button class="header-button">
-                    <svg class="header-button__icon">
-                        <use href="#fav" />
-                    </svg>
-                </button>
-
-                <button class="header-button">
-                    <svg class="header-button__icon" style="stroke: var(--button-background)">
-                        <use href="#cart" />
-                    </svg>
-
-                    <span class="header-button__badge">0</span>
-                </button>
+        <div class="header__menu">
+            <div class="container">
+                {{ menu }}
             </div>
         </div>
-    </div>
-</header-->
+    </header>

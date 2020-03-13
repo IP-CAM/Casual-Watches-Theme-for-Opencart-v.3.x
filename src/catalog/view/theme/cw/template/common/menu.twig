@@ -1,8 +1,5 @@
 <nav class="menu">
     <ul class="menu__list">
-        <li class="menu__item">
-            <a class="menu__link" href="#" style="color: var(--accent)">распродажа</a>
-        </li>
         {% for category in categories %}
             <li class="menu__item">
                 <a class="menu__link" href="{{ category.href }}">{{ category.name }}</a>

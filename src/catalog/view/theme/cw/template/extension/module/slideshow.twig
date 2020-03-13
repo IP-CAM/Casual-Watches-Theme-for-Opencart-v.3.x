@@ -1,0 +1,33 @@
+<div class="slideshow">
+    <div class="slideshow__container swiper-container" data-id="{{ module }}">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slideshow__item">
+                    <a class="slideshow__inner{% if banner.link %} href="{{ banner.link }}"{% endif %}">
+                        <h2 class="slideshow__title">Новая<br />коллекция</h2>
+                        <img class="slideshow__image" src="{{ banner.image }}" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slideshow__prev "></div>
+
+        <div class="slideshow__next"></div>
+    </div>
+
+    <div class="slideshow__pagination" data-id="{{ module }}"></div>
+</div>
+
+<script>
+    var carousel{{ module }} = new Swiper('.slideshow__container[data-id={{ module }}]', {
+        pagination: {
+            el: '.slideshow__pagination[data-id={{ module }}]',
+        },
+        navigation: {
+            nextEl: '.slideshow__next[data-id={{ module }}]',
+            prevEl: '.slideshow__prev[data-id={{ module }}]',
+        },
+    })
+
+</script>

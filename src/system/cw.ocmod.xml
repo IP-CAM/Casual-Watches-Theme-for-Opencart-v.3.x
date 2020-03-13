@@ -19,7 +19,8 @@
             ]]>
             </add>
         </operation>
-  </file>
+    </file>
+
 
     <!--
     Replaces the default swiper links in the carousel module
@@ -37,7 +38,41 @@ $this->document->addScript('catalog/view/theme/cw/vendors/swiper/js/swiper.min.j
             ]]>
             </add>
         </operation>
-  </file>
+    </file>
 
 
+    <!--
+    Discount in product teaser
+    -->
+    <file path="catalog/controller/product/category.php">
+        <operation>
+            <search>
+                <![CDATA[
+$special = false;
+                ]]>
+            </search>
+            <add position="after" offset="1">
+                <![CDATA[
+if ((float)$result['special']) {
+    $discount = '-' . round(100 - $this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')) / $this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')) * 100) . '%';
+} else {
+    $discount = false;
+}
+                ]]>
+            </add>
+        </operation>
+
+        <operation>
+            <search>
+                <![CDATA[
+'special'     => $special,
+                ]]>
+            </search>
+            <add position="after" offset="1">
+                <![CDATA[
+'discount'     => $discount,
+                ]]>
+            </add>
+        </operation>
+    </file>
 </modification>
