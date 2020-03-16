@@ -1,14 +1,15 @@
 .button {
+    position: relative;
     display: inline-flex;
     box-sizing: border-box;
-    padding: 0;
+    padding: 4px 8px;
+    flex-flow: row;
     align-items: center;
+    font: inherit;
+    color: var(--button-background);
     border: 1px solid;
     background-color: transparent;
-    border-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    color: currentColor;
+    border-color: var(--button-background);
 
     //Elements
     &__icon {
@@ -23,6 +24,18 @@
         margin-left: 12px;
     }
 
+    &__badge {
+        position: absolute;
+        bottom: 0;
+        right: -10px;
+        padding: 2px;
+        min-width: 1.4em;
+
+        border-radius: 1em;
+        background-color: #2b2b2b;
+        color: #fff;
+    }
+
     //Mods
     &_view {
 
@@ -32,18 +45,20 @@
             color: var(--button-text);
         }
 
-        &_pseudo {
-            background-color: transparent;
-            border-color: var(--button-background);
-            color: var(--button-background);
+        &_plain {
+            padding: 0;
+            border-color: transparent;
+            color: currentColor;
         }
     }
 
     &_size {
 
         &_xl {
+            display: block;
+            width: 100%;
             font-size: 18px;
-            padding: 18px 24px;
+            padding: 12px 24px;
         }
 
         &_xs {

@@ -9,14 +9,8 @@
 <div class="product">
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                {% if manufacturer %}
-                    <a class="product__manufacturer" href="{{ manufacturers }}">{{ manufacturer }}</a>
-                {% endif %}
-
-                <h1 class="product__title">{{ heading_title }}</h1>
-
-                <span class="product__sku">49838kdj09</span>
+            <div class="col-8">
+                <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
 
                 <div class="product__attributes">
                     <table class="attributes__table">
@@ -40,49 +34,35 @@
                                 {% endfor %}
                             </tbody>
                         {% endfor %}
-
-                        {% for attribute_group in attribute_groups %}
-                            <thead>
-                                <tr>
-                                    <td class="attributes__subtitle" colspan="2">
-                                        {{ attribute_group.name }}
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for attribute in attribute_group.attribute %}
-                                <tr class="attributes__row">
-                                    <td class="attributes__col">{{ attribute.name }}</td>
-                                    <td class="attributes__col">
-                                        <span class="attributes__value">{{ attribute.text }}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        {% endfor %}
-
-
                     </table>
                 </div>
+
+                {{ description }}
             </div>
 
-            <div class="col-5">
-                <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
-            </div>
+            <div class="col-4 align-self-start" style="position: sticky; top: 60px">
+                {% if manufacturer %}
+                    <a class="product__manufacturer" href="{{ manufacturers }}">{{ manufacturer }}</a>
+                {% endif %}
 
-            <div class="col-4 align-self-start product__sticky-col">
-                <span class="product__stock">{{ stock }}</span>
+                <h1 class="product__title">{{ heading_title }}</h1>
+
+                <div class="d-flex">
+                    <span class="product__stock mr-auto">{{ stock }}</span>
+
+                    <span class="product__sku">49838kdj09</span>
+                </div>
 
                 <div class="product__price-wrapper">
                     <span class="product__price">{{ price }}</span>
                 </div>
 
-                <div class="product__button-wrapper button-group">
-                    <button class="button-group__button button button_view_action button_size_xl">
+                <div class="product__button-wrapper">
+                    <button class="button button_view_action button_size_xl">
                         Быстрый заказ
                     </button>
 
-                    <button class="button-group__button button button_view_pseudo button_size_xl">
+                    <button class="button button_view_pseudo button_size_xl" style="margin-top: 12px">
                         В корзину
                     </button>
                 </div>
@@ -91,9 +71,6 @@
                     <ul class="seller-features__list">
                         <li class="seller-features__item">
                             <strong>Только новые и оригинальные часы</strong>
-                        </li>
-                        <li class="seller-features__item">
-                            Гарантия производителя
                         </li>
                         <li class="seller-features__item">
                             Оплата после получения и проверки
@@ -112,21 +89,13 @@
                     </ul>
                 </div>
 
-                <div class="product__button-wrapper button-group">
-                    <button class="button-group__button button">
-                        <svg class="button__icon">
-                            <use href="#fav" />
-                        </svg>
+                <button class="button button_view_plain">
+                    <svg class="button__icon">
+                        <use href="#fav" />
+                    </svg>
 
-                        <span class="button__text">В закладки</span>
-                    </button>
-                </div>
-
-
-            </div>
-
-            <div class="col-8">
-                {{ description }}
+                    <span class="button__text">В закладки</span>
+                </button>
             </div>
         </div>
     </div>

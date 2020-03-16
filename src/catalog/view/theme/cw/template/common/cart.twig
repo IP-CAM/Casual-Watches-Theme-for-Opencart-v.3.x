@@ -1,0 +1,9 @@
+<button class="button-group__button button button_view_plain">
+    <svg class="button__icon">
+        <use href="#cart" />
+    </svg>
+
+    {% if count_products %}
+        <span class="button__badge">{{ count_products }}</span>
+    {% endif %}
+</button>

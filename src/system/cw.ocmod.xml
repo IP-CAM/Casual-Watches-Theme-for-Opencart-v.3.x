@@ -75,4 +75,94 @@ if ((float)$result['special']) {
             </add>
         </operation>
     </file>
+
+    <!--
+    Replace cart items text
+    -->
+    <file path="catalog/controller/common/cart.php">
+        <operation>
+            <search index="0">
+                <![CDATA[
+$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+                ]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+$data['count_products'] = $this->cart->countProducts();
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Second phone number
+    -->
+    <file path="admin/view/template/setting/setting.twig">
+        <operation>
+            <search index="0">
+            <![CDATA[
+<label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
+            ]]>
+            </search>
+            <add position="after" offset="6"><![CDATA[
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="input-telephone2">{{ entry_telephone }}</label>
+    <div class="col-sm-10">
+        <input type="text" name="config_telephone2" value="{{ config_telephone2 }}" placeholder="{{ entry_telephone }}" id="input-telephone2" class="form-control">
+    </div>
+</div>
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/setting/setting.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+if (isset($this->request->post['config_telephone'])) {
+            ]]>
+            </search>
+            <add position="after" offset="4"><![CDATA[
+if (isset($this->request->post['config_telephone2'])) {
+    $data['config_telephone2'] = $this->request->post['config_telephone2'];
+} else {
+    $data['config_telephone2'] = $this->config->get('config_telephone2');
+}
+            ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$data['telephone'] = $this->config->get('config_telephone');
+            ]]>
+            </search>
+            <add position="after" offset="4"><![CDATA[
+$data['telephone2'] = $this->config->get('config_telephone2');
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Opening time in header
+    -->
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$data['telephone'] = $this->config->get('config_telephone');
+            ]]>
+            </search>
+            <add position="after"><![CDATA[
+$data['open'] = $this->config->get('config_open');
+            ]]>
+            </add>
+        </operation>
+    </file>
+
 </modification>

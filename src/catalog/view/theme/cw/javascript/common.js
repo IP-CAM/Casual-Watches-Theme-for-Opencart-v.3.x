@@ -1,13 +1,21 @@
 //On DOM ready
 $(() => {
-    //Header
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 0) {
-            console.log($(this).scrollTop())
-            $('.header').addClass('header_compact')
-        } else {
-            $('.header').removeClass('header_compact')
-        }
+
+
+    //Search box
+    const searchBox = $('.search-box')
+    const searchBoxToggler = $('.search-box-toggler')
+    const searchBoxInput = $('.search-box__input')
+
+    searchBoxToggler.on('click', () => {
+        searchBoxToggler.hide()
+        searchBox.removeClass('search-box_state_hidden')
+        searchBoxInput.focus()
+    })
+
+    searchBoxInput.on('focusout', function() {
+        searchBox.addClass('search-box_state_hidden')
+        searchBoxToggler.show()
     })
 
     //Search
@@ -26,6 +34,4 @@ $(() => {
 			$('.search__submit').trigger('click');
 		}
     })
-
-    //
 })

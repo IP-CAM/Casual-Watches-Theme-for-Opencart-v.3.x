@@ -6,7 +6,6 @@
         display: block;
     }
 
-
     &__price-wrapper {
         margin-top: 4px;
     }
@@ -32,11 +31,14 @@
 
     &__attributes {
         margin-top: 32px;
+        border-bottom: 1px solid var(--border);
     }
 
     &__image {
+        display: block;
         max-width: 100%;
         max-height: 100vh;
+        margin: 0 auto;
     }
 
     &__manufacturer {
@@ -46,20 +48,12 @@
 
     &__sku {
         display: block;
-        margin-top: 12px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--border);
         color: var(--secondary-text);
     }
 
     &__description {
         max-width: 760px;
         margin: 0 auto;
-    }
-
-    &__sticky-col {
-        position: sticky;
-        top: 32px;
     }
 
     &__links {

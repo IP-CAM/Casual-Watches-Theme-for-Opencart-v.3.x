@@ -2,7 +2,20 @@
 @import './../../../../../../../node_modules/bootstrap/scss/variables';
 
 //Bootstrap customization
-//...
+
+$grid-breakpoints: (
+  xs: $breakpoint-xs,
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: $breakpoint-xl,
+);
+
+$container-max-widths: (
+    xxl: 1280px,
+);
+
+// ...
 
 @import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 
