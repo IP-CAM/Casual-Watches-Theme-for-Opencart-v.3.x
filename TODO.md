@@ -1,2 +1,5 @@
 - Получать время работы магазина из админ-панели
 - https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=38096&filter_search=phone&filter_license=0
+- Проверять наличие товара перед добавлением в корзину
+- Описать поведение карточки товара во время отправки ajax-запросов
+- https://github.com/w0rm/gulp-svgfallback

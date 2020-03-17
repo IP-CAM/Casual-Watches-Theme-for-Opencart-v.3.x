@@ -1,9 +1,9 @@
-<button class="button-group__button button button_view_plain">
+<a class="button button_view_plain" id="cart" href="{{ cart }}">
     <svg class="button__icon">
-        <use href="#cart" />
+        <use href="#icon-cart" />
     </svg>
 
     {% if count_products %}
         <span class="button__badge">{{ count_products }}</span>
     {% endif %}
-</button>
+</a>
