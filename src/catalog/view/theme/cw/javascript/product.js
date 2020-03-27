@@ -7,22 +7,19 @@ const addButtonClickHandler = () => {
         dataType: 'json',
         beforeSend: () => {},
         complete: () => {},
-        success: addSuccessHandler,
-        error: (xhr, ajaxOptions, thrownError) => {
-            console.error(`${thrownError}\r\n${xhr.responseText}`)
-        }
+        success: addResponseHandler,
+        error: ajaxErrorHandler,
     })
 }
 
-const addSuccessHandler = json => {
+const addResponseHandler = json => {
     $('.alert-dismissible, .text-danger').remove()
     $('.form-control').removeClass('is-invalid')
 
     if (json['error']) {
 
         if (json['error']['option']) {
-
-            for (code in json['error']['option']) {
+            for (let code in json['error']['option']) {
                 const el = $('#input-option' + code.replace('_', '-'))
 
                 if (el.parent().hasClass('input-group')) {
@@ -49,30 +46,12 @@ const addSuccessHandler = json => {
                 el.addClass('is-invalid')
             }
         })
-
-        //$('.invalid-tooltip').show();
     }
 
     if (json['success']) {
-        const html = `
-            <div class="toast"id="toast">
-                <div class="toast-header">
-                    <strong class="mr-auto">
-                        <i class="fas fa-shopping-cart"></i>Shopping Cart
-                    </strong>
-                    <button class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                </div>
-                <div class="toast-body">${json['success']}</div>
-            </div>
-        `
-
-        $('body').append(html)
-
-        $('#toast').toast({ delay: 3000 })
-        $('#toast').toast('show')
-
+        pushAlert(json['success'], { view: 'success' })
         //Update cart
-        $('#cart').parent().load('index.php?route=common/cart/info')
+        updateCartWidget()
     }
 }
 

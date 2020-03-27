@@ -33,21 +33,19 @@
 </head>
 <body>
     <header class="header">
-        <div class="header__row header__row_contrast">
+        <div class="header__row header__callup">
             <div class="container">
-                <div class="header__callup">
-                    <a class="header__tel" href="tel:{{ telephone|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone }}</a>
+                <a class="header__tel" href="tel:{{ telephone|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone }}</a>
 
-                    {% if telephone2 %},
-                    <a class="header__tel" href="tel:{{ telephone2|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone2 }}</a>
-                    {% endif %}
+                {% if telephone2 %},
+                <a class="header__tel" href="tel:{{ telephone2|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone2 }}</a>
+                {% endif %}
 
-                    {% if open %}
-                        – {{ open }}
-                    {% endif %}
+                {% if open %}
+                    – {{ open }}
+                {% endif %}
 
-                    <button class="button button_view_pseudo callback-button">Перезвоните мне</button>
-                </div>
+                <button class="button button_view_pseudo callback-button">Перезвоните мне</button>
             </div>
         </div>
 
@@ -94,6 +92,8 @@
                                         <svg class="button__icon">
                                             <use href="#icon-fav" />
                                         </svg>
+
+                                        <span class="button__badge">{{ count_wishlist }}</span>
                                     </button>
 
                                     <div class="button-group__button">
@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <div class="header__row">
+        <div class="header__row header__menu">
             <div class="container">
                 {{ menu }}
             </div>

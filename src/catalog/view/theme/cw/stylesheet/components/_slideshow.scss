@@ -40,4 +40,17 @@
         object-fit: cover;
         z-index: -1;
     }
+
+    &__prev {
+        position: absolute;
+        top: 50%;
+        left: 48px;
+        z-index: 10;
+    }
+
+    &__icon {
+        width: 28px;
+        height: 28px;
+        fill: black;
+    }
 }

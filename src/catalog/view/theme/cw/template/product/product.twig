@@ -6,6 +6,10 @@
     {{ breadcrumbs(breadcrumbs) }}
 </div>
 
+<div class="container">
+    <div class="alerts"></div>
+</div>
+
 <div class="product">
     <div class="container">
         <div class="row">
@@ -61,11 +65,13 @@
                     <input type="hidden" name="product_id" value="{{ product_id }}" />
                     <input type="hidden" name="quantity" value="{{ minimum }}" />
 
-                    <button class="button button_view_action button_size_xl">
+                    {% if minimum > 1 %}{{ text_minimum }}{% endif %}
+
+                    <button class="button button_view_action button_size_xl product__buy-button">
                         Быстрый заказ
                     </button>
 
-                    <button class="button button_view_pseudo button_size_xl" id="button-cart">
+                    <button class="button button_view_pseudo button_size_xl product__buy-button" id="button-cart">
                         В корзину
                     </button>
                 </div>

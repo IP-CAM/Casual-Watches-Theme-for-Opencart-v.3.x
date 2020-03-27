@@ -2,4 +2,7 @@
 - https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=38096&filter_search=phone&filter_license=0
 - Проверять наличие товара перед добавлением в корзину
 - Описать поведение карточки товара во время отправки ajax-запросов
+- Описать поведение тизера товара во время отправки ajax-запросов
 - https://github.com/w0rm/gulp-svgfallback
+- Добавить вывод сообщений об ошибках ajax-запросов
+- Реализовать всплывающие сообщения с помощью bootstrap toast

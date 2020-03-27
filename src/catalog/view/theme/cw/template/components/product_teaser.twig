@@ -1,21 +1,24 @@
 {% macro product_teaser(product) %}
     <div class="product-teaser">
-        <img src="{{ product.thumb }}" alt="{{ product.name }}" class="product-teaser__thumb" />
+        <img src="catalog/view/theme/cw/image/demo/product-0.png{# product.thumb #}" alt="{{ product.name }}" class="product-teaser__thumb" />
 
         <div class="product-teaser__badges">
             {% if product.discount %}
-                <span class="product-teaser__badge">
+                <span class="product-teaser__badge product-teaser__badge_view_discount">
                     {{ product.discount }}
                 </span>
             {% endif %}
+            <span class="product-teaser__badge">
+                Новинка
+            </span>
         </div>
 
-        <div class="product-teaser__price price">
+        <div class="product-teaser__price-wrapper">
             {% if product.special %}
-                <span class="price__price price__price_special">{{ product.special }}</span>
-                <span class="price__price price__price_old">{{ product.price }}</span>
+                <span class="product-teaser__price">{{ product.special }}</span>
+                <span class="product-teaser__price product-teaser__price_old">{{ product.price }}</span>
             {% else %}
-                <span class="price__price">{{ product.price }}</span>
+                <span class="product-teaser__price">{{ product.price }}</span>
             {% endif %}
         </div>
 
@@ -24,11 +27,17 @@
         </a>
 
         <div class="product-teaser__controls">
-            <button class="button">Купить</button>
+            <button
+                class="button"
+                onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}')"
+            >{{ button_cart }}</button>
 
-            <button class="product-teaser-button">
+            <button
+                class="product-teaser-button"
+                onclick="whishlist.add('{{ product.product_id }}')"
+            >
                 <svg class="product-teaser-button__icon">
-                    <use href="#fav" />
+                    <use href="#icon-fav" />
                 </svg>
             </button>
         </div>

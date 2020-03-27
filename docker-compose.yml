@@ -7,7 +7,7 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - ./opencart:/var/www/html
+            - ./dist:/var/www/html
             - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
             - ./docker/logs/nginx:/var/log/nginx
         links:
@@ -17,7 +17,7 @@ services:
         ports:
             - 9000:9000
         volumes:
-            - ./opencart:/var/www/html
+            - ./dist:/var/www/html
     mariadb:
         image: mariadb:latest
         ports:

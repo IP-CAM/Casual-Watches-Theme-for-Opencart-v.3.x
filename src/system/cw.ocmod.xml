@@ -77,7 +77,7 @@ if ((float)$result['special']) {
     </file>
 
     <!--
-    Replace cart items text
+    Adds variables with the number of products in the cart
     -->
     <file path="catalog/controller/common/cart.php">
         <operation>
@@ -89,6 +89,38 @@ $data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->c
             <add position="after">
                 <![CDATA[
 $data['count_products'] = $this->cart->countProducts();
+$data['count_whishlist'] = $this->cart->countProducts();
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Adds variables with the number of products in the wishlist
+    -->
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search index="0">
+                <![CDATA[
+$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());
+                ]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+$data['count_wishlist'] = $this->model_account_wishlist->getTotalWishlist();
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0">
+                <![CDATA[
+$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+                ]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+$data['count_wishlist'] = isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0;
                 ]]>
             </add>
         </operation>
@@ -164,5 +196,4 @@ $data['open'] = $this->config->get('config_open');
             </add>
         </operation>
     </file>
-
 </modification>

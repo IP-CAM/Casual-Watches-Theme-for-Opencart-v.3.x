@@ -43,8 +43,13 @@
             {% endif %}
 
             {% if not categories and not products %}
-                {{ text_no_results }}
-                <a href="{{ continue }}">{{ button_continue }}</a>
+                {{ text_no_results }} <a href="{{ continue }}">{{ button_continue }}</a>
+            {% else %}
+                <div class="row">
+                    <div class="col">{{ pagination }}</div>
+
+                    <div class="col-auto">{{ results }}</div>
+                </div>
             {% endif %}
 
             {{ content_bottom }}

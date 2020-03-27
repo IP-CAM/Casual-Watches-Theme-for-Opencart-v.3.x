@@ -1,0 +1,21 @@
+.alert {
+    background-color: #cce6f4;
+    box-sizing: border-box;
+    padding: 8px 32px;
+
+    //Elements
+
+    //Mods
+    &_view {
+
+        &_success {
+            background-color: #93e5ab;
+            color: #1f2d3d;
+        }
+
+        &_error {
+            background-color: #bf2333;
+            color: #fff;
+        }
+    }
+}

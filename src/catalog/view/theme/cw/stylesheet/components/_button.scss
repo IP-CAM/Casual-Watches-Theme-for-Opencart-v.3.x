@@ -26,12 +26,12 @@
 
     &__badge {
         position: absolute;
-        bottom: 0;
-        right: -10px;
+        bottom: -2px;
+        right: -8px;
         display: block;
         box-sizing: border-box;
-        padding: 2px;
-        min-width: 1.4em;
+        padding: 0;
+        min-width: 1.2em;
         border-radius: 1em;
         background-color: #2b2b2b;
         color: #fff;
@@ -58,7 +58,6 @@
 
         &_xl {
             display: block;
-            width: 100%;
             font-size: 18px;
             padding: 12px 24px;
         }

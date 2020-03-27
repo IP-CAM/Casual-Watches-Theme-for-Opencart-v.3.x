@@ -1,0 +1,27 @@
+{% from 'cw/template/components/breadcrumbs.twig' import breadcrumbs %}
+
+{{ header }}
+
+<div class="container pt-1 pb-1">
+    {{ breadcrumbs(breadcrumbs) }}
+</div>
+
+<div class="container">
+    <div class="row">
+        {{ column_left }}
+
+        <div class="col" id="content">
+            {{ content_top }}
+
+            <h1>{{ heading_title }}</h1>
+
+            {{ description }}
+
+            {{ content_bottom }}
+        </div>
+
+        {{ column_right }}
+    </div>
+</div>
+
+{{ footer }}
