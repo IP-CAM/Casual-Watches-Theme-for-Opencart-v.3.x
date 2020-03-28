@@ -7,6 +7,16 @@
             <div class="container-fluid">
                 <div class="pull-right">
                     <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+
+                    <button
+                        type="button"
+                        onclick="addSubitem()"
+                        data-toggle="tooltip"
+                        title="{{ button_save }}"
+                        class="btn btn-primary">
+                        <i class="fa fa-plus"></i>
+                    </button>
+
                     <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
                 </div>
 
@@ -22,33 +32,123 @@
         <div class="container-fluid">
 
             <form
+                class="form-horizontal"
                 action="{{ action }}"
                 method="post"
                 enctype="multipart/form-data"
-                id="form-module"
-                >
+                id="form-module">
+
+                <input type="hidden" name="item-id" value="{{ item_id }}" />
 
                 {% for lang in languages %}
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-status">
-                            <img src="{{'language/' ~ lang['code'] ~ "/" ~ lang['code'] ~ '.png'}}" alt="{{ lang['code'] }}" title="{{ lang['name'] }}" />
+                        <label class="col-sm-2 control-label" for="props-caption-{{ lang['code'] }}">
+                            <img
+                                src="{{'language/' ~ lang['code'] ~ "/" ~ lang['code'] ~ '.png'}}"
+                                alt="{{ lang['code'] }}"
+                                title="{{ lang['name'] }}" />
                         </label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="input-items-text-{{ lang['code'] }}-{{ item.uid }}" name="input-items[{{ item.uid }}][text][{{ lang['code'] }}]" value="{{ item.text[lang.code] }}" />
+                            <input
+                                class="form-control"
+                                type="text"
+                                id="item-caption-{{ lang['code'] }}"
+                                name="caption[{{ lang['code'] }}]"
+                                value="{{ item.caption }}" />
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-status">
-                            Link
-                        </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" id="input-items-text-{{ lang['code'] }}-{{ item.uid }}" name="input-items[{{ item.uid }}][text][{{ lang['code'] }}]" value="{{ item.text[lang.code] }}" />
-                        </div>
-                    </div>
-
                 {% endfor %}
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="item-link">
+                        Link
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="item-link"
+                            name="link"
+                            value="{{ item.text[lang.code] }}" />
+                    </div>
+                </div>
+
+                {# Subitems #}
+                <div id="subitems">
+
+                    {% for subitem in item.subitems %}
+
+                        {% set subitem_id = loop.index %}
+
+                        <div class="panel panel-default" data-id="{{ subitem_id }}">
+                            <div class="panel-heading">
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            name="subitems[{{ subitem_id }}][caption]"
+                                            placeholder="Subitem caption"
+                                            value="{{ subitem.caption }}"
+                                        />
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            name="subitems[{{ subitem_id }}][order]"
+                                            value="{{ subitem.order }}"
+                                        />
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        <button type="button" class="btn btn-danger" onclick="deleteSubitem({{ subitem_id }})"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# Sublinks #}
+                            <div class="panel-body">
+                                {% for sublink in subitem.sublinks %}
+
+                                    {% set sublink_id = loop.index %}
+
+                                    <div class="form-group" data-id="{{ sublink_id }}">
+                                        <div class="col-sm-5">
+                                            <input
+                                                class="form-control"
+                                                type="text"
+                                                placeholder="Caption"
+                                                name="subitems[{{ subitem_id }}][sublinks][{{ sublink_id }}][caption]"
+                                                value="{{ sublink.caption }}" />
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <input
+                                                class="form-control"
+                                                type="text"
+                                                placeholder="Link"
+                                                name="subitems[{{ subitem_id }}][sublinks][{{ sublink_id }}][link]"
+                                                value="{{ sublink.link }}" />
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <button type="button" class="btn btn-default" onclick="deleteSublink({{ subitem_id }}, {{ sublink_id }})"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                            </div>{# End of sublinks #}
+
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-primary" onclick="addSublink({{ subitem_id }})"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>{# End of subitems #}
             </form>
 
         </div>
@@ -58,11 +158,77 @@
 
 
 <script>
-    const addTopItem = () => {
-        const html = `
-            <div class="">test</test>
-        `
+const subitemTemplate = subitemId => `
+    <div class="panel panel-default" data-id="${subitemId}">
+        <div class="panel-heading">
+            <input
+                class="form-control"
+                type="text"
+                name="subitems[${subitemId}][caption]"
+                placeholder="Subitem caption"
+                value="Cap${subitemId}"
+            />
+        </div>
 
-        $('form').append(html)
-    }
+        <div class="panel-body"></div>
+
+        <div class="panel-footer">
+            <button type="button" class="btn btn-primary" onclick="addSublink(${subitemId})"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>`
+
+const sublinkTemplate = (subitemId, sublinkId) => `
+    <div class="form-group" data-id="${sublinkId}">
+        <div class="col-sm-5">
+            <input
+                class="form-control"
+                type="text"
+                placeholder="Caption"
+                name="subitems[${subitemId}][sublinks][${sublinkId}][caption]"
+                value="cpt${subitemId}" />
+        </div>
+
+        <div class="col-sm-6">
+            <input
+                class="form-control"
+                type="text"
+                placeholder="Link"
+                name="subitems[${subitemId}][sublinks][${sublinkId}][link]"
+                value="lnk${subitemId}" />
+        </div>
+
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-default" onclick="deleteSublink(${SubitemId}, ${sublinkId})"><i class="fa fa-trash"></i></button>
+        </div>
+    </div>`
+
+const addSublink = (subitemId) => {
+    const sublinks = $(`.panel[data-id=${subitemId}]`).find('.panel-body')
+
+    const sublinkId = sublinks.find('.form-group:last-child').length
+        ? Number(sublinks.find('.form-group:last-child').attr('data-id')) + 1
+        : 0
+
+    sublinks.append(sublinkTemplate(subitemId, sublinkId))
+}
+
+const addSubitem = () => {
+    const subitems = $('#subitems')
+
+    const subitemId = subitems.find('.panel:last-child').length
+        ? Number(subitems.find('.panel:last-child').attr('data-id')) + 1
+        : 0
+
+    subitems.append(subitemTemplate(subitemId))
+    addSublink(subitemId)
+}
+
+const deleteSubitem = subitemId => {
+    $(`.panel[data-id=${subitemId}]`).remove()
+}
+
+const deleteSublink = (subitemId, sublinkId) => {
+    $(`.panel[data-id=${subitemId}]`).find(`.form-group[data-id=${sublinkId}]`).remove()
+}
+
 </script>

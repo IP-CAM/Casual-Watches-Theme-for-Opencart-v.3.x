@@ -51,14 +51,23 @@
                 </div>
 
 
+                {% for item in items %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>{{ item.caption }}</h3>
+
+                            <a
+                                class="btn btn-sm btn-primary"
+                                href="index.php?route=extension/module/main_menu/item_editor&item_id={{ item.id }}&user_token={{ user_token }}"
+                            >
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a
-                            class="btn btn-sm btn-primary"
-                            href="index.php?route=extension/module/custom_main_menu/editItem&user_token={{ user_token }}&megamenu_id='+megamenu_id"
-                        >
-                            <i class="fa fa-edit"></i>
-                        </a>
 
                         <a href="javascript:void(0);" data-toggle="tooltip" onclick="itemDelete(this)" title="Delete Link" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </div>
