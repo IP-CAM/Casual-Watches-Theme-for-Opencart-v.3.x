@@ -47,31 +47,6 @@
     }
 }
 
-.menu {
-
-    &__list {
-        display: flex;
-        padding: 0;
-        flex-flow: row wrap;
-        justify-content: center;
-    }
-
-    &__item {
-        list-style: none;
-    }
-
-    &__link {
-        display: block;
-        padding: 4px 20px;
-        font-size: 13px;
-        text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: bold;
-        color: currentColor;
-    }
-}
-
 .logotype-placeholder {
     display: block;
     height: 1.2em;

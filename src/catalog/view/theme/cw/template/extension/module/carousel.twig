@@ -1,26 +1,22 @@
-
-    <div class="swiper-container" id="carousel-{{ module }}" >
-        <div class="swiper-wrapper">
-            {% for banner in banners %}
-                <div class="swiper-slide carousel__item">
-                    {% if banner.link %}
-                        <a href="{{ banner.link }}">
-                            <img class="carousel__image" src="{{ banner.image }}" alt="{{ banner.title }}" />
-                        </a>
-                    {% else %}
-                        <img class="carousel__image" src="{{ banner.image }}" alt="{{ banner.title }}" />
-                    {% endif %}
-                </div>
-            {% endfor %}
+<div class="carousel" data-id="{{ module }}">
+    {% for banner in banners %}
+        <div class="carousel__item">
+            <img
+                class="carousel__bg"
+                src="{{ banner.image }}"
+                alt="{{ banner.title }}" />
         </div>
-    </div>
+    {% endfor %}
+</div>
 
 <script>
-var carousel{{ module }} = new Swiper('#carousel-{{ module }}', {
-    slidesPerView: 'auto',
-    spaceBetween: 30,
-    autoplay: {
-        delay: 2500,
-    }
-})
+$(function() {
+    $('.carousel[data-id={{ module }}]').slick({
+        slidesToShow: 7,
+        slidesToScroll: 5,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        speed: 1600,
+    });
+});
 </script>

@@ -1,39 +1,28 @@
-<div class="slideshow">
-    <div class="slideshow__container swiper-container" data-id="{{ module }}">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="slideshow__item">
-                    <a class="slideshow__inner{% if banner.link %} href="{{ banner.link }}"{% endif %}">
-                        <h2 class="slideshow__title">Новая<br />коллекция</h2>
-                        <img class="slideshow__image" src="catalog/view/theme/cw/image/demo/banner-0.jpg" />
-                    </a>
-                </div>
+<div class="slideshow" data-id="{{ module }}">
+    {% for banner in banners %}
+        <div class="slideshow__item">
+            <div class="slideshow__inner">
+                <h2 class="slideshow__title">{{ banner.title }}</h2>
             </div>
+
+            <img
+                class="slideshow__bg"
+                src="{{ banner.image }}"
+                alt="{{ banner.title }}" />
         </div>
-
-        <div class="slideshow__prev ">
-            <button class="button button_view_plain">
-                <svg class="slideshow__icon">
-                    <use href="#icon-larr" />
-                </svg>
-            </button>
-        </div>
-
-        <div class="slideshow__next"></div>
-    </div>
-
-    <div class="slideshow__pagination" data-id="{{ module }}"></div>
+    {% endfor %}
 </div>
 
 <script>
-    var carousel{{ module }} = new Swiper('.slideshow__container[data-id={{ module }}]', {
-        pagination: {
-            el: '.slideshow__pagination[data-id={{ module }}]',
-        },
-        navigation: {
-            nextEl: '.slideshow__next[data-id={{ module }}]',
-            prevEl: '.slideshow__prev[data-id={{ module }}]',
-        },
-    })
-
+$(function() {
+    $('.slideshow[data-id={{ module }}]').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        speed: 900
+    });
+});
 </script>

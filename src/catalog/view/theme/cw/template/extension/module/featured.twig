@@ -1,15 +1,13 @@
 {% from 'cw/template/components/product_teaser.twig' import product_teaser %}
 
-<div class="pinned-group">
-    <h3 class="pinned-group__title">{{ title }}</h3>
-    <div class="row">
+<div class="featured">
+    <h3 class="featured__title">{{ title }}</h3>
 
+    <div class="row">
         {% for product in products %}
             <div class="col-4">
                 {{ product_teaser(product) }}
             </div>
         {% endfor %}
-
-
     </div>
 </div>

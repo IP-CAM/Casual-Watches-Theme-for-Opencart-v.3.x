@@ -59,9 +59,7 @@ const javascript = () =>
 
 const vendors = () =>
     src([
-        './node_modules/swiper/js/swiper.min.js',
-        './node_modules/swiper/css/swiper.min.css',
-        './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+        './node_modules/slick-carousel/slick/slick.min.js',
     ], { base: 'node_modules' })
         .pipe(newer('./dist/catalog/view/theme/cw/vendors'))
         .pipe(dest('./dist/catalog/view/theme/cw/vendors'))

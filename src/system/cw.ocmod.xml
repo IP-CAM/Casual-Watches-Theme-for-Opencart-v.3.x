@@ -23,7 +23,25 @@
 
 
     <!--
-    Replaces the default swiper links in the carousel module
+    Replaces the default Swiper with Slick in the slideshow module
+    -->
+    <file path="catalog/controller/extension/module/slideshow.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.css');
+            ]]>
+            </search>
+            <add position="replace" offset="3"><![CDATA[
+$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js');
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Replaces the default Swiper with Slick in the carousel module
     -->
     <file path="catalog/controller/extension/module/carousel.php">
         <operation>
@@ -33,8 +51,7 @@ $this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.
             ]]>
             </search>
             <add position="replace" offset="3"><![CDATA[
-$this->document->addStyle('catalog/view/theme/cw/vendors/swiper/css/swiper.min.css');
-$this->document->addScript('catalog/view/theme/cw/vendors/swiper/js/swiper.min.js');
+$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js');
             ]]>
             </add>
         </operation>
