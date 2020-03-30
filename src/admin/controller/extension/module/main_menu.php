@@ -19,7 +19,7 @@ class ControllerExtensionModuleMainMenu extends Controller {
             $this->model_setting_setting->editSetting('module_main_menu', ['module_main_menu_status' => 1]);
 			$this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping'));
+            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module'));
 		}
 
 		if (isset($this->error['warning'])) {
@@ -34,7 +34,7 @@ class ControllerExtensionModuleMainMenu extends Controller {
 		$data['breadcrumbs'][] = array('text' => $this->language->get('heading_title'), 'href' => $this->url->link('extension/module/custom_main_menu', 'user_token=' . $this->session->data['user_token'], 'SSL'));
 
         //Form action, cancel link
-        $data['action'] = $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'], 'SSL');
+        $data['action'] = $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'], true);
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
         //Data
@@ -45,8 +45,9 @@ class ControllerExtensionModuleMainMenu extends Controller {
             $data['main_menu_status'] = $this->config->get('main_menu_status');
         }
 
+        //Menu items
         $this->load->model('extension/module/main_menu');
-        $data['items'] = $this->model_extension_module_main_menu->getItems();
+        $data['items'] = $this->model_extension_module_main_menu->get_items();
 
         $data['user_token'] = $this->session->data['user_token'];
         $data['header'] = $this->load->controller('common/header');
@@ -61,27 +62,20 @@ class ControllerExtensionModuleMainMenu extends Controller {
      *
      */
     private function renderItemEditor() {
+        //Data
 
-        //Languages
-        $this->load->model('localisation/language');
-        $languages = $this->model_localisation_language->getLanguages();
-        $data['languages'] = $languages;
+        //Edit item
+        if (isset($this->request->get['id'])) {
+            $id = $this->request->get['id'];
+            $data['id'] = $id;
 
-        //Module data
-        if (isset($this->request->get['item_id'])) {
             $this->load->model('extension/module/main_menu');
-
-            $item_id = $this->request->get['item_id'];
-            $data['item'] = $this->model_extension_module_main_menu->get_item($item_id);
-
-            print_r($data['item']);
-
-            //Form action
-            $data['action'] = $this->url->link('extension/module/main_menu/save_item', 'user_token=' . $this->session->data['user_token'], true);
+            $data['item'] = $this->model_extension_module_main_menu->get_item($id);
         }
 
-        //Cancel link
-        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
+        //Form action and cancel link
+        $data['action'] = $this->url->link('extension/module/main_menu/save_item', 'user_token=' . $this->session->data['user_token'], true);
+        $data['cancel'] = $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'], true);
 
         //Common controllers
         $data['header'] = $this->load->controller('common/header');
@@ -95,17 +89,18 @@ class ControllerExtensionModuleMainMenu extends Controller {
      *
      */
     public function save_item() {
-        $this->load->language('extension/module/main_menu');
-
-        $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('extension/module/main_menu');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+
             print_r($this->request->post); //Debug
 
-            if (isset($this->request->post['item-id'])) {
-                print_r($this->model_extension_module_main_menu->create_item($this->request->post));
+            if (isset($this->request->post['id'])) {
+                $id = $this->request->post['id'];
+                $this->model_extension_module_main_menu->update_item($id, $this->request->post);
+            } else {
+                $this->model_extension_module_main_menu->create_item($this->request->post);
             }
         }
     }
@@ -116,30 +111,6 @@ class ControllerExtensionModuleMainMenu extends Controller {
     public function item_editor() {
         $this->load->language('extension/module/custom_main_menu');
         $this->document->setTitle($this->language->get('heading_title'));
-
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-
-            //echo 'EditItem method';
-            //print_r($this->request->post);
-
-
-            //$this->session->data['success'] = $this->language->get('text_success');
-
-            //$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module'));
-        }
-
-
-        //Language variablse
-        //...
-
-
-        //Warnings
-        //...
-
-        //Breadcrumbs
-        //...
-
-
 
         //Response
         $this->renderItemEditor();
