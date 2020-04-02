@@ -1,6 +1,5 @@
 .button {
-    position: relative;
-    display: inline-flex;
+    display: inline-block;
     box-sizing: border-box;
     padding: 4px 8px;
     flex-flow: row;
@@ -11,58 +10,52 @@
     background-color: transparent;
     border-color: var(--button-background);
 
-    //Elements
-    &__icon {
-        width: 24px;
-        height: 24px;
-        fill: none;
-        stroke-width: 3;
-        stroke: #2b2b2b;
+    &__inner {
+        display: flex;
+        flex-flow: row nowrap;
     }
 
-    &__icon + &__text {
-        margin-left: 12px;
-    }
+        &__text {
 
-    &__badge {
-        position: absolute;
-        bottom: -2px;
-        right: -8px;
-        display: block;
-        box-sizing: border-box;
-        padding: 0;
-        min-width: 1.2em;
-        border-radius: 1em;
-        background-color: #2b2b2b;
-        color: #fff;
-        text-align: center;
-    }
+        }
 
     //Mods
     &_view {
 
-        &_action {
+        &_primary {
             border-color: transparent;
             background-color: var(--button-background);
             color: var(--button-text);
         }
 
-        &_plain {
+        &_secondary {
             padding: 0;
             border-color: transparent;
             color: currentColor;
+        }
+
+        &_outline {
+
+        }
+
+        &_flat {
+
         }
     }
 
     &_size {
 
-        &_xl {
+        &_small {
+
+        }
+
+        &_medium {
             display: block;
             font-size: 18px;
             padding: 12px 24px;
         }
 
-        &_xs {
+        &_big {
             font-size: 13px;
             padding: 4px 8px;
         }

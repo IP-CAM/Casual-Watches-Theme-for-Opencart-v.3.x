@@ -213,4 +213,27 @@ $data['open'] = $this->config->get('config_open');
             </add>
         </operation>
     </file>
+
+    <!--
+    Manufacturer logo in product page
+    -->
+    <file path="catalog/controller/product/product.php">
+        <operation>
+            <search><![CDATA[
+$this->load->model('tool/image');
+            ]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+$manufacturer_image = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+
+if ($manufacturer_image) {
+    $data['manufacturers_logo'] = $this->model_tool_image->resize($manufacturer_image['image'], 28, 28);
+} else {
+    $data['manufacturers_logo'] = false;
+}
+                ]]>
+            </add>
+        </operation>
+    </file>
 </modification>

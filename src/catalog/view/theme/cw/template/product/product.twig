@@ -46,7 +46,13 @@
 
             <div class="col-4 align-self-start" style="position: sticky; top: 60px">
                 {% if manufacturer %}
-                    <a class="product__manufacturer" href="{{ manufacturers }}">{{ manufacturer }}</a>
+                    <a class="product__manufacturer" href="{{ manufacturers }}">
+                        {% if manufacturers_logo %}
+                            <img src="{{ manufacturers_logo }}" alt="{{ manufacturer }}" />
+                        {% else %}
+                            {{ manufacturer }}
+                        {% endif %}
+                    </a>
                 {% endif %}
 
                 <h1 class="product__title">{{ heading_title }}</h1>

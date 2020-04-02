@@ -6,6 +6,9 @@
 @import './base/fonts';
 @import './base/typography';
 
+@import './theme/bright';
+//@import './theme/dark';
+
 @import './vendors/bootstrap';
 @import './vendors/slick';
 
@@ -26,4 +29,3 @@
 @import './pages/category';
 
 @import './shame';
-@import './shame2';
