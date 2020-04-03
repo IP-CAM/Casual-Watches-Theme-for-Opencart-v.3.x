@@ -15,35 +15,10 @@
         text-decoration: none;
         letter-spacing: 1px;
     }
-
-    &__menu {
-    }
 }
 
 .callback-button {
     margin-left: 32px;
-}
-
-.header-links {
-
-    &__list {
-        display: flex;
-        padding: 0;
-        flex-flow: row wrap;
-    }
-
-    &__item {
-        list-style: none;
-    }
-
-    &__link {
-        display: block;
-        margin-right: 10px;
-        font-size: 13px;
-        text-decoration: none;
-        color: currentColor;
-        text-decoration: none;
-    }
 }
 
 .logotype-placeholder {

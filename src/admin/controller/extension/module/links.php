@@ -78,12 +78,12 @@ class ControllerExtensionModuleLinks extends Controller {
 
     public function validate() {
         if (!$this->user->hasPermission('modify', 'extension/module/links')) {
-		//	$this->error['permission'] = true;
+			$this->error['permission'] = true;
 		}
 
-		//if (!utf8_strlen($this->request->post['name'])) {
-		//	$this->error['name'] = true;
-        //}
+		if (!utf8_strlen($this->request->post['name'])) {
+			$this->error['name'] = true;
+        }
 
         return !$this->error;
     }

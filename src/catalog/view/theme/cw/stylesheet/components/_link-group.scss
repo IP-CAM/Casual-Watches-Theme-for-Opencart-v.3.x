@@ -1,0 +1,30 @@
+.link-group {
+
+    &__list {
+        display: flex;
+        flex-flow: column wrap;
+        padding: 0;
+    }
+
+        &__item {
+            list-style: none;
+        }
+
+            &__link {
+                color: currentColor;
+                text-decoration: none;
+            }
+
+    $this: &;
+
+    //Mods
+    &_view {
+
+        &_horizontal {
+
+            #{$this}__list {
+                flex-flow: row;
+            }
+        }
+    }
+}
