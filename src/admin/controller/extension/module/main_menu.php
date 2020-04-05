@@ -7,130 +7,247 @@ class ControllerExtensionModuleMainMenu extends Controller {
      *
      */
     public function index() {
+        $this->load->language('extension/module/main_menu');
 
-		$this->load->language('extension/module/main_menu');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('extension/module/main_menu');
 
-		$this->load->model('setting/setting');
+        $this->getList();
+	}
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+    /**
+     *
+     */
+    public function add() {
+        $this->load->language('extension/module/main_menu');
 
-            $this->model_setting_setting->editSetting('module_main_menu', ['module_main_menu_status' => 1]);
-			$this->session->data['success'] = $this->language->get('text_success');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module'));
-		}
+        $this->load->model('extension/module/main_menu');
 
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+            $this->model_extension_module_main_menu->addItem($this->request->post);
 
-		$data['breadcrumbs'] = array();
-		$data['breadcrumbs'][] = array('text' => $this->language->get('text_home'), 'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], 'SSL'));
-		$data['breadcrumbs'][] = array('text' => $this->language->get('text_module'), 'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], 'SSL'));
-		$data['breadcrumbs'][] = array('text' => $this->language->get('heading_title'), 'href' => $this->url->link('extension/module/custom_main_menu', 'user_token=' . $this->session->data['user_token'], 'SSL'));
+            $this->session->data['success'] = $this->language->get('text_success');
 
-        //Form action, cancel link
-        $data['action'] = $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'], true);
-		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
-
-        //Data
-        //Module status
-        if (isset($this->request->post['main_menu_status'])) {
-            $data['main_menu_status'] = $this->request->post['main_menu_status'];
-        } else {
-            $data['main_menu_status'] = $this->config->get('main_menu_status');
+            $this->response->redirect($this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token']));
         }
 
-        //Menu items
+        $this->getForm();
+    }
+
+
+    /**
+     *
+     */
+    public function edit() {
+        $this->load->language('extension/module/main_menu');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
         $this->load->model('extension/module/main_menu');
-        $data['items'] = $this->model_extension_module_main_menu->get_items();
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+            $this->model_extension_module_main_menu->editItem($this->request->get['item_id'], $this->request->post);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token']));
+        }
+
+        $this->getForm();
+    }
+
+    /**
+     *
+     */
+    public function delete() {
+        $this->load->language('extension/module/main_menu');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('extension/module/main_menu');
+
+        if ($this->validateDelete()) {
+            $this->model_extension_module_main_menu->deleteItem($this->request->get['item_id']);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token']));
+        }
+
+        $this->getList();
+    }
+
+    /**
+     *
+     */
+    protected function getList() {
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'])
+        );
+
+        $data['add'] = $this->url->link('extension/module/main_menu/add', 'user_token=' . $this->session->data['user_token']);
+
+        //Items
+        $results = $this->model_extension_module_main_menu->getItems();
+        foreach ($results as $result) {
+            $data['items'][] = [
+                'title' => $result['title'],
+                'status' => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                'sort_order' => $result['sort_order'],
+                'edit' => $this->url->link('extension/module/main_menu/edit', 'user_token=' . $this->session->data['user_token'] . '&item_id=' . $result['item_id']),
+                'delete' => $this->url->link('extension/module/main_menu/delete', 'user_token=' . $this->session->data['user_token'] . '&item_id=' . $result['item_id'])
+            ];
+        }
+
+        if (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        } else {
+            $data['error_warning'] = '';
+        }
+
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
 
         $data['user_token'] = $this->session->data['user_token'];
         $data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/module/main_menu/main_menu_list', $data));
-	}
-
+        $this->response->setOutput($this->load->view('extension/module/main_menu/list', $data));
+    }
 
     /**
      *
      */
-    private function renderItemEditor() {
-        //Data
+    protected function getForm() {
+        //Warnings
+        if (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        } else {
+            $data['error_warning'] = '';
+        }
+        //...
 
-        //Edit item
-        if (isset($this->request->get['id'])) {
-            $id = $this->request->get['id'];
-            $data['id'] = $id;
+        //Breadcrumbs
+        $data['breadcrumbs'] = array();
 
-            $this->load->model('extension/module/main_menu');
-            $data['item'] = $this->model_extension_module_main_menu->get_item($id);
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'])
+        );
+
+        //Form action
+        if (!isset($this->request->get['item_id'])) {
+            $data['action'] = $this->url->link('extension/module/main_menu/add', 'user_token=' . $this->session->data['user_token']);
+        } else {
+            $data['action'] = $this->url->link('extension/module/main_menu/edit', 'user_token=' . $this->session->data['user_token'] . '&item_id=' . $this->request->get['item_id']);
+        }
+        $data['cancel'] = $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'], true);
+
+        //Load item
+        if (isset($this->request->get['item_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+            $item_info = $this->model_extension_module_main_menu->getItem($this->request->get['item_id']);
         }
 
-        //Form action and cancel link
-        $data['action'] = $this->url->link('extension/module/main_menu/save_item', 'user_token=' . $this->session->data['user_token'], true);
-        $data['cancel'] = $this->url->link('extension/module/main_menu', 'user_token=' . $this->session->data['user_token'], true);
+        $data['user_token'] = $this->session->data['user_token'];
+
+        if (isset($this->request->post['title'])) {
+            $data['title'] = $this->request->post['title'];
+        } elseif (!empty($item_info)) {
+            $data['title'] = $item_info['title'];
+        } else {
+            $data['title'] = '';
+        }
+
+        if (isset($this->request->post['href'])) {
+            $data['href'] = $this->request->post['href'];
+        } elseif (!empty($item_info)) {
+            $data['href'] = $item_info['href'];
+        } else {
+            $data['href'] = '';
+        }
+
+        if (isset($this->request->post['sort_order'])) {
+            $data['sort_order'] = $this->request->post['sort_order'];
+        } elseif (!empty($item_info)) {
+            $data['sort_order'] = $item_info['sort_order'];
+        } else {
+            $data['sort_order'] = true;
+        }
+
+
+        if (isset($this->request->post['status'])) {
+            $data['status'] = $this->request->post['status'];
+        } elseif (!empty($item_info)) {
+            $data['status'] = $item_info['status'];
+        } else {
+            $data['status'] = true;
+        }
+
+        //$this->load->model('localisation/language');
+        //$data['languages'] = $this->model_localisation_language->getLanguages();
+        //...
+
+        $data['sub_items'] = $item_info['sub_items'] ?? array();
 
         //Common controllers
         $data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/module/main_menu/main_menu_item', $data));
+        $this->response->setOutput($this->load->view('extension/module/main_menu/form', $data));
     }
 
     /**
      *
      */
-    public function save_item() {
-
-        $this->load->model('extension/module/main_menu');
-
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-
-            print_r($this->request->post); //Debug
-
-            if (isset($this->request->post['id'])) {
-                $id = $this->request->post['id'];
-                $this->model_extension_module_main_menu->update_item($id, $this->request->post);
-            } else {
-                $this->model_extension_module_main_menu->create_item($this->request->post);
-            }
+    protected function validateForm() {
+        if (!$this->user->hasPermission('modify', 'extension/module/main_menu')) {
+            $this->error['warning'] = $this->language->get('error_permission');
         }
+
+        return !$this->error;
+    }
+
+    protected function validateDelete() {
+        if (!$this->user->hasPermission('modify', 'extension/module/main_menu')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
+
+        return !$this->error;
     }
 
     /**
      *
      */
-    public function item_editor() {
-        $this->load->language('extension/module/custom_main_menu');
-        $this->document->setTitle($this->language->get('heading_title'));
-
-        //Response
-        $this->renderItemEditor();
-    }
-
-	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'extension/module/main_menu')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
-
-		return !$this->error;
-	}
-
     public function install() {
         $this->load->model('setting/setting');
-        $this->model_setting_setting->editSetting('module_custom_main_menu', ['module_custom_main_menu' => 1]);
+        $this->model_setting_setting->editSetting('module_main_menu', ['module_main_menu' => 1]);
     }
 
     public function uninstall() {
         $this->load->model('setting/setting');
-        $this->model_setting_setting->deleteSetting('module_custom_main_menu');
+        $this->model_setting_setting->deleteSetting('module_main_menu');
     }
 }

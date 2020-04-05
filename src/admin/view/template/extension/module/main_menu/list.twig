@@ -1,14 +1,10 @@
-{{ header }}
-
-    {{ column_left }}
+{{ header }}{{ column_left }}
 
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
                 <div class="pull-right">
-                    <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-
-                    <a href="#" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                    <a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
 
                     <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
                 </div>
@@ -40,39 +36,39 @@
                 id="form-module"
                 >
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-status">Status</label>
-                    <div class="col-sm-10">
-                        <select name="module_category_status" id="input-status" class="form-control">
-                            <option value="1" selected="selected">Enabled</option>
-                            <option value="0">Disabled</option>
-                        </select>
-                    </div>
-                </div>
-
                 <fieldset>
                     <legend>
-                        Items
+                        {{ text_list }}
                     </legend>
 
                     <div class="table-response">
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <td>Item</td>
-                                    <td>Actions</td>
+                                    <td>{{ column_title }}</td>
+                                    <td>{{ column_sort_order }}</td>
+                                    <td>{{ column_status }}</td>
+                                    <td>{{ column_actions }}</td>
                                 </tr>
                             </thead>
                             {% for item in items %}
                                 {# Item #}
                                 <tr>
-                                    <td>{{ item.caption }}</td>
+                                    <td>{{ item.title }}</td>
+                                    <td>{{ item.sort_order }}</td>
+                                    <td>{{ item.status }}</td>
                                     <td>
                                         <a
-                                            class="btn btn-sm btn-primary"
-                                            href="index.php?route=extension/module/main_menu/item_editor&id={{ item.id }}&user_token={{ user_token }}"
+                                            class="btn btn-primary"
+                                            href="{{ item.edit }}"
                                             >
                                             <i class="fa fa-pencil"></i>
+                                        </a>
+
+                                        <a
+                                            class="btn btn-danger"
+                                            href="{{ item.delete }}">
+                                            <i class="fa fa-trash-o"></i>
                                         </a>
                                     </td>
                                 </tr>{# End of item #}

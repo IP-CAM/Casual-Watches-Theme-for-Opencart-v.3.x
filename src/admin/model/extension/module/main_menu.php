@@ -1,65 +1,74 @@
 <?php
 class ModelExtensionModuleMainMenu extends Model {
-
     /**
      *
      */
-    public function get_items() {
-        $result = $this->db->query("SELECT * FROM " . DB_PREFIX ."main_menu");
-        return $result->rows;
+    public function addItem($data) {
+        $sort_order = (int)$data['sort_order'];
+
+        $this->db->query("
+            INSERT
+            INTO " . DB_PREFIX . "main_menu SET
+                title = '{$this->db->escape((string)$data['title'])}',
+                href = '{$this->db->escape($data['href'])}',
+                sort_order = $sort_order,
+                status = {$data['status']},
+                sub_items = '{$this->db->escape(json_encode($data['sub_items'] ?? array()))}'
+        ");
+
+        return $this->db->getLastId();
     }
 
     /**
      *
      */
-    private function item_decode($item_serialized) {
+    public function editItem($item_id, $data) {
+        $sort_order = (int)$data['sort_order'];
+
+        $this->db->query("
+            UPDATE " . DB_PREFIX . "main_menu SET
+            title = '{$this->db->escape($data['title'])}',
+            href = '{$this->db->escape($data['href'])}',
+            sort_order = $sort_order,
+            status = {$data['status']},
+            sub_items = '{$this->db->escape(json_encode($data['sub_items']))}'
+            WHERE item_id = {$item_id}
+        ");
+    }
+
+    public function deleteItem($item_id) {
+        $this->db->query("
+            DELETE
+            FROM " . DB_PREFIX . "main_menu
+            WHERE item_id = {$item_id}
+        ");
+    }
+
+    /**
+     *
+     */
+    public function getItem($item_id) {
+        $result = $this->db->query("
+            SELECT *
+            FROM " . DB_PREFIX . "main_menu
+            WHERE item_id = $item_id
+        ");
+
         return [
-            'caption' => $item_serialized['caption'],
-            'link' => $item_serialized['link'],
-            'subitems' => json_decode($item_serialized['subitems'], true),
+            'title' => $result->row['title'],
+            'href' => $result->row['href'],
+            'sort_order'=> $result->row['sort_order'],
+            'status' => $result->row['status'],
+            'sub_items' => json_decode($result->row['sub_items'], true),
         ];
     }
 
     /**
      *
      */
-    public function get_item($id) {
-
-        $result = $this->db->query("
-            SELECT *
-            FROM " . DB_PREFIX . "main_menu
-            WHERE id = $id
-        ");
-
-        return $this->item_decode($result->row);
+    public function getItems() {
+        $result = $this->db->query("SELECT * FROM " . DB_PREFIX ."main_menu");
+        return $result->rows;
     }
 
-    /**
-     *
-     */
-    public function create_item($data = array()) {
-        $this->db->query("
-            INSERT
-            INTO " . DB_PREFIX . "main_menu(
-                caption,
-                link,
-                subitems
-            )
-            VALUES(
-                '{$this->db->escape($data['caption'])}',
-                '{$this->db->escape($data['link'])}',
-                '{$this->db->escape(json_encode($data['subitems']))}'
-            )
-        ");
-    }
-
-    public function update_item($item_id, $data = array()) {
-        $this->db->query("
-            UPDATE " . DB_PREFIX . "main_menu SET
-            caption = '{$this->db->escape($data['caption'])}',
-            link = '{$this->db->escape($data['link'])}',
-            subitems = '{$this->db->escape(json_encode($data['subitems']))}'
-            WHERE id = $item_id
-        ");
-    }
 }

@@ -1,0 +1,219 @@
+{{ header }}{{ column_left }}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            </div>
+
+            <h1>{{ heading_title }}</h1>
+
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <form
+            class="form-horizontal"
+            action="{{ action }}"
+            method="post"
+            enctype="multipart/form-data"
+            id="form-module">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-name">Title</label>
+
+                <div class="col-sm-10">
+                    <input
+                        class="form-control"
+                        type="text"
+                        id="input-name"
+                        name="title"
+                        value="{{ title }}" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-href">
+                    Link
+                </label>
+                <div class="col-sm-10">
+                    <input
+                        class="form-control"
+                        type="text"
+                        id="input-href"
+                        name="href"
+                        value="{{ href }}" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-sort-order">
+                    {{ entry_sort_order }}
+                </label>
+                <div class="col-sm-10">
+                    <input
+                        class="form-control"
+                        type="text"
+                        id="input-sort-order"
+                        name="sort_order"
+                        value="{{ sort_order }}" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+                <div class="col-sm-10">
+                    <select name="status" id="input-status" class="form-control">
+                        <option value="1"{% if status %}selected{% endif %}>{{ text_enabled }}</option>
+                        <option value="0"{% if not status %} selected{% endif %}>{{ text_disabled }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <fieldset>
+                <legend>Sub-items</legend>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>{{ column_title }}</td>
+                            <td>{{ column_sub_links }}</td>
+                            <td>{{ column_sort_order }}</td>
+                            <td>{{ column_status }}</td>
+                            <td>{{ column_actions }}</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for sub_item in sub_items %}
+
+                            {% set sub_item_id = loop.index %}
+
+                            <tr data-sub-item="{{ sub_item_id }}">
+                                <td><input name="sub_items[{{ sub_item_id }}][title]" value={{ sub_item.title }} class="form-control" type="text" /></td>
+                                <td>
+                                    <div class="sub-links">
+
+                                        {% for sub_link in sub_item.sub_links %}
+
+                                            {% set sub_link_id = loop.index %}
+
+                                            <div class="input-group" data-sub-link="{{ sub_link_id }}">
+                                                <input name="sub_items[{{ sub_item_id }}][sub_links][{{ sub_link_id }}][title]" value="{{ sub_link.title }}" class="form-control" type="text" />
+
+                                                <input name="sub_items[{{ sub_item_id }}][sub_links][{{ sub_link_id }}][href]" value="{{ sub_link.href }}" class="form-control" type="text" />
+
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" onclick="deleteSubLink({{ sub_link_id }})"><i class="fa fa-trash-o"></i></a>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+                                    <button class="btn btn-success" type="button" onclick="addSubLink({{ sub_item_id }})"><i class="fa fa-plus"></i></button>
+                                </td>
+                                <td><input name="sub_items[{{ sub_item_id }}][sort_order]" value="{{ sub_item.sort_order }}" class="form-control" type="text" /></td>
+                                <td>
+                                    <select name="sub_items[{{ sub_item_id }}][status]" class="form-control">
+                                        <option value="1"{% if sub_item.status %} selected{% endif %}>{{ text_enabled }}</option>
+                                        <option value="0"{% if not sub_item.status %} selected{% endif %}>{{ text_disabled }}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" onclick="deleteSubItem({{ sub_item_id }})"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td>
+                                <button class="btn btn-primary" type="button" onclick="addSubItem()"><i class="fa fa-plus"></i></button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+{{ footer }}
+
+<style>
+    .sub-links .input-group {
+        margin-bottom: 8px;
+    }
+
+    .sub-links .input-group .form-control {
+        width: 50%;
+    }
+</style>
+
+<script>
+const subItemTemplate = subItemId => `
+    <tr data-sub-item="${subItemId}">
+        <td><input name="sub_items[${subItemId}][title]" class="form-control" type="text" /></td>
+        <td>
+            <div class="sub-links"></div>
+            <button class="btn btn-success" type="button" onclick="addSubLink(${subItemId})"><i class="fa fa-plus"></i></button>
+        </td>
+        <td><input name="sub_items[${subItemId}][sort_order]" class="form-control" type="text" /></td>
+        <td>
+            <select name="sub_items[${subItemId}][status]" class="form-control">
+                <option value="1" selected>{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+            </select>
+        </td>
+        <td>
+            <button class="btn btn-danger" type="button" onclick="deleteSubItem(${subItemId})"><i class="fa fa-trash-o"></i></button>
+        </td>
+    </tr>
+`
+
+const subLinkTemplate = (subItemId, subLinkId) => `
+    <div class="input-group" data-sub-link="${subLinkId}">
+        <input name="sub_items[${subItemId}][sub_links][${subLinkId}][title]" class="form-control" type="text" />
+
+        <input name="sub_items[${subItemId}][sub_links][${subLinkId}][href]" class="form-control" type="text" />
+
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="deleteSubLink(${subItemId}, ${subLinkId})"><i class="fa fa-trash-o"></i></a>
+        </div>
+    </div>
+    `
+
+const addSubItem = () => {
+    const subItemId = $('tr[data-sub-item]').length
+        ? +$('tr[data-sub-item]').last().attr('data-sub-item') + 1
+        : 0
+
+    $('tbody').append(subItemTemplate(subItemId))
+}
+
+const deleteSubItem = subItemId => {
+    $(`tr[data-sub-item=${subItemId}]`).remove()
+}
+
+const addSubLink = subItemId => {
+    const subLinksContainer = $(`tr[data-sub-item=${subItemId}]`).find('.sub-links')
+    const subLinkId = subLinksContainer.find('.input-group').length
+        ? +subLinksContainer.find('.input-group').last().attr('data-sub-link') + 1
+        : 0
+
+    subLinksContainer.append(subLinkTemplate(subItemId, subLinkId))
+}
+
+const deleteSubLink = (subItemId, subLinkId) => {
+    $(`tr[data-sub-item=${subItemId}]`).find(`div[data-sub-link=${subLinkId}]`).remove()
+}
+</script>
