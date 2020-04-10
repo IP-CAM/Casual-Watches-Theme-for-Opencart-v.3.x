@@ -3,23 +3,10 @@
 
 //Bootstrap customization
 
-$grid-breakpoints: (
-  xs: $breakpoint-xs,
-  sm: $breakpoint-sm,
-  md: $breakpoint-md,
-  lg: $breakpoint-lg,
-  xl: $breakpoint-xl,
-);
-
-$container-max-widths: (
-    xxl: 1280px,
-);
 
 // ...
 
-//@import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
+@import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 
 //If you need the whole framework
-@import './../../../../../../../node_modules/bootstrap/scss/bootstrap.scss';
-
-@import './../../../../../../../node_modules/bootstrap/scss/tooltip';
+//@import './../../../../../../../node_modules/bootstrap/scss/bootstrap.scss';

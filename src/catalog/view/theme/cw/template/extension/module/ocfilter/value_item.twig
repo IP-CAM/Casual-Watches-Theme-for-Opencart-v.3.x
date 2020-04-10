@@ -1,0 +1,24 @@
+{% if option.color %}
+<div class="ocf-color" style="background-color: #{{ value.color }};"></div>
+{% endif %}
+
+{% if option.image %}
+<div class="ocf-image" style="background-image: url({{ value.image }});"></div>
+{% endif %}
+
+<div class="custom-control custom-{{ option.type }} mb-2" data-option-id="{{ option.option_id }}">
+  {% if value.selected %}
+  <input type="{{ option.type }}" name="ocf[{{ option.option_id }}]" value="{{ value.params }}" class="custom-control-input ocf-target" id="ocf-value-{{ value.id }}" checked="checked" />
+  {% elseif value.count %}
+  <input type="{{ option.type }}" name="ocf[{{ option.option_id }}]" value="{{ value.params }}" class="custom-control-input ocf-target" id="ocf-value-{{ value.id }}" />
+  {% else %}
+  <input type="{{ option.type }}" name="ocf[{{ option.option_id }}]" value="{{ value.params }}" class="custom-control-input ocf-target" id="ocf-value-{{ value.id }}" disabled="disabled" />
+  {% endif %}
+
+  <label class="custom-control-label" for="ocf-value-{{ value.id }}">
+    {{ value.name }}
+    {% if show_counter %}
+    <small class="font-weight-normal text-black-50"></small>
+    {% endif %}
+  </label>
+</div>
