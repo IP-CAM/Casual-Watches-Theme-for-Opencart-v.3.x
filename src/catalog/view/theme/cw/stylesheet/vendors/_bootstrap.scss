@@ -17,7 +17,9 @@ $container-max-widths: (
 
 // ...
 
-@import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
+//@import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 
 //If you need the whole framework
-//@import './../../../../../../../node_modules/bootstrap/scss/bootstrap.scss'
+@import './../../../../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+@import './../../../../../../../node_modules/bootstrap/scss/tooltip';

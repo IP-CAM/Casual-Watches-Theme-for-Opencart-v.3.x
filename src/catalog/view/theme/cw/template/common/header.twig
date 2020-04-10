@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="col-auto">
-                        CASUALWATCHES
+                        <!--img class="logo" src="catalog/view/theme/cw/image/logo.svg" /-->
                     </div>
 
                     <div class="col">
@@ -68,20 +68,25 @@
 
                                     {{ search }}
 
-                                    <button class="header-controls__item button">
-                                        <span class="header__button">Вход</span>
-                                    </button>
+                                    {% if logged %}
+                                        <button class="button button_view_plain" href="{{ account }}">
+                                            <span class="button__body">ВХОД</span>
+                                        </button>
+                                    {% else %}
+                                        <a class="button" href="{{ account }}">
+                                            <svg class="icon icon_size_medium">
+                                                <use href="#icon-favorite" />
+                                            </svg>
+                                        </a>
+                                    {% endif %}
 
-
-                                    <button class="button-group__button button button_view_plain">
-                                        <svg class="button__icon">
-                                            <use href="#icon-fav" />
+                                    <button class="button button_view_plain">
+                                        <svg class="icon icon_size_medium">
+                                            <use href="#icon-favorite" />
                                         </svg>
-
-                                        <span class="button__badge">{{ count_wishlist }}</span>
                                     </button>
 
-                                    <div class="button-group__button">
+                                    <div>
                                         {{ cart }}
                                     </div>
 

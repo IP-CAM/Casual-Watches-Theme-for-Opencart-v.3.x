@@ -5,6 +5,7 @@
 @import './base/base';
 @import './base/fonts';
 @import './base/typography';
+@import './base/helpers';
 
 @import './theme/bright';
 //@import './theme/dark';
@@ -13,6 +14,7 @@
 @import './vendors/slick';
 
 @import './components/button';
+@import './components/icon';
 @import './components/breadcrumbs';
 @import './components/alert';
 @import './components/product-teaser';
@@ -22,6 +24,7 @@
 @import './components/link-group';
 
 @import './layout/header';
+@import './layout/auth';
 @import './layout/menu';
 @import './layout/footer';
 

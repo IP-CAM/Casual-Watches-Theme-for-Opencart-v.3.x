@@ -1,0 +1,60 @@
+.auth {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    padding: 40px 48px;
+    background-color: var(--bg);
+    width: 480px;
+
+    &__input-group {
+        box-sizing: border-box;
+        margin-top: 12px;
+        padding: 8px;
+        border: 1px solid var(--border);
+    }
+
+    &__label {
+        display: block;
+        font-size: 13px;
+    }
+
+    &__input {
+        box-sizing: border-box;
+        width: 100%;
+        border: 0;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.auth-links {
+    padding: 0;
+    text-align: center;
+
+    &__item {
+        list-style: none;
+    }
+
+    &__link {
+        text-decoration: none;
+        color: var(--link);
+    }
+}
+
+.auth-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 48px;
+    width: 48px;
+    padding: 0;
+    border: 0;
+
+    &__icon {
+        fill: currentColor;
+        height: 24px;
+        width: 24px;
+    }
+}

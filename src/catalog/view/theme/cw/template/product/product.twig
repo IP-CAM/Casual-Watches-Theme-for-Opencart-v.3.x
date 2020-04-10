@@ -14,7 +14,45 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <img class="product__image" src="catalog/view/theme/cw/image/tmp/product.jpg" />
+                <div class="product-gallery">
+                    {% if images or thumb %}
+                        <div class="product-gallery__thumbnails">
+                            <div class="product-thumbnails">
+                                {% if thumb %}
+                                    <div>
+                                        <img class="product__thumbnail" src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                    </div>
+                                {% endif %}
+                                {% if images %}
+                                    {% for image in images %}
+                                        <div>
+                                            <img class="product__thumbnail" src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="product-gallery__image">
+                        <div class="product-images">
+                            {% if images or thumb %}
+                                {% if thumb %}
+                                    <div>
+                                        <img class="product__image" src="{{ popup }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                    </div>
+                                {% endif %}
+                                {% if images %}
+                                    {% for image in images %}
+                                        <div>
+                                            <img class="product__image" src="{{ image.popup }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
 
                 <div class="product__attributes">
                     <table class="attributes__table">
@@ -73,13 +111,19 @@
 
                     {% if minimum > 1 %}{{ text_minimum }}{% endif %}
 
-                    <button class="button button_view_action button_size_xl product__buy-button">
-                        Быстрый заказ
-                    </button>
+                    <div class="button-group">
+                        <button class="button button_view_action button_caps" id="button-cart">
+                            <span class="button__body">В корзину</span>
+                        </button>
 
-                    <button class="button button_view_pseudo button_size_xl product__buy-button" id="button-cart">
-                        В корзину
-                    </button>
+                        <button class="button">
+                            <svg class="icon">
+                                <use href="#icon-favorite" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button class="button width-full button_caps">Быстрый заказ</button>
                 </div>
 
                 <div class="product__seller-features seller-features">
@@ -103,14 +147,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <button class="button button_view_plain">
-                    <svg class="button__icon">
-                        <use href="#fav" />
-                    </svg>
-
-                    <span class="button__text">В закладки</span>
-                </button>
             </div>
         </div>
     </div>

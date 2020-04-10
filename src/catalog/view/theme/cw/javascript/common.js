@@ -1,6 +1,4 @@
-/**
- * Helpers
- */
+//Helpers
 const ajaxErrorHandler = (xhr, ajaxOptions, thrownError) => {
     console.error(`${thrownError}\r\n${xhr.responseText}`)
 }
@@ -46,9 +44,7 @@ const pushAlert = (text, options) => {
     $('.alerts').append(html)
 }
 
-/**
- * Cart function collection
- */
+//Cart
 const addProductToCart = (product_id, quantity) => {
     $.ajax({
         url: 'index.php?route=checkout/cart/add',
@@ -113,15 +109,11 @@ const cart = {
     remove: removeProductFromCart,
 }
 
-/**
- * Voucher function collection
- */
+// Voucher
 
 // ...
 
-/**
- * Whishlist function collection
- */
+//Whishlist
 const  whishlist = {
     add: addProductToWhishlist,
 }
@@ -186,9 +178,40 @@ const addToCompareResponseHander = json => {
 }
 
 
-
 //On DOM ready
 $(() => {
+    //Auth
+    const toggleAuthModal = () => {
+        $('.auth').parents('.modal-wrapper').toggleClass('modal-wrapper_state_hidden')
+    }
+
+    $('.auth-close, .auth-show').on('click', toggleAuthModal)
+
+    const authRequest = () => {
+        $.ajax({
+            url: 'index.php?route=account/quick_login',
+            type: 'post',
+            data: $('.auth__form input'),
+            dataType: 'json',
+            beforeSend: () => {
+                $('.auth__error').remove();
+            },
+            success: authRequestResponseHandler,
+            error: ajaxErrorHandler,
+        })
+    }
+
+    const authRequestResponseHandler = json => {
+        //location.reload();
+        console.log(json)
+    }
+
+    const authFormSubmitHandler = event => {
+        event.preventDefault()
+        authRequest()
+    }
+
+    $('.auth__form').on('submit', authFormSubmitHandler)
 
 
     //Search box
@@ -212,8 +235,8 @@ $(() => {
         let url = `${$('base').attr('href')}index.php?route=product/search`
 		const value = $('.search__input').val()
 
-		if (value) {
-			url += `&search= ${encodeURIComponent(value)}`
+        if (value) {
+        url += `&search= ${encodeURIComponent(value)}`
             location = url
         }
 	})

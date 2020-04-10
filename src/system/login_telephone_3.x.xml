@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+   <id>Login with Mobile Number</id>
+   <version>1.0</version>
+   <vqmver>3.X</vqmver>
+
+	<file name="catalog/controller/account/login.php">	   
+		   <operation>
+			   <search position="after" offset="1"><![CDATA[
+			   $data['email'] = '';
+			   ]]></search>
+			   <add><![CDATA[
+			   if (isset($this->request->post['mob_number'])) {
+			   $data['mob_number'] = $this->request->post['mob_number'];
+		       } else {
+		       $data['mob_number'] = '';
+		       }
+			   ]]></add>
+		   </operation>
+		   <operation>
+			   <search position="replace"><![CDATA[
+			   $login_info = $this->model_account_customer->getLoginAttempts($this->request->post['email']);
+			   ]]></search>
+			   <add><![CDATA[
+			   $login_info = $this->model_account_customer->getLoginAttempts($this->request->post['mob_number']);
+			   ]]></add>
+		   </operation>
+		   <operation>
+			   <search position="replace"><![CDATA[
+			   $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
+			   ]]></search>
+			   <add><![CDATA[
+			   $customer_info = $this->model_account_customer->getCustomerByTelephone($this->request->post['mob_number']);
+			   ]]></add>
+		   </operation>
+		    <operation>
+			   <search position="replace"><![CDATA[
+			   if (!$this->customer->login($this->request->post['email'], $this->request->post['password'])) {
+			   ]]></search>
+			   <add><![CDATA[
+			   if (!$this->customer->login($this->request->post['mob_number'], $this->request->post['password'])) {
+			   ]]></add>
+		   </operation>
+		   <operation>
+			   <search position="replace"><![CDATA[
+			   $this->model_account_customer->addLoginAttempt($this->request->post['email']);
+			   ]]></search>
+			   <add><![CDATA[
+			   $this->model_account_customer->addLoginAttempt($this->request->post['mob_number']);
+			   ]]></add>
+		   </operation>
+		   <operation>
+			   <search position="replace"><![CDATA[
+			   $this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
+			   ]]></search>
+			   <add><![CDATA[
+			   $this->model_account_customer->deleteLoginAttempts($this->request->post['mob_number']);
+			   ]]></add>
+		   </operation>
+	</file>
+	<file name="catalog/model/account/customer.php">
+	<operation>
+			   <search position="replace"><![CDATA[
+			   public function deleteLoginAttempts($email) {
+			   ]]></search>
+			   <add><![CDATA[
+			   public function deleteLoginAttempts($telephone) {
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE email = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+			   ]]></search>
+			   <add><![CDATA[
+			  $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE telephone = '" . (int)$telephone . "'");
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   public function getLoginAttempts($email) {
+			   ]]></search>
+			   <add><![CDATA[
+			   public function getLoginAttempts($telephone) {
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE email = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+			   ]]></search>
+			   <add><![CDATA[
+			   $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE telephone = '" . (int)$telephone . "'");
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   public function addLoginAttempt($email) {
+			   ]]></search>
+			   <add><![CDATA[
+			   public function addLoginAttempt($telephone) {
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_login WHERE email = '" . $this->db->escape(utf8_strtolower((string)$email)) . "' AND ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "'");
+			   ]]></search>
+			   <add><![CDATA[
+			   $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_login WHERE telephone = '" . (int)$telephone . "' AND ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "'");
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $this->db->query("INSERT INTO " . DB_PREFIX . "customer_login SET email = '" . $this->db->escape(utf8_strtolower((string)$email)) . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', total = 1, date_added = '" . $this->db->escape(date('Y-m-d H:i:s')) . "', date_modified = '" . $this->db->escape(date('Y-m-d H:i:s')) . "'");
+			   ]]></search>
+			   <add><![CDATA[
+			   $this->db->query("INSERT INTO " . DB_PREFIX . "customer_login SET telephone = '" . (int)$telephone . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', total = 1, date_added = '" . $this->db->escape(date('Y-m-d H:i:s')) . "', date_modified = '" . $this->db->escape(date('Y-m-d H:i:s')) . "'");
+			   ]]></add>
+	</operation>
+	
+	<operation>
+			   <search position="before"><![CDATA[
+			   public function getIps($customer_id) {
+			   ]]></search>
+			   <add><![CDATA[
+			   public function getCustomerByTelephone($telephone) {
+		       $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE telephone = '" . (int)$telephone . "'");
+		       return $query->row; 
+	           }
+			   ]]></add>
+	</operation>
+	</file>
+    <file name="catalog/view/theme/*/template/account/login.twig">
+	<operation>
+			   <search position="replace" offset="1"><![CDATA[
+			   <label class="control-label" for="input-email">{{ entry_email }}</label>
+			   ]]></search>
+			   <add><![CDATA[
+			   <label class="control-label" for="input-Number">Mobile Number</label>
+               <input type="text" name="mob_number" value="{{ mob_number }}" placeholder="Enter Mobile Number" id="input-Number" class="form-control" />
+			   ]]></add>
+	</operation>
+	</file>
+	<file name="system/library/cart/customer.php">
+	<operation>
+			   <search position="replace"><![CDATA[
+			   public function login($email, $password, $override = false) {
+			   ]]></search>
+			   <add><![CDATA[
+			   public function login($telephone, $password, $override = false) {
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");
+			   ]]></search>
+			   <add><![CDATA[
+			   $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE telephone = '" . (int)$telephone . "' AND status = '1'");
+			   ]]></add>
+	</operation>
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1'");
+			   ]]></search>
+			   <add><![CDATA[
+			   $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE telephone = '" . $telephone . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1'");
+			   ]]></add>
+	</operation>
+	</file>
+	<file name="catalog/language/en-gb/account/login.php">
+	<operation>
+			   <search position="replace"><![CDATA[
+			   $_['error_login']                  = 'Warning: No match for E-Mail Address and/or Password.';
+			   ]]></search>
+			   <add><![CDATA[
+			   $_['error_login']                  = 'Warning: No match for Mobile Number and/or Password.';
+			   ]]></add>
+	</operation>
+	</file>
+</modification>

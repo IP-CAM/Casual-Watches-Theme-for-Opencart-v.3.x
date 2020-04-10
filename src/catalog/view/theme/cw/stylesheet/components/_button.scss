@@ -1,31 +1,18 @@
 .button {
     display: inline-block;
     box-sizing: border-box;
-    padding: 4px 8px;
-    flex-flow: row;
-    align-items: center;
+    padding: 10px 20px;
     font: inherit;
     color: var(--button-background);
-    border: 1px solid rgba(0, 0, 0, .1);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, .1);
 
-    &__text {
+    &__body {
         display: inline-block;
     }
 
-    &__icon {
-        display: inline-block;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 3;
-        width: 1em;
-        height: 1em;
-        overflow: hidden;
-        margin: 0 10px;
-    }
-
-    &__badge {
-
-    }
+    $this: &;
 
     //Mods
     &_view {
@@ -38,20 +25,20 @@
 
         &_plain {
             padding: 0;
-
+            border-color: transparent;
         }
+    }
+
+    &_caps {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
     }
 
     &_size {
 
         &_small {
 
-        }
-
-        &_medium {
-            display: block;
-            font-size: 18px;
-            padding: 12px 24px;
         }
 
         &_big {

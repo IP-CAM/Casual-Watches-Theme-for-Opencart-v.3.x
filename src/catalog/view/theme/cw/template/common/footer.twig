@@ -47,12 +47,10 @@
     </div>
 </footer>
 
-<div class="overlay">
-
-</div>
+{% include "cw/template/common/auth.twig" %}
 
 <div class="visually-hidden" hidden>
-    {% include "/cw/image/sprites.svg" %}
+    {% include "cw/image/sprites.svg" %}
 </div>
 
 {% for script in scripts %}

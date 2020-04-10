@@ -37,11 +37,13 @@ const sprites = () =>
     src('./src/catalog/view/theme/cw/image/sprites/**/*.svg')
         .pipe(cheerio({
             run: function($) {
-				$('[style]').removeAttr('style')
-			},
-			parserOptions: { xmlMode: true },
+                $('[style]').removeAttr('style')
+            },
+            parserOptions: { xmlMode: true },
         }))
-        .pipe(rename({ prefix: 'icon-' }))
+        .pipe(rename(path => {
+            path.basename = 'icon-' + path.basename.replace('_', '-')
+        }))
         .pipe(svgStore())
         .pipe(rename({
             dirname: 'catalog/view/theme/cw/image',

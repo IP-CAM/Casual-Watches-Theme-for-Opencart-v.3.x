@@ -5,6 +5,42 @@
     <code>cw-mu</code>
 
     <!--
+    Replaces the standard Swiper with Slick
+    Removes Magnific Popup
+    -->
+    <file path="catalog/controller/product/product.php">
+        <operation>
+            <search index="0" offset="2">
+            <![CDATA[
+$this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+            ]]>
+            </search>
+            <add position="replace"><![CDATA[
+$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js');
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Additional language file
+    -->
+    <file path="catalog/controller/startup/startup.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$language->load($code);
+            ]]>
+            </search>
+            <add position="after"><![CDATA[
+$language->load('extension/theme/cw');
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+    <!--
     Remove sort orders
     -->
     <file path="catalog/controller/product/category.php">

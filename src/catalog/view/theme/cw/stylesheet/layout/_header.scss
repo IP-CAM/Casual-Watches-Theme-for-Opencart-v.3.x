@@ -30,7 +30,7 @@
 
 .search-box {
     display: flex;
-    border: 2px solid #2b2b2b;
+    border-bottom: 2px solid var(--border);
     margin-right: 12px;
 
     //Elements
@@ -71,6 +71,6 @@
     display: flex;
 }
 
-.header-button {
-
+.logo {
+    width: 180px;
 }

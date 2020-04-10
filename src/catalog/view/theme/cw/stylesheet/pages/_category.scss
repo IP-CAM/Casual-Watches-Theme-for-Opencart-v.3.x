@@ -5,3 +5,19 @@
         text-align: center;
     }
 }
+
+.sorting {
+    padding: 0;
+    display: flex;
+    margin: 0 0 20px;
+
+    &__item {
+        list-style: none;
+        margin-right: 1em;
+    }
+
+    &__link {
+        color: var(--secondary-text);
+        text-decoration: none;
+    }
+}

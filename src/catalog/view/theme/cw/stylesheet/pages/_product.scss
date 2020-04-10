@@ -66,6 +66,32 @@
     }
 }
 
+.product-gallery {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &__thumbnails {
+        width: 100px;
+    }
+
+    &__image {
+        width: calc(100% - 100px);
+    }
+}
+
+.product-images {
+    max-width: 100%;
+}
+
+.product__image {
+    width: 100%;
+}
+
+.product__thumbnail {
+    width: 50px;
+    height: 50px;
+}
+
 .seller-features {
 
     //Elements
@@ -123,18 +149,3 @@
     }
 }
 
-.sorting {
-    padding: 0;
-    display: flex;
-    margin: 0 0 20px;
-
-    &__item {
-        list-style: none;
-        margin-right: 1em;
-    }
-
-    &__link {
-        color: var(--secondary-text);
-        text-decoration: none;
-    }
-}
