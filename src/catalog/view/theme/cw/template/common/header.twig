@@ -16,6 +16,10 @@
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
+    <script
+        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
     <script src="catalog/view/theme/cw/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="catalog/view/theme/cw/javascript/common.js"></script>
     {% for style in styles %}
@@ -33,7 +37,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="header__row header__callup">
+        <div class="header__row header__row_top">
             <div class="container">
                 <a class="header__tel" href="tel:{{ telephone|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone }}</a>
 
@@ -45,11 +49,11 @@
                     – {{ open }}
                 {% endif %}
 
-                <button class="button button_view_pseudo callback-button">Перезвоните мне</button>
+                <button class="callback-show">Перезвоните мне</button>
             </div>
         </div>
 
-        <div class="header__row">
+        <div class="header__row header__row_middle">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col">
@@ -57,50 +61,41 @@
                     </div>
 
                     <div class="col-auto">
-                        <!--img class="logo" src="catalog/view/theme/cw/image/logo.svg" /-->
+                        <img class="logo" src="catalog/view/theme/cw/image/logo.svg" />
                     </div>
 
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-auto ml-auto">
+                    <div class="col d-flex flex-row justify-content-end">
 
-                                <div class="header-controls">
+                        {{ search }}
 
-                                    {{ search }}
+                        <div class="button-group">
+                            {% if logged %}
+                                <a class="button" href="{{ account }}">
+                                    <svg class="icon icon_size_medium">
+                                        <use href="#icon-favorite" />
+                                    </svg>
+                                </a>
+                            {% else %}
+                                <button class="button button_view_plain auth-show" href="{{ account }}">
+                                    <span class="button__body">ВХОД</span>
+                                </button>
+                            {% endif %}
 
-                                    {% if logged %}
-                                        <button class="button button_view_plain" href="{{ account }}">
-                                            <span class="button__body">ВХОД</span>
-                                        </button>
-                                    {% else %}
-                                        <a class="button" href="{{ account }}">
-                                            <svg class="icon icon_size_medium">
-                                                <use href="#icon-favorite" />
-                                            </svg>
-                                        </a>
-                                    {% endif %}
+                            <button class="button button_view_plain">
+                                <svg class="icon icon_size_medium">
+                                    <use href="#icon-favorite" />
+                                </svg>
+                            </button>
 
-                                    <button class="button button_view_plain">
-                                        <svg class="icon icon_size_medium">
-                                            <use href="#icon-favorite" />
-                                        </svg>
-                                    </button>
-
-                                    <div>
-                                        {{ cart }}
-                                    </div>
-
-                                </div>
-
-
-                            </div>
+                            {{ cart }}
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="header__row">
+        <div class="header__row header__row_bottom">
             {{ menu }}
         </div>
     </header>

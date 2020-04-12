@@ -1,0 +1,11 @@
+<div class="banners">
+    {% for banner in banners %}
+        {% if banner.link %}
+            <a href="{{ banner.link }}">
+                <img class="banners__item" src="{{ banner.image }}" alt="{{ banner.title }}" />
+            </a>
+        {% else %}
+            <img class="banners__item" src="{{ banner.image }}" alt="{{ banner.title }}" />
+        {% endif %}
+    {% endfor %}
+</div>

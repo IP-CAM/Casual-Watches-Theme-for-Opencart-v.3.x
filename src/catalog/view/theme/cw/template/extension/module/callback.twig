@@ -1,47 +1,35 @@
 <div class="modal-wrapper modal-wrapper_state_hidden">
     <div class="modal-container">
-        <div class="modal auth">
+        <div class="modal callback">
             <button class="modal-close">
                 <svg class="modal-close__icon">
                     <use href="#icon-close" />
                 </svg>
             </button>
-
             <div class="modal__messages"></div>
-
             <div class="modal__inner">
-                <h2 class="auth__title">{{ cw_auth_title }}</h2>
+                <h2 class="callback__title">Обратный звонок</h2>
+
+                <p>Оставьте свой контактный номер телефона и наш менеджер свяжется с вами в ближайшее время</p>
 
                 <form class="auth__form" action="#">
                     <div class="auth__input-group">
-                        <label class="auth__label">Номер телефона или адрес почты</label>
+                        <label class="auth__label">Ваше имя</label>
                         <input name="email" class="auth__input" type="text" />
                     </div>
 
                     <div class="auth__input-group">
-                        <label class="auth__label">Пароль</label>
+                        <label class="auth__label">Контактный номер телефона</label>
                         <input name="password" class="auth__input" type="text" type="password" />
                     </div>
 
                     <button class="button button_view_action" type="submit">Войти</button>
                 </form>
 
-                <ul class="auth-links">
-                    <li class="auth-links__item">
-                        <a class="auth-links__link" href="">
-                            Не помню пароль
-                        </a>
-                    </li>
-                    <li class="auth-links__item">
-                        <a class="auth-links__link">
-                            Я — новый покупатель
-                        </a>
-                    </li>
-                </ul>
-
                 <p class="auth__footlink">
                     Нажимаю кнопку «Войти», я принимаю условия конфидициальности
                 </p>
+
             </div>
         </div>
     </div>

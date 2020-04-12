@@ -14,18 +14,20 @@ services:
             - php
     php:
         build: ./docker/php-fpm
+        restart: unless-stopped
         ports:
             - 9000:9000
         volumes:
             - ./dist:/var/www/html
     mariadb:
         image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+        restart: unless-stopped
         ports:
             - 3306:3306
         volumes:
             - mariadb_data:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     pma:
         image: phpmyadmin/phpmyadmin
         environment:

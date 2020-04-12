@@ -5,6 +5,24 @@
     <code>cw-mu</code>
 
     <!--
+    Replaces menu
+    -->
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$data['menu'] = $this->load->controller('common/menu');
+            ]]>
+            </search>
+            <add position="replace"><![CDATA[
+$data['menu'] = $this->load->controller('extension/module/main_menu');
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
     Replaces the standard Swiper with Slick
     Removes Magnific Popup
     -->

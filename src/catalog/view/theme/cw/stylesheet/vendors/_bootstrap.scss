@@ -3,6 +3,20 @@
 
 //Bootstrap customization
 
+$grid-breakpoints: (
+  xs: $breakpoint-xs,
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: $breakpoint-xl,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 940px,
+  xl: 1366px,
+);
 
 // ...
 

@@ -11,7 +11,7 @@
         }
 
             &__link {
-                color: currentColor;
+                color: var(--text-secondary);
                 text-decoration: none;
             }
 
@@ -27,7 +27,7 @@
             }
 
             #{$this}__item {
-                margin-right: 10px;
+                margin-right: 16px;
                 font-size: 16px;
             }
         }

@@ -3,22 +3,26 @@ const ajaxErrorHandler = (xhr, ajaxOptions, thrownError) => {
     console.error(`${thrownError}\r\n${xhr.responseText}`)
 }
 
-const updateCartWidget = () => {
-    $('#cart').parent().load('index.php?route=common/cart/info')
+const updateCartCount = () => {
+    const cartButton = $('#cart')
+
+    $.get('index.php?route=common/cart/info', (html) => {
+        cartButton.replaceWith(html)
+    })
 }
 
-const updateWishlistCount = count => {
+const updateWishlistCount = (count) => {
     // ...
 }
 
-const getURLVar = key => {
+const getURLVar = (key) => {
     const value = []
     const query = String(document.location).split('?')
 
     if (query[1]) {
         const part = query[1].split('&')
 
-        part.forEach(el => {
+        part.forEach((el) => {
             const data = el.split('=')
 
             if (data[0] && data[1]) {
@@ -49,23 +53,25 @@ const addProductToCart = (product_id, quantity) => {
     $.ajax({
         url: 'index.php?route=checkout/cart/add',
         type: 'post',
-        data: `product_id=${product_id}&quantity=${typeof(quantity) != undefined ? quantity : 1}`,
+        data: `product_id=${product_id}&quantity=${
+            typeof quantity != undefined ? quantity : 1
+        }`,
         dataType: 'json',
         beforeSend: () => {},
         complete: () => {},
         success: addToCartResponseHandler,
-        error: ajaxErrorHandler,
+        error: ajaxErrorHandler
     })
 }
 
-const addToCartResponseHandler = json => {
+const addToCartResponseHandler = (json) => {
     if (json['redirect']) {
         location = json['redirect']
     }
 
     if (json['success']) {
         pushAlert(json['success'], { view: 'success' })
-        updateCartWidget()
+        updateCartCount()
     }
 }
 
@@ -78,11 +84,11 @@ const updateProductInCart = (key, quantity) => {
         beforeSend: () => {},
         complete: () => {},
         success: updateCartResponseHandler,
-        error: ajaxErrorHandler,
+        error: ajaxErrorHandler
     })
 }
 
-const removeProductFromCart = key => {
+const removeProductFromCart = (key) => {
     $.ajax({
         url: 'index.php?route=checkout/cart/remove',
         type: 'post',
@@ -91,22 +97,25 @@ const removeProductFromCart = key => {
         beforeSend: () => {},
         complete: () => {},
         success: updateCartResponseHandler,
-        error: ajaxErrorHandler,
+        error: ajaxErrorHandler
     })
 }
 
-const updateCartResponseHandler = json => {
-    if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
-        location = 'index.php?route=checkout/cart';
+const updateCartResponseHandler = (json) => {
+    if (
+        getURLVar('route') == 'checkout/cart' ||
+        getURLVar('route') == 'checkout/checkout'
+    ) {
+        location = 'index.php?route=checkout/cart'
     } else {
-        updateCartWidget();
+        updateCartWidget()
     }
 }
 
 const cart = {
     add: addProductToCart,
     update: updateProductInCart,
-    remove: removeProductFromCart,
+    remove: removeProductFromCart
 }
 
 // Voucher
@@ -114,8 +123,8 @@ const cart = {
 // ...
 
 //Whishlist
-const  whishlist = {
-    add: addProductToWhishlist,
+const whishlist = {
+    add: addProductToWhishlist
 }
 
 const addProductToWhishlist = () => {
@@ -127,11 +136,11 @@ const addProductToWhishlist = () => {
         beforeSend: () => {},
         complete: () => {},
         success: addToWhishlistResponseHander,
-        error: ajaxErrorHandler,
+        error: ajaxErrorHandler
     })
 }
 
-const addToWhishlistResponseHander = json => {
+const addToWhishlistResponseHander = (json) => {
     if (json['redirect']) {
         location = json['redirect']
     }
@@ -144,11 +153,9 @@ const addToWhishlistResponseHander = json => {
     updateWishlistCount(json['total'])
 }
 
-/**
- * Compare function collection
- */
+//Compare
 const compare = {
-    add: addProductToCompare,
+    add: addProductToCompare
 }
 
 const addProductToCompare = () => {
@@ -160,11 +167,11 @@ const addProductToCompare = () => {
         beforeSend: () => {},
         complete: () => {},
         success: addToWhishlistResponseHander,
-        error: ajaxErrorHandler,
+        error: ajaxErrorHandler
     })
 }
 
-const addToCompareResponseHander = json => {
+const addToCompareResponseHander = (json) => {
     if (json['redirect']) {
         location = json['redirect']
     }
@@ -177,15 +184,23 @@ const addToCompareResponseHander = json => {
     updateWishlistCount(json['total'])
 }
 
-
 //On DOM ready
 $(() => {
-    //Auth
-    const toggleAuthModal = () => {
-        $('.auth').parents('.modal-wrapper').toggleClass('modal-wrapper_state_hidden')
+    //Modals
+    const closeModal = function () {
+        $(this).parents('.modal-wrapper').addClass('modal-wrapper_state_hidden')
     }
 
-    $('.auth-close, .auth-show').on('click', toggleAuthModal)
+    $('.modal-close').on('click', closeModal)
+
+    //Auth
+    const showAuthModal = () => {
+        $('.auth')
+            .parents('.modal-wrapper')
+            .removeClass('modal-wrapper_state_hidden')
+    }
+
+    $('.auth-show').on('click', showAuthModal)
 
     const authRequest = () => {
         $.ajax({
@@ -194,25 +209,37 @@ $(() => {
             data: $('.auth__form input'),
             dataType: 'json',
             beforeSend: () => {
-                $('.auth__error').remove();
+                $('.auth__error').remove()
             },
             success: authRequestResponseHandler,
-            error: ajaxErrorHandler,
+            error: ajaxErrorHandler
         })
     }
 
-    const authRequestResponseHandler = json => {
+    const authRequestResponseHandler = (json) => {
         //location.reload();
         console.log(json)
     }
 
-    const authFormSubmitHandler = event => {
+    const authFormSubmitHandler = (event) => {
         event.preventDefault()
         authRequest()
     }
 
     $('.auth__form').on('submit', authFormSubmitHandler)
 
+    //Callback
+    const showCallbackModal = () => {
+        $('.callback')
+            .parents('.modal-wrapper')
+            .removeClass('modal-wrapper_state_hidden')
+    }
+
+    $('.callback-show').on('click', showCallbackModal)
+
+    const callbackFormSubmitHandler = (event) => {
+        event.preventDefault()
+    }
 
     //Search box
     const searchBox = $('.search-box')
@@ -225,7 +252,7 @@ $(() => {
         searchBoxInput.focus()
     })
 
-    searchBoxInput.on('focusout', function() {
+    searchBoxInput.on('focusout', function () {
         searchBox.addClass('search-box_state_hidden')
         searchBoxToggler.show()
     })
@@ -233,17 +260,17 @@ $(() => {
     //Search
     $('.search__submit').on('click', () => {
         let url = `${$('base').attr('href')}index.php?route=product/search`
-		const value = $('.search__input').val()
+        const value = $('.search__input').val()
 
         if (value) {
-        url += `&search= ${encodeURIComponent(value)}`
+            url += `&search= ${encodeURIComponent(value)}`
             location = url
         }
-	})
+    })
 
-	$('.search__input').on('keydown', e => {
-		if (e.keyCode == 13) {
-			$('.search__submit').trigger('click');
-		}
+    $('.search__input').on('keydown', (e) => {
+        if (e.keyCode == 13) {
+            $('.search__submit').trigger('click')
+        }
     })
 })

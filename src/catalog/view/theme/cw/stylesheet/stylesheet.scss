@@ -22,11 +22,15 @@
 @import './components/carousel';
 @import './components/slideshow';
 @import './components/link-group';
+@import './components/banners';
+@import './components/brands';
+
 
 @import './layout/header';
-@import './layout/auth';
 @import './layout/menu';
 @import './layout/footer';
+@import './layout/modal';
+@import './layout/auth';
 
 @import './pages/product';
 @import './pages/home';

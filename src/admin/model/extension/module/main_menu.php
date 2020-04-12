@@ -23,11 +23,12 @@ class ModelExtensionModuleMainMenu extends Model {
      *
      */
     public function editItem($item_id, $data) {
+        $title = $this->db->escape($data['title']);
         $sort_order = (int)$data['sort_order'];
 
         $this->db->query("
             UPDATE " . DB_PREFIX . "main_menu SET
-            title = '{$this->db->escape($data['title'])}',
+            title = '$title',
             href = '{$this->db->escape($data['href'])}',
             sort_order = $sort_order,
             status = {$data['status']},

@@ -1,37 +1,10 @@
+{# not for use #}
 <nav class="menu">
     <div class="container">
         <ul class="menu__list">
             {% for category in categories %}
                 <li class="menu__item">
                     <a class="menu__link" href="{{ category.href }}">{{ category.name }}</a>
-                    <div class="submenu">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="sublinks">
-                                        <span class="sublinks__caption">По цвету:</span>
-                                        <ul class="sublinks__list">
-                                            <li class="sublinks__item">
-                                                <a class="sublinks__link">
-                                                    Красные
-                                                </a>
-                                            </li>
-                                            <li class="sublinks__item">
-                                                <a class="sublinks__link">
-                                                    Черные
-                                                </a>
-                                            </li>
-                                            <li class="sublinks__item">
-                                                <a class="sublinks__link">
-                                                    Синие
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </li>
             {% endfor %}
         </ul>

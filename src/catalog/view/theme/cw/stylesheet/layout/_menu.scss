@@ -1,6 +1,8 @@
 .menu {
     position: relative;
 
+    $this: &;
+
     &__list {
         display: flex;
         padding: 0;
@@ -10,21 +12,37 @@
 
     &__item {
         list-style: none;
+
+        //Mods
+        &_has_children {
+
+            #{$this}__link {
+                padding-right: calc(20px - 1em);
+
+                &::after {
+                    content: '';
+                    display: inline-block;
+                    height: 1em;
+                    width: 1em;
+                    margin-left: .5em;
+                    background-image: url(../image/arrow.svg);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    transform: rotate(90deg);
+                }
+            }
+        }
     }
 
     &__link {
-        display: block;
+        display: inline-block;
         padding: 4px 20px;
-        font-size: 13px;
+        font-size: 14px;
         text-decoration: none;
         text-transform: uppercase;
         letter-spacing: 1px;
         font-weight: bold;
         color: currentColor;
-
-        &:hover {
-            background-color: cyan;
-        }
     }
 }
 
