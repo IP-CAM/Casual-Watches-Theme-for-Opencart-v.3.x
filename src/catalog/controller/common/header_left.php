@@ -1,11 +1,11 @@
 <?php
-class ControllerCommonHeaderLinks extends Controller {
+class ControllerCommonHeaderLeft extends Controller {
     public function index() {
         $this->load->model('setting/module');
 
         $data['modules'] = array();
 
-        $modules = $this->model_design_layout->getPositionModules('header_links');
+        $modules = $this->model_design_layout->getPositionModules('header_left');
 
         foreach ($modules as $module) {
             $part = explode('.', $module['code']);
@@ -31,6 +31,6 @@ class ControllerCommonHeaderLinks extends Controller {
 			}
 		}
 
-		return $this->load->view('common/header_links', $data);
+		return $this->load->view('common/header_left', $data);
 	}
 }

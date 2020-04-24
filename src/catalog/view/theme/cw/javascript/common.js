@@ -1,18 +1,10 @@
 //Helpers
+const initSlick = (selector, options) => {
+    $(selector).slick(options)
+}
+
 const ajaxErrorHandler = (xhr, ajaxOptions, thrownError) => {
     console.error(`${thrownError}\r\n${xhr.responseText}`)
-}
-
-const updateCartCount = () => {
-    const cartButton = $('#cart')
-
-    $.get('index.php?route=common/cart/info', (html) => {
-        cartButton.replaceWith(html)
-    })
-}
-
-const updateWishlistCount = (count) => {
-    // ...
 }
 
 const getURLVar = (key) => {
@@ -34,26 +26,28 @@ const getURLVar = (key) => {
     }
 }
 
-/**
- * Displays a notification
- * @param {string} text
- * @param {object} options
- */
-const pushAlert = (text, options) => {
-    const classNames = ['alert', 'alert-dismissible']
+//Toasts
+const toastPush = (text) => {
+    const html = `
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body">
+                ${text}
+            </div>
+        </div>
+    `
+    const toast = $(html)
+    $('.toasts').append(toast)
 
-    if (options.view) classNames.push(`alert_vew_${options.view}`)
-
-    const html = `<div class="${classNames.join(' ')}">${text}</div>`
-    $('.alerts').append(html)
+    toast.toast({ delay: 5000 })
+    toast.toast('show')
 }
 
 //Cart
-const addProductToCart = (product_id, quantity) => {
+const addProductToCart = (productId, quantity) => {
     $.ajax({
         url: 'index.php?route=checkout/cart/add',
         type: 'post',
-        data: `product_id=${product_id}&quantity=${
+        data: `product_id=${productId}&quantity=${
             typeof quantity != undefined ? quantity : 1
         }`,
         dataType: 'json',
@@ -70,7 +64,7 @@ const addToCartResponseHandler = (json) => {
     }
 
     if (json['success']) {
-        pushAlert(json['success'], { view: 'success' })
+        toastPush(json['success'], { view: 'success' })
         updateCartCount()
     }
 }
@@ -112,6 +106,14 @@ const updateCartResponseHandler = (json) => {
     }
 }
 
+const updateCartCount = () => {
+    const cartButton = $('#cart')
+
+    $.get('index.php?route=common/cart/info', (html) => {
+        cartButton.replaceWith(html)
+    })
+}
+
 const cart = {
     add: addProductToCart,
     update: updateProductInCart,
@@ -123,15 +125,11 @@ const cart = {
 // ...
 
 //Whishlist
-const whishlist = {
-    add: addProductToWhishlist
-}
-
-const addProductToWhishlist = () => {
+const addProductToWhishlist = (productId) => {
     $.ajax({
         url: 'index.php?route=account/wishlist/add',
         type: 'post',
-        data: `product_id=${product_id}`,
+        data: `product_id=${productId}`,
         dataType: 'json',
         beforeSend: () => {},
         complete: () => {},
@@ -141,136 +139,123 @@ const addProductToWhishlist = () => {
 }
 
 const addToWhishlistResponseHander = (json) => {
+    console.log(json)
+
     if (json['redirect']) {
         location = json['redirect']
     }
 
     if (json['success']) {
-        pushAlert(json['success'], { view: 'success' })
+        toastPush(json['success'])
+        updateWishlistCount(json['total'])
     }
+}
 
-    $('.alerts').append(html)
-    updateWishlistCount(json['total'])
+const updateWishlistCount = (count) => {
+    $('#wishlist').find('.button__badge').innerHtml = count
+}
+
+const whishlist = {
+    add: addProductToWhishlist
 }
 
 //Compare
 const compare = {
-    add: addProductToCompare
+    add: function () {
+        $.ajax({
+            url: 'index.php?route=account/compare/add',
+            type: 'post',
+            data: `product_id=${product_id}`,
+            dataType: 'json',
+            beforeSend: () => {},
+            complete: () => {},
+            success: function () {
+                if (json['redirect']) {
+                    location = json['redirect']
+                }
+
+                if (json['success']) {
+                    toastPush(json['success'])
+                }
+
+                updateWishlistCount(json['total'])
+            },
+            error: ajaxErrorHandler
+        })
+    }
 }
 
-const addProductToCompare = () => {
+//Modals
+$.fn.modal = function (options) {
+    const el = this
+    const settings = $.extend(
+        {
+            closeEl: '.modal-close',
+            formEl: 'form',
+            triggerEl: null,
+            onSubmit: () => {}
+        },
+        options
+    )
+
+    const toggle = () => {
+        $(el).parents('.modal-wrapper').toggleClass('modal-wrapper_visible')
+    }
+
+    el.wrapAll('<div class="modal-wrapper"><div class="modal-container">')
+    el.find(settings.closeEl).on('click', toggle)
+    el.find(settings.formEl).on('submit', settings.onSubmit.bind(el))
+    $(settings.triggerEl).on('click', toggle)
+
+    return {
+        toggle
+    }
+}
+
+//Callback
+function callbackFormSubmitHandler(event) {
+    event.preventDefault()
+
+    const html = `<div class="modal-message">Благодарим за проявленный интерес! Наш менеджер свяжется с вами в ближайшее время</div>`
+
+    this.find('.modal__body').hide()
+    this.find('.modal__messages').empty().append(html)
+}
+
+const callbackModal = $('.callback').modal({
+    triggerEl: '.callback-show',
+    onSubmit: callbackFormSubmitHandler
+})
+
+//Auth
+function authFormSubmitHandler(event) {
+    event.preventDefault()
+
     $.ajax({
-        url: 'index.php?route=account/compare/add',
+        context: this,
+        url: 'index.php?route=account/quick_login',
         type: 'post',
-        data: `product_id=${product_id}`,
+        data: $('.auth__form input'),
         dataType: 'json',
-        beforeSend: () => {},
-        complete: () => {},
-        success: addToWhishlistResponseHander,
+        beforeSend: () => {
+            $('.auth__error').remove()
+        },
+        success: authRequestResponseHandler,
         error: ajaxErrorHandler
     })
 }
 
-const addToCompareResponseHander = (json) => {
-    if (json['redirect']) {
-        location = json['redirect']
+function authRequestResponseHandler(json) {
+    if (!json.warning) {
+        location.reload()
+    } else {
+        const html = `<div class="modal-message">${json.warning}</div>`
+        this.find('.modal__messages').empty().append(html)
     }
-
-    if (json['success']) {
-        pushAlert(json['success'], { view: 'success' })
-    }
-
-    $('.alerts').append(html)
-    updateWishlistCount(json['total'])
 }
 
-//On DOM ready
-$(() => {
-    //Modals
-    const closeModal = function () {
-        $(this).parents('.modal-wrapper').addClass('modal-wrapper_state_hidden')
-    }
-
-    $('.modal-close').on('click', closeModal)
-
-    //Auth
-    const showAuthModal = () => {
-        $('.auth')
-            .parents('.modal-wrapper')
-            .removeClass('modal-wrapper_state_hidden')
-    }
-
-    $('.auth-show').on('click', showAuthModal)
-
-    const authRequest = () => {
-        $.ajax({
-            url: 'index.php?route=account/quick_login',
-            type: 'post',
-            data: $('.auth__form input'),
-            dataType: 'json',
-            beforeSend: () => {
-                $('.auth__error').remove()
-            },
-            success: authRequestResponseHandler,
-            error: ajaxErrorHandler
-        })
-    }
-
-    const authRequestResponseHandler = (json) => {
-        //location.reload();
-        console.log(json)
-    }
-
-    const authFormSubmitHandler = (event) => {
-        event.preventDefault()
-        authRequest()
-    }
-
-    $('.auth__form').on('submit', authFormSubmitHandler)
-
-    //Callback
-    const showCallbackModal = () => {
-        $('.callback')
-            .parents('.modal-wrapper')
-            .removeClass('modal-wrapper_state_hidden')
-    }
-
-    $('.callback-show').on('click', showCallbackModal)
-
-    const callbackFormSubmitHandler = (event) => {
-        event.preventDefault()
-    }
-
-    //Search box
-    const searchBox = $('.search-box')
-    const searchBoxToggler = $('.search-box-toggler')
-    const searchBoxInput = $('.search-box__input')
-
-    searchBoxToggler.on('click', () => {
-        searchBoxToggler.hide()
-        searchBox.removeClass('search-box_state_hidden')
-        searchBoxInput.focus()
-    })
-
-    searchBoxInput.on('focusout', function () {
-        searchBox.addClass('search-box_state_hidden')
-        searchBoxToggler.show()
-    })
-
-    //Search
-    $('.search__submit').on('click', () => {
-        let url = `${$('base').attr('href')}index.php?route=product/search`
-        const value = $('.search__input').val()
-
-        if (value) {
-            url += `&search= ${encodeURIComponent(value)}`
-            location = url
-        }
-    })
-
-    $('.search__input').on('keydown', (e) => {
-        if (e.keyCode == 13) {
-            $('.search__submit').trigger('click')
-        }
-    })
+const authModal = $('.auth').modal({
+    onSubmit: authFormSubmitHandler
 })
+
+authModal.toggle()

@@ -244,10 +244,16 @@ class ControllerExtensionModuleMainMenu extends Controller {
     public function install() {
         $this->load->model('setting/setting');
         $this->model_setting_setting->editSetting('module_main_menu', ['module_main_menu' => 1]);
+
+        $this->load->model('extension/module/main_menu');
+		$this->model_extension_main_menu->installDB();
     }
 
     public function uninstall() {
         $this->load->model('setting/setting');
         $this->model_setting_setting->deleteSetting('module_main_menu');
+
+        $this->load->model('extension/module/main_menu');
+		$this->model_extension_main_menu->uninstallDB();
     }
 }

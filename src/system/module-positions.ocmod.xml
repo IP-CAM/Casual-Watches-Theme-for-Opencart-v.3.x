@@ -141,7 +141,7 @@ $data['promo_left'] = $this->load->controller('common/promo_left');
             </add>
         </operation>
     </file>
-
+    <!-- End promo right -->
 
     <!--
         Promo right
@@ -258,13 +258,13 @@ $data['promo_right'] = $this->load->controller('common/promo_right');
             </add>
         </operation>
     </file>
-
+    <!-- End Promo right -->
 
     <!--
-        Header links
+        Header left
         Depends on:
-            - catalog/controller/common/header_links.php
-            - catalog/view/theme/{<Theme name>}/common/header_links.twig
+            - catalog/controller/common/header_left.php
+            - catalog/view/theme/{<Theme name>}/common/header_left.twig
     -->
     <file path="admin/language/en-gb/design/layout.php">
         <operation>
@@ -275,7 +275,7 @@ $_['text_content_bottom']
             </search>
             <add position="before">
                 <![CDATA[
-$_['text_header_links'] = 'Header links';
+$_['text_header_left'] = 'Header left';
                 ]]>
             </add>
         </operation>
@@ -289,15 +289,15 @@ $_['text_header_links'] = 'Header links';
                 ]]>
             </search>
             <add position="before"><![CDATA[
-<table id="module-header-links" class="table table-striped table-bordered table-hover">
+<table id="module-header-left" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-      <td class="text-center">{{ text_header_links }}</td>
+      <td class="text-center">{{ text_header_left }}</td>
     </tr>
   </thead>
   <tbody>
     {% for layout_module in layout_modules %}
-    {% if layout_module.position == 'header_links' %}
+    {% if layout_module.position == 'header_left' %}
     <tr id="module-row{{ module_row }}">
       <td class="text-right"><div class="input-group">
           <select name="layout_module[{{ module_row }}][code]" class="form-control input-sm">
@@ -350,7 +350,7 @@ $_['text_header_links'] = 'Header links';
             {% endfor %}
           </select>
           <div class="input-group-btn">
-            <button type="button" onclick="addModule('header-links');" data-toggle="tooltip" title="{{ button_module_add }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
+            <button type="button" onclick="addModule('header-left');" data-toggle="tooltip" title="{{ button_module_add }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
           </div>
         </div></td>
     </tr>
@@ -365,131 +365,15 @@ $_['text_header_links'] = 'Header links';
         <operation>
             <search index="0">
                 <![CDATA[
-$data['menu'] = $this->load->controller('common/menu');
+$data['cart'] = $this->load->controller('common/cart');
                 ]]>
             </search>
             <add position="before">
                 <![CDATA[
-$data['header_links'] = $this->load->controller('common/header_links');
+$data['header_left'] = $this->load->controller('common/header_left');
                 ]]>
             </add>
         </operation>
     </file>
-
-
-    <!--
-        Brands carousel
-        Depends on:
-            - catalog/controller/common/brands.php
-            - catalog/view/theme/{<Theme name>}/common/brands.twig
-    -->
-    <file path="admin/language/en-gb/design/layout.php">
-        <operation>
-            <search>
-                <![CDATA[
-$_['text_content_bottom']
-                ]]>
-            </search>
-            <add position="before">
-                <![CDATA[
-$_['text_brands'] = 'Brands carousel';
-                ]]>
-            </add>
-        </operation>
-    </file>
-
-    <file path="admin/view/template/design/layout_form.twig">
-        <operation>
-            <search index="0">
-                <![CDATA[
-<table id="module-content-top" class="table table-striped table-bordered table-hover">
-                ]]>
-            </search>
-            <add position="before"><![CDATA[
-<table id="module-brands" class="table table-striped table-bordered table-hover">
-  <thead>
-    <tr>
-      <td class="text-center">{{ text_brands }}</td>
-    </tr>
-  </thead>
-  <tbody>
-    {% for layout_module in layout_modules %}
-    {% if layout_module.position == 'brands' %}
-    <tr id="module-row{{ module_row }}">
-      <td class="text-right"><div class="input-group">
-          <select name="layout_module[{{ module_row }}][code]" class="form-control input-sm">
-            {% for extension in extensions %}
-            <optgroup label="{{ extension.name }}">
-            {% if not extension.module %}
-            {% if extension.code == layout_module.code %}
-            <option value="{{ extension.code }}" selected="selected">{{ extension.name }}</option>
-            {% else %}
-            <option value="{{ extension.code }}">{{ extension.name }}</option>
-            {% endif %}
-            {% else %}
-            {% for module in extension.module %}
-            {% if module.code == layout_module.code %}
-            <option value="{{ module.code }}" selected="selected">{{ module.name }}</option>
-            {% else %}
-            <option value="{{ module.code }}">{{ module.name }}</option>
-            {% endif %}
-            {% endfor %}
-            {% endif %}
-            </optgroup>
-            {% endfor %}
-          </select>
-          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}" />
-          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}" />
-          <div class="input-group-btn"> <a href="{{ layout_module.edit }}" type="button" data-toggle="tooltip" title="{{ button_edit }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
-            <button type="button" onclick="$('#module-row{{ module_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button>
-          </div>
-        </div></td>
-    </tr>
-    {% set module_row = module_row + 1 %}
-    {% endif %}
-    {% endfor %}
-  </tbody>
-  <tfoot>
-    <tr>
-      <td class="text-left"><div class="input-group">
-          <select class="form-control input-sm">
-            <option value=""></option>
-            {% for extension in extensions %}
-            <optgroup label="{{ extension.name }}">
-            {% if not extension.module %}
-            <option value="{{ extension.code }}">{{ extension.name }}</option>
-            {% else %}
-            {% for module in extension.module %}
-            <option value="{{ module.code }}">{{ module.name }}</option>
-            {% endfor %}
-            {% endif %}
-            </optgroup>
-            {% endfor %}
-          </select>
-          <div class="input-group-btn">
-            <button type="button" onclick="addModule('brands');" data-toggle="tooltip" title="{{ button_module_add }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
-          </div>
-        </div></td>
-    </tr>
-  </tfoot>
-</table>
-                ]]>
-            </add>
-        </operation>
-    </file>
-
-    <file path="catalog/controller/common/home.php">
-        <operation>
-            <search index="0">
-                <![CDATA[
-$data['content_top'] = $this->load->controller('common/content_top');
-                ]]>
-            </search>
-            <add position="before">
-                <![CDATA[
-$data['brands'] = $this->load->controller('common/brands');
-                ]]>
-            </add>
-        </operation>
-    </file>
+    <!-- End Header Left -->
 </modification>

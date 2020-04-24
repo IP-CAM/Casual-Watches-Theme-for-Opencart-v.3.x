@@ -12,8 +12,9 @@
 
 @import './vendors/bootstrap';
 @import './vendors/slick';
+@import './vendors/live_search';
 
-@import './components/button';
+@import './components/controls';
 @import './components/icon';
 @import './components/breadcrumbs';
 @import './components/alert';
@@ -31,9 +32,14 @@
 @import './layout/footer';
 @import './layout/modal';
 @import './layout/auth';
+@import './layout/callback';
+@import './layout/toasts';
+@import './layout/pagination';
 
 @import './pages/product';
 @import './pages/home';
 @import './pages/category';
+@import './pages/not-found';
+@import './pages/search';
 
 @import './shame';

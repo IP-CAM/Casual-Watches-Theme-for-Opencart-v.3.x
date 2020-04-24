@@ -13,7 +13,7 @@
         }
 
         &_middle {
-            padding: 16px 0;
+            padding: 32px 0 16px;
         }
 
         &__bottom {
@@ -28,10 +28,28 @@
     }
 }
 
+.logo {
+    display: block;
+    border: 0;
+
+    &__image {
+        display: block;
+        width: 180px;
+    }
+}
+
+.logo-placeholder {
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: currentColor;
+}
+
 .search-box {
     position: relative;
     display: flex;
     margin-right: 12px;
+    flex-grow: 1;
 
     //Elements
     &__icon {
@@ -47,6 +65,8 @@
     &__input {
         width: 200px;
         padding: 2px 4px 4px;
+        margin-left: auto;
+        box-sizing: border-box;
         border: 0;
         border-bottom: 2px solid var(--border);
         font-size: 12px;
@@ -61,8 +81,10 @@
 
 .callback-button {
     background-color: transparent;
-    font-weight: bold;
-    padding: 0;
-    margin-left: 30px;
     color: currentColor;
+    border: 0;
+    font: inherit;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 30px;
 }

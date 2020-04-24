@@ -46,7 +46,7 @@ class ControllerAccountQuickLogin extends Controller {
 
             unset($this->session->data['redirect']);
         } else {
-            $json['error'] = $this->error;
+            $json = $this->error;
         }
 
         //Response

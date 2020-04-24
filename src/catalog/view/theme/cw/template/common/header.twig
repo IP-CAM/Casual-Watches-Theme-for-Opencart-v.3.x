@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
@@ -11,91 +12,114 @@
     {% if keywords %}
         <meta name="keywords" content="{{ keywords }}" />
     {% endif %}
+    <!-- End Meta -->
+
+    <!-- Stylesheets -->
     <link href="catalog/view/theme/cw/stylesheet/stylesheet.css" rel="stylesheet">
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-    <script
-        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-        crossorigin="anonymous"></script>
-    <script src="catalog/view/theme/cw/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="catalog/view/theme/cw/javascript/common.js"></script>
     {% for style in styles %}
         <link href="{{ style.href }}" rel="{{ style.rel }}" />
     {% endfor %}
+    <!-- End Stylesheets -->
+
+    <!-- Scripts -->
+    <script
+        src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+        crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write('<script src="catalog/view/theme/cw/javascript/vendors/jquery-3.5.0.min.js"><\/script>')
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script
+        src="catalog/view/theme/cw/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     {% for script in scripts %}
         <script src="{{ script }}"></script>
     {% endfor %}
+    <!-- End Scripts -->
+
     {% for link in links %}
         <link href="{{ link.href }}" rel="{{ link.rel }}" />
     {% endfor %}
+
     {% for analytic in analytics %}
         {{ analytic }}
     {% endfor %}
 </head>
 <body>
-    <header class="header">
-        <div class="header__row header__row_top">
-            <div class="container">
-                <a class="header__tel" href="tel:{{ telephone|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone }}</a>
+    <div class="page-holder">
+        <header class="header">
+            <div class="header__row header__row_top">
+                <div class="container">
+                    <a class="header__tel" href="tel:{{ telephone|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone }}</a>
 
-                {% if telephone2 %},
-                <a class="header__tel" href="tel:{{ telephone2|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone2 }}</a>
-                {% endif %}
+                    {% if telephone2 %},
+                    <a class="header__tel" href="tel:{{ telephone2|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ telephone2 }}</a>
+                    {% endif %}
 
-                {% if open %}
-                    – {{ open }}
-                {% endif %}
+                    {% if open %}
+                        – {{ open }}
+                    {% endif %}
 
-                <button class="callback-show">Перезвоните мне</button>
+                    <button class="callback-button callback-show">Перезвоните мне</button>
+                </div>
             </div>
-        </div>
 
-        <div class="header__row header__row_middle">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col">
-                        {{ header_links }}
-                    </div>
-
-                    <div class="col-auto">
-                        <img class="logo" src="catalog/view/theme/cw/image/logo.svg" />
-                    </div>
-
-                    <div class="col d-flex flex-row justify-content-end">
-
-                        {{ search }}
-
-                        <div class="button-group">
-                            {% if logged %}
-                                <a class="button" href="{{ account }}">
-                                    <svg class="icon icon_size_medium">
-                                        <use href="#icon-favorite" />
-                                    </svg>
-                                </a>
-                            {% else %}
-                                <button class="button button_view_plain auth-show" href="{{ account }}">
-                                    <span class="button__body">ВХОД</span>
-                                </button>
-                            {% endif %}
-
-                            <button class="button button_view_plain">
-                                <svg class="icon icon_size_medium">
-                                    <use href="#icon-favorite" />
-                                </svg>
-                            </button>
-
-                            {{ cart }}
+            <div class="header__row header__row_middle">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            {{ header_left }}
                         </div>
 
+                        <div class="col-auto">
+                            {% if logo %}
+                                <a class="logo" href="{{ home }}">
+                                    <img class="logo__image" src="{{ logo }}" title="{{ name }}" alt="{{ name }}" />
+                                </a>
+                            {% else %}
+                                <a class="logo-placeholder" href="{{ home }}">{{ name }}</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="col d-flex flex-row justify-content-end align-middle">
+
+                            {{ search }}
+
+                            <div class="button-group button-group_gap">
+                                {% if logged %}
+                                    <a class="button button_view_plain" href="{{ account }}">
+                                        <svg class="icon">
+                                            <use href="#icon-user" />
+                                        </svg>
+                                    </a>
+                                {% else %}
+                                    <button class="button button_view_plain auth-show" href="{{ account }}">
+                                        <svg class="icon">
+                                            <use href="#icon-user" />
+                                        </svg>
+                                    </button>
+                                {% endif %}
+
+                                <a class="button button_view_plain" id="wishlist" href="{{ wishlist }}">
+                                    <span class="button__body">
+                                        <svg class="icon">
+                                            <use href="#icon-favorite" />
+                                        </svg>
+                                    </span>
+                                    {% if count_wishlist %}
+                                        <span class="button__badge">{{ count_wishlist }}</span>
+                                    {% endif %}
+                                </a>
+
+                                {{ cart }}
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="header__row header__row_bottom">
-            {{ menu }}
-        </div>
-    </header>
+            <div class="header__row header__row_bottom">
+                {{ menu }}
+            </div>
+        </header>

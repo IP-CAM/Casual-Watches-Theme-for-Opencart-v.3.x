@@ -1,8 +1,9 @@
 <a class="button button_view_plain" id="cart" href="{{ cart }}">
-    <svg class="icon icon_size_medium">
-        <use href="#icon-cart" />
-    </svg>
-
+    <span class="button__body">
+        <svg class="icon">
+            <use href="#icon-cart" />
+        </svg>
+    </span>
     {% if count_products %}
         <span class="button__badge">{{ count_products }}</span>
     {% endif %}

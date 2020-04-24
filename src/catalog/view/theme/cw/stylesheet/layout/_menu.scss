@@ -37,10 +37,8 @@
     &__link {
         display: inline-block;
         padding: 4px 20px;
-        font-size: 14px;
+        font-size: 16px;
         text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 1px;
         font-weight: bold;
         color: currentColor;
     }
@@ -54,7 +52,8 @@
     z-index: 1;
     width: 100%;
     border-bottom: 1px solid var(--border);
-    background-color: #fff;
+    background-color: rgba(#fff, .8);
+    backdrop-filter: blur(10px);
 }
 
 .menu__item:hover .submenu {
@@ -78,5 +77,10 @@
 
     &__item {
         list-style: none;
+    }
+
+    &__link {
+        color: currentColor;
+        text-decoration: none;
     }
 }

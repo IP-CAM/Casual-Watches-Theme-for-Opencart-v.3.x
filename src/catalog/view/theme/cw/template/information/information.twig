@@ -10,7 +10,15 @@
     <div class="row">
         {{ column_left }}
 
-        <div class="col" id="content">
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
+        {% else %}
+            {% set class = 'col' %}
+        {% endif %}
+
+        <div class="{{ class }}">
             {{ content_top }}
 
             <h1>{{ heading_title }}</h1>

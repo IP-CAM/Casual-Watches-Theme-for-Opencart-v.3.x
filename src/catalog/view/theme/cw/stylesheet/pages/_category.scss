@@ -4,12 +4,17 @@
     &__title {
         text-align: center;
     }
+
+    &__footnote {
+        margin-top: 12px;
+        color: var(--text-secondary);
+    }
 }
 
 .sorting {
-    padding: 0;
     display: flex;
-    margin: 0 0 20px;
+    margin: 0;
+    padding: 12px 0;
 
     &__item {
         list-style: none;
@@ -19,5 +24,29 @@
     &__link {
         color: var(--secondary-text);
         text-decoration: none;
+    }
+}
+
+.sub-categories {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+}
+
+.sub-category {
+
+    &__list {
+        padding: 0;
+        margin: 0;
+    }
+
+    &__item {
+        list-style: none;
+    }
+
+    &__link {
+        display: block;
+        padding: 4px 0;
+        text-decoration: none;
+        color: var(--text-secondary);
     }
 }

@@ -1,5 +1,6 @@
 @import './../../../../../../../node_modules/bootstrap/scss/functions';
 @import './../../../../../../../node_modules/bootstrap/scss/variables';
+@import './../../../../../../../node_modules/bootstrap/scss/mixins';
 
 //Bootstrap customization
 
@@ -12,15 +13,17 @@ $grid-breakpoints: (
 );
 
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 940px,
   xl: 1366px,
 );
 
 // ...
 
 @import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
+@import './../../../../../../../node_modules/bootstrap/scss/custom-forms';
+//@import './../../../../../../../node_modules/bootstrap/scss/popover';
+
+
+@import './../../../../../../../node_modules/bootstrap/scss/toasts';
 
 //If you need the whole framework
 //@import './../../../../../../../node_modules/bootstrap/scss/bootstrap.scss';

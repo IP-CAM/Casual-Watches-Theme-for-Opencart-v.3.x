@@ -1,0 +1,156 @@
+{% from 'cw/template/components/breadcrumbs.twig' import breadcrumbs %}
+{% from 'cw/template/components/product_teaser.twig' import product_teaser %}
+{% set labels = {
+    'button_cart': button_cart,
+} %}
+
+{{ header }}
+
+<div class="container pt-1 pb-1">
+    {{ breadcrumbs(breadcrumbs) }}
+</div>
+
+<div class="container">
+
+    <h1 class="search__title">{{ heading_title }}</h1>
+
+    <div class="row justify-content-center no-gutters">
+
+        {# Input #}
+        <div class="col-auto">
+            <input
+                class="input"
+                name="search"
+                type="text"
+                size="60"
+                value="{{ search }}"
+                placeholder="{{ text_keyword }}"
+                id="input-search" />
+        </div>
+        {# End Input #}
+
+        {# Categories #}
+        <div class="col-auto">
+            <select class="select" name="category_id">
+
+                <option value="0">{{ text_category }}</option>
+
+                {% for category_1 in categories %}
+                    {% if category_1.category_id == category_id %}
+                        <option value="{{ category_1.category_id }}" selected="selected">{{ category_1.name }}</option>
+                    {% else %}
+                        <option value="{{ category_1.category_id }}">{{ category_1.name }}</option>
+                    {% endif %}
+
+                    {# Level 2 #}
+                    {% for category_2 in category_1.children %}
+                        {% if category_2.category_id == category_id %}
+                            <option value="{{ category_2.category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_2.name }}</option>
+                        {% else %}
+                            <option value="{{ category_2.category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_2.name }}</option>
+                        {% endif %}
+
+                        {# Level 3 #}
+                        {% for category_3 in category_2.children %}
+                            {% if category_3.category_id == category_id %}
+                                <option value="{{ category_3.category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_3.name }}</option>
+                            {% else %}
+                                <option value="{{ category_3.category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_3.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        {# End Level 3 #}
+
+                    {% endfor %}
+                    {# End Level 2 #}
+
+                {% endfor %}
+                {# End Level 1 #}
+            </select>
+        </div>
+        {# End Categories #}
+
+        <div class="col-auto">
+            {% if sub_category %}
+                <input type="checkbox" name="sub_category" value="1" id="input-sub-category" class="form-check-input" checked="checked"/>
+            {% else %}
+                <input type="checkbox" name="sub_category" value="1" id="input-sub-category" class="form-check-input"/>
+            {% endif %}
+            <label for="input-sub-category" class="form-check-label">{{ text_sub_category }}</label>
+        </div>
+
+        <div class="col-auto">
+            <button class="button button_view_action" type="button" id="button-search">{{ button_search }}</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        {{ column_left }}
+
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
+        {% else %}
+            {% set class = 'col' %}
+        {% endif %}
+
+        <div class="{{ class }}">
+            {{ content_top }}
+
+            {# Sub-categories #}
+            {# End Sub-categories #}
+
+            {# Products #}
+            {% if products %}
+                <ul class="sorting">
+                    {% for sorts in sorts %}
+                        <li class="sorting__item">
+                            {% if sorts.value == '%s-%s'|format(sort, order) %}
+                                <span class="sorting__current">{{ sorts.text }}</span>
+                            {% else %}
+                                <a href="{{ sorts.href }}" class="sorting__link">{{ sorts.text }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-4">
+                            {{ product_teaser(product, labels) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {# End Products #}
+
+            {% if not categories and not products %}
+                {{ text_no_results }} <a href="{{ continue }}">{{ button_continue }}</a>
+            {% else %}
+                <div>{{ pagination }}</div>
+                <div class="category__footnote">{{ results }}</div>
+            {% endif %}
+
+            {{ content_bottom }}
+
+            {# Description #}
+            {% if thumb or description %}
+                <div class="row">
+                {% if thumb %}
+                    <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail"/></div>
+                {% endif %}
+                {% if description %}
+                    <div class="col-sm-10">{{ description }}</div>
+                {% endif %}
+                </div>
+                <hr/>
+            {% endif %}
+            {# End Description #}
+        </div>
+
+        {{ column_right }}
+    </div>
+</div>
+
+{{ footer }}

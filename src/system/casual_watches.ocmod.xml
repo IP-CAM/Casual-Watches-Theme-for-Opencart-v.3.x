@@ -5,7 +5,7 @@
     <code>cw-mu</code>
 
     <!--
-    Replaces menu
+    Replaces default menu
     -->
     <file path="catalog/controller/common/header.php">
         <operation>
@@ -52,7 +52,7 @@ $language->load($code);
             ]]>
             </search>
             <add position="after"><![CDATA[
-$language->load('extension/theme/cw');
+$language->load('extension/theme/casual_watches');
             ]]>
             </add>
         </operation>
@@ -70,6 +70,27 @@ $language->load('extension/theme/cw');
             </search>
             <add position="replace" offset="26"><![CDATA[
 'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.price&order=DESC' . $url)
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Rename sort orders
+    -->
+    <file path="catalog/language/ru-ru/product/category.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$_['text_name_asc']     = 'Название (А - Я)';
+            ]]>
+            </search>
+            <add position="replace" offset="3"><![CDATA[
+$_['text_name_asc']     = 'А &rarr; Я';
+$_['text_name_desc']    = 'Я &rarr; А';
+$_['text_price_asc']    = 'Сначала дешевые';
+$_['text_price_desc']   = 'Сначала дорогие';
             ]]>
             </add>
         </operation>
@@ -160,7 +181,6 @@ $data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->c
             <add position="after">
                 <![CDATA[
 $data['count_products'] = $this->cart->countProducts();
-$data['count_whishlist'] = $this->cart->countProducts();
                 ]]>
             </add>
         </operation>
@@ -192,6 +212,36 @@ $data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($
             <add position="after">
                 <![CDATA[
 $data['count_wishlist'] = isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0;
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Remove text from account/wishlist/add response
+    -->
+    <file path="catalog/controller/account/wishlist.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$json['total'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());
+            ]]>
+            </search>
+            <add position="replace"><![CDATA[
+$json['total'] = $this->model_account_wishlist->getTotalWishlist();
+            ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0">
+                <![CDATA[
+$json['total'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+                ]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+$json['total'] = (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0);
                 ]]>
             </add>
         </operation>
@@ -268,6 +318,7 @@ $data['open'] = $this->config->get('config_open');
         </operation>
     </file>
 
+
     <!--
     Manufacturer logo in product page
     -->
@@ -290,4 +341,84 @@ if ($manufacturer_image) {
             </add>
         </operation>
     </file>
+
+
+    <!--
+    Live Search
+    - Removes default css stylesheet. Look for styles in stylesheet/vendors/_live_search.scss
+    -->
+    <file path="catalog/controller/extension/module/live_search.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$liveSearchJS = '<link href="catalog/view/javascript/live_search/live_search.css" rel="stylesheet" type="text/css">'."\n";
+            ]]>
+            </search>
+            <add position="replace" offset="1"><![CDATA[
+$liveSearchJS = '<script src="catalog/view/javascript/live_search/live_search.js"></script>'."\n";
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Product
+    - Adds SKU
+    -->
+    <file path="catalog/controller/product/product.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$data['model'] = $product_info['model'];
+            ]]>
+            </search>
+            <add position="after"><![CDATA[
+$data['sku'] = $product_info['sku'];
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Featured
+    - Adds heading title
+    - Adds slick
+    -->
+    <file path="catalog/controller/extension/module/featured.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$data['products'] = array();
+            ]]>
+            </search>
+            <add position="before"><![CDATA[
+$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js');
+
+$data['heading_title'] = $setting['name'];
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Breadcrumbs
+    - Changes home link text
+    -->
+    <file path="catalog/language/ru-ru/ru-ru.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+$_['text_home']             = '<i class="fa fa-home"></i>';
+            ]]>
+            </search>
+            <add position="replace"><![CDATA[
+$_['text_home']             = 'Главная';
+            ]]>
+            </add>
+        </operation>
+    </file>
+
 </modification>

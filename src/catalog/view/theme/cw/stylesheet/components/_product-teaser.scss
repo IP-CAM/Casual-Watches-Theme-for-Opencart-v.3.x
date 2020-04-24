@@ -1,135 +1,106 @@
 .product-teaser {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    position: relative;
-    font-size: 16px;
-
-    $product-teaser-padding: 20px;
+    $padding-hover: 24px;
     $this: &;
 
-    //Elements
-    &__thumb {
-        display: block;
-        max-width: 100%;
-        transition: transform .4s linear;
+    position: relative;
+    box-sizing: border-box;
+    padding: 18px 0;
+
+    &__thumb-holder {
         position: relative;
-        z-index: -1;
-        margin-bottom: .25em;
-        align-self: center;
-    }
-
-    &__link {
         display: block;
-        text-decoration: none;
+        height: 0;
+        padding-top: 100%;
+        border: 0;
+    }
+
+    &__thumb {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &__name {
+        display: block;
+        margin-top: 12px;
         color: currentColor;
-        color: #757575;
-        margin-bottom: .25em;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-    }
-
-    &__price-wrapper {
-        margin-top: .5em;
-    }
-
-    &__price {
-
-        //Mods
-        &_old {
-            text-decoration: line-through;
-        }
-    }
-
-    &__badges {
-        height: 1em;
-    }
-
-    &__badge {
-        box-sizing: border-box;
-        padding: 2px 4px;
-        display: inline-block;
-        background-color: #6495ed;
-        color: #fff;
-        font-size: .8em;
-        font-weight: bold;
-
-        //Mods
-        &_view {
-
-            &_discount {
-                background-color: #bf2333;
-                letter-spacing: 1px;
-            }
-        }
+        text-decoration: none;
+        text-align: center;
     }
 
     &__controls {
-        visibility: hidden;
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
+        margin-top: 12px;
     }
 
-    //State
-    &:hover {
-        z-index: 10;
-
-        &::after {
-            content: '';
-            z-index: -2;
-            position: absolute;
-            top: -$product-teaser-padding;
-            left: -$product-teaser-padding;
-            width: 100%;
-            height: 100%;
-            padding: $product-teaser-padding;
-            border: 2px solid var(--border);
-            box-sizing: content-box;
-            background-color: #fff;
-        }
-
-        #{$this}__thumb {
-            transform: scale(1.05);
-        }
-
-        #{$this}__controls {
-            visibility: visible;
-        }
-    }
-}
-
-.product-teaser-button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin-left: 16px;
-    position: relative;
-
-    &__icon {
-        width: 22px;
-        height: 22px;
-        stroke: #757575;
-        stroke-width: 3;
-        fill: none;
+    &__badges {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
     }
 
     &__badge {
+        display: inline-block;
+        background-color: #bd9a73;
+    }
+
+    &__hidden {
         position: absolute;
-        bottom: 0;
-        right: -5px;
-        background-color: var(--accent);
-        color: #fff;
-        padding: 2px;
-        min-width: 1.5em;
-        border-radius: 50%;
+        top: 100%;
+        left: -$padding-hover;
+        width: 100%;
+        display: none;
+        padding: $padding-hover;
+        box-sizing: content-box;
+        border: 1px solid var(--border);
+        border-top: 0;
+        background-color: var(--bg);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: -$padding-hover;
+        left: -$padding-hover;
+        width: 100%;
+        height: 100%;
+        display: none;
+        padding: $padding-hover $padding-hover 0;
+        box-sizing: content-box;
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+    }
+
+    //Hover
+
+    &:hover {
+        z-index: 100;
+
+        #{$this}__hidden {
+            display: block;
+        }
+
+        &::before {
+            display: block;
+        }
     }
 }
 
+.product-teaser-price {
+    margin-top: 6px;
+    text-align: center;
+
+    &__current {
+        display: inline-block;
+    }
+
+    &__old {
+        display: inline-block;
+        text-decoration: line-through;
+    }
+}

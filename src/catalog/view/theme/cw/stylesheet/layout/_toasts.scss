@@ -1,0 +1,11 @@
+.toasts {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 24px;
+
+    &:empty {
+        z-index: -1;
+    }
+}

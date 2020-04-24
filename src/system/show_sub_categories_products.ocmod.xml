@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+    <name>Show Sub-Categories Products</name>
+    <version>0.0.1</version>
+    <author>AGriboed | alexv1rs@gmail.com</author>
+    <link>https://v1rus.ru</link>
+    <code>showsubcategoriesproducts</code>
+
+    <file path="catalog/controller/product/category.php">
+        <operation>
+            <search>
+                <![CDATA[$data['categories'][] = array(]]></search>
+            <add position="before"><![CDATA[
+        $sub_categories[] = $result['category_id'];
+]]></add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['categories'] = array();]]></search>
+            <add position="before"><![CDATA[
+        $sub_categories = array();
+]]></add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA['filter_filter'      => $filter,]]></search>
+            <add position="after"><![CDATA[
+        'show_sub_categories' => $sub_categories,
+]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/model/catalog/product.php">
+        <operation>
+            <search>
+                <![CDATA[$sql .= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";]]></search>
+            <add position="replace"><![CDATA[
+                 if (!empty($data['show_sub_categories'])) {
+				    $sql .= " OR p2c.category_id IN ('" . implode(',', $data['show_sub_categories']) . "')";
+				} else {
+					$sql .= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";
+				}
+]]></add>
+        </operation>
+    </file>
+
+</modification>

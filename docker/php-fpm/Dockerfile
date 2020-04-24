@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
 	libpng-dev \
-    curl
+    curl \
+    libzip-dev
 
 RUN docker-php-ext-install \
     mysqli \

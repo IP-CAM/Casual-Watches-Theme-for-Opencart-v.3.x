@@ -14,7 +14,7 @@
 </div>
 
 <script>
-$(function() {
+$(document).ready(function() {
     $('.slideshow[data-id={{ module }}]').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -24,5 +24,6 @@ $(function() {
         autoplaySpeed: 3000,
         speed: 900
     });
-});
+
+})
 </script>

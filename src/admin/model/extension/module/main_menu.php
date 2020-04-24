@@ -72,4 +72,19 @@ class ModelExtensionModuleMainMenu extends Model {
         return $result->rows;
     }
 
+    public function installDB() {
+        $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "main_menu` (
+                `item_id` int(11) NOT NULL,
+                `title` varchar(64),
+                `href` varchar(64) CHARACTER SET utf8 NOT NULL,
+                `sort_order` tinyint(4) NOT NULL DEFAULT 0,
+                `status` tinyint(4) NOT NULL,
+                `sub_items` text CHARACTER SET utf8 NOT NULL
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
+    }
+
+    public function uninstallDB() {
+        $this->db->query("DROP TABLE " . DB_PREFIX . "main_menu");
+    }
+
 }

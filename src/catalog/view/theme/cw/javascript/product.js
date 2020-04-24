@@ -58,7 +58,7 @@ const addResponseHandler = (json) => {
     }
 
     if (json['success']) {
-        pushAlert(json['success'], { view: 'success' })
+        toastPush(json['success'], { view: 'success' })
         //Update cart
         updateCartCount()
     }
@@ -66,22 +66,24 @@ const addResponseHandler = (json) => {
 
 $('#button-cart').on('click', addButtonClickHandler)
 
-$('.product-images').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: false,
-    asNavFor: '.product-thumbnails'
-})
+$(document).ready(() => {
+    $('.product-image-carousel').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: false,
+        asNavFor: '.product-thumb-carousel'
+    })
 
-$('.product-thumbnails').slick({
-    vertical: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    asNavFor: '.product-images',
-    dots: false,
-    focusOnSelect: true,
-    infinite: false,
-    autoplay: false,
-    verticalSwiping: true
+    $('.product-thumb-carousel').slick({
+        vertical: true,
+        slidesToShow: 10,
+        slidesToScroll: 1,
+        asNavFor: '.product-image-carousel',
+        dots: false,
+        focusOnSelect: true,
+        infinite: false,
+        autoplay: false,
+        verticalSwiping: true
+    })
 })

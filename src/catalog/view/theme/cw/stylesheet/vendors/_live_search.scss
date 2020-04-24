@@ -1,0 +1,105 @@
+.live-search {
+    position: absolute;
+    top: calc(100% - 2px);
+    right: 0;
+    z-index: 1000;
+    display: none;
+    width: 100%;
+    padding: 5px 0 20px;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-top-width: 2px;
+}
+
+.live-search .loading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.live-search ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.live-search ul li {
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+    background-color: var(--bg);
+    min-height: 50px;
+    clear: both;
+}
+.live-search ul li a {
+    display: block;
+    text-decoration: none;
+    color: currentColor;
+}
+.live-search ul li .product-image {
+    float: left;
+    margin-right: 5px;
+}
+.live-search ul li .product-name p {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 10px;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+}
+.live-search ul li .product-name {
+    font-weight: bold;
+    float: left;
+    width: 50%;
+}
+.live-search ul li .product-add-cart {
+    float: right;
+    padding: 7px;
+}
+
+.live-search ul li .product-price {
+    text-align: right;
+    font-size: 12px;
+    font-weight: bold;
+    float: right;
+    margin-top: 10px;
+    width: 25%;
+}
+.live-search ul li .product-price .price {
+    color: var(--text-primary);
+    display: block;
+}
+.live-search ul li .product-price .special {
+    text-decoration: line-through;
+    display:block;
+}
+
+.live-search .product-price > .special {
+    margin-top: -5px;
+}
+
+.live-search .result-text {
+    font-weight: bold;
+    text-align: center;
+    font-size: 11px;
+    line-height: 20px;
+    color:#555555;
+    background-color:#e6ffff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.live-search .view-all-results:hover {
+    color: #23527c;
+}
+.live-search .view-all-results {
+    color: var(--button-bg);
+}
+.live-search .product-image {
+    width: auto;
+}
+.live-search .product-image img {
+    width: auto;
+}

@@ -1,59 +1,63 @@
-<footer class="footer">
-
-    <div class="footer__main">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <div class="footer-contacts">
-                        <div class="footer-contacts__tel">
-                                8 800 550-42-52
-                            </div>
+    <footer class="footer">
+        <div class="footer__body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="footer-contacts">
                             <div class="footer-contacts__tel">
-                                8 495 532-82-40
-                            </div>
-                            <div class="footer-contacts__schedule">
-                                <span>По будням с 11-00 до 20-00, по выходным с 11-00 до 15-00</span>
+                                    8 800 550-42-52
+                                </div>
+                                <div class="footer-contacts__tel">
+                                    8 495 532-82-40
+                                </div>
+                                <div class="footer-contacts__schedule">
+                                    <span>По будням с 11-00 до 20-00, по выходным с 11-00 до 15-00</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <div class="col-3">
-                </div>
-
-                {% if informations %}
                     <div class="col-3">
-                        <ul class="footer-link-list">
-                            {% for information in informations %}
-                                <li class="footer-link-list__item">
-                                    <a class="footer-link-list__link" href="{{ information.href }}">
-                                        <span>{{ information.title }}</span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </div>
-                {% endif %}
+
+                    {% if informations %}
+                        <div class="col-3">
+                            <ul class="footer-link-list">
+                                {% for information in informations %}
+                                    <li class="footer-link-list__item">
+                                        <a class="footer-link-list__link" href="{{ information.href }}">
+                                            <span>{{ information.title }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer__copyright">
-        <div class="container">2016-2018 Интернет-магазин наручных часов Casualwatches.ru</div>
-    </div>
-
-    <div class="footer__footnote">
-        <div class="container">
-            Обращаем ваше внимание на то, что приведенные цены и характеристики товаров носят исключительно ознакомительный характер и не являются публичной офертой, определенной пунктом 2 статьи 437 Гражданского кодекса Российской Федерации. Для получения подробной информации о характеристиках товаров, их наличия и стоимости связывайтесь, пожалуйста, с менеджерами нашей компании. Сайт использует Интернет-сервисы для сбора технических данных касательно посетителей с целью получения маркетинговой и статистической информации. Персональные данные обрабатываются на сайте в целях его функционирования и, если Вы не согласны, то должны покинуть сайт.
+        <div class="footer__copyright">
+            <div class="container">2016-2018 Интернет-магазин наручных часов Casualwatches.ru</div>
         </div>
-    </div>
-</footer>
+
+        <div class="footer__footnote">
+            <div class="container">
+                Обращаем ваше внимание на то, что приведенные цены и характеристики товаров носят исключительно ознакомительный характер и не являются публичной офертой, определенной пунктом 2 статьи 437 Гражданского кодекса Российской Федерации. Для получения подробной информации о характеристиках товаров, их наличия и стоимости связывайтесь, пожалуйста, с менеджерами нашей компании. Сайт использует Интернет-сервисы для сбора технических данных касательно посетителей с целью получения маркетинговой и статистической информации. Персональные данные обрабатываются на сайте в целях его функционирования и, если Вы не согласны, то должны покинуть сайт.
+            </div>
+        </div>
+    </footer>
 
 {% include "cw/template/common/auth.twig" %}
 {% include "cw/template/extension/module/callback.twig" %}
+
+{# Toasts #}
+<div class="toasts"></div>
+{# End Toasts #}
 
 <div class="visually-hidden" hidden>
     {% include "cw/image/sprites.svg" %}
 </div>
 
+<script src="catalog/view/theme/cw/javascript/common.js"></script>
 {% for script in scripts %}
     <script src="{{ script }}"></script>
 {% endfor %}
