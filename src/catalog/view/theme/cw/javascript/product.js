@@ -87,3 +87,13 @@ $(document).ready(() => {
         verticalSwiping: true
     })
 })
+
+//Quick order
+const quickOrderModal = $('.quick-order').modal({
+    onSubmit: quickOrderModalSubmitHandler,
+    triggerEl: '#quick-order'
+})
+
+function quickOrderModalSubmitHandler(event) {
+    event.preventDefault()
+}

@@ -1,11 +1,4 @@
-//Helpers
-const initSlick = (selector, options) => {
-    $(selector).slick(options)
-}
-
-const ajaxErrorHandler = (xhr, ajaxOptions, thrownError) => {
-    console.error(`${thrownError}\r\n${xhr.responseText}`)
-}
+console.log('common.js')
 
 const getURLVar = (key) => {
     const value = []
@@ -26,137 +19,170 @@ const getURLVar = (key) => {
     }
 }
 
-//Toasts
-const toastPush = (text) => {
-    const html = `
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body">
-                ${text}
-            </div>
-        </div>
-    `
-    const toast = $(html)
-    $('.toasts').append(toast)
+;(function ($) {
+    const common = (function () {
+        return {
+            init: function () {
+                this.toasts.init()
+                this.cart.init()
+                this.home.init()
+            },
 
-    toast.toast({ delay: 5000 })
-    toast.toast('show')
-}
+            //Toasts
+            toasts: {
+                init: function () {
+                    window.toasts = {
+                        push: this.push
+                    }
+                },
 
-//Cart
-const addProductToCart = (productId, quantity) => {
-    $.ajax({
-        url: 'index.php?route=checkout/cart/add',
-        type: 'post',
-        data: `product_id=${productId}&quantity=${
-            typeof quantity != undefined ? quantity : 1
-        }`,
-        dataType: 'json',
-        beforeSend: () => {},
-        complete: () => {},
-        success: addToCartResponseHandler,
-        error: ajaxErrorHandler
-    })
-}
+                push: (text) => {
+                    const html = `
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-body">
+                            ${text}
+                        </div>
+                    </div>`
 
-const addToCartResponseHandler = (json) => {
-    if (json['redirect']) {
-        location = json['redirect']
-    }
+                    const toast = $(html)
+                    $('.toasts').append(toast)
 
-    if (json['success']) {
-        toastPush(json['success'], { view: 'success' })
-        updateCartCount()
-    }
-}
+                    toast.toast({ delay: 5000 })
+                    toast.toast('show')
+                }
+            },
 
-const updateProductInCart = (key, quantity) => {
-    $.ajax({
-        url: 'index.php?route=checkout/cart/edit',
-        type: 'post',
-        data: '',
-        dataType: 'json',
-        beforeSend: () => {},
-        complete: () => {},
-        success: updateCartResponseHandler,
-        error: ajaxErrorHandler
-    })
-}
+            //Cart
+            cart: {
+                init: function () {
+                    window.cart = {
+                        add: this.add.bind(this),
+                        remove: this.remove.bind(this)
+                    }
+                },
+                add: function (productId, quantity) {
+                    quantity = quantity || 1
 
-const removeProductFromCart = (key) => {
-    $.ajax({
-        url: 'index.php?route=checkout/cart/remove',
-        type: 'post',
-        data: `key=${key}`,
-        dataType: 'json',
-        beforeSend: () => {},
-        complete: () => {},
-        success: updateCartResponseHandler,
-        error: ajaxErrorHandler
-    })
-}
+                    $.ajax({
+                        context: this,
+                        url: 'index.php?route=checkout/cart/add',
+                        type: 'post',
+                        data: `product_id=${productId}&quantity=${quantity}`,
+                        dataType: 'json',
+                        beforeSend: () => {},
+                        complete: () => {},
+                        success: function (json) {
+                            if (json['redirect']) {
+                                location = json['redirect']
+                            }
 
-const updateCartResponseHandler = (json) => {
-    if (
-        getURLVar('route') == 'checkout/cart' ||
-        getURLVar('route') == 'checkout/checkout'
-    ) {
-        location = 'index.php?route=checkout/cart'
-    } else {
-        updateCartWidget()
-    }
-}
+                            if (json['success']) {
+                                toasts.push(json['success'])
 
-const updateCartCount = () => {
-    const cartButton = $('#cart')
+                                this.updateCounter()
+                            }
+                        },
+                        error: ajaxErrorHandler
+                    })
+                },
+                remove: (key) => {
+                    $.ajax({
+                        url: 'index.php?route=checkout/cart/remove',
+                        type: 'post',
+                        data: `key=${key}`,
+                        dataType: 'json',
+                        beforeSend: () => {},
+                        complete: () => {},
+                        success: cart.updateCounter,
+                        error: ajaxErrorHandler
+                    })
+                },
+                updateCounter: () => {
+                    $.get('index.php?route=common/cart/info', (html) => {
+                        $('#cart').replaceWith(html)
+                    })
+                }
+            },
 
-    $.get('index.php?route=common/cart/info', (html) => {
-        cartButton.replaceWith(html)
-    })
-}
+            //Wishlist
+            wishlist: {
+                init: function () {
+                    window.wishlist = {
+                        add: this.add.bind(this)
+                    }
+                },
+                add: (productId) => {
+                    $.ajax({
+                        url: 'index.php?route=account/wishlist/add',
+                        type: 'post',
+                        data: `product_id=${productId}`,
+                        dataType: 'json',
+                        beforeSend: () => {},
+                        complete: () => {},
+                        success: (json) => {
+                            if (json['redirect']) {
+                                location = json['redirect']
+                            }
 
-const cart = {
-    add: addProductToCart,
-    update: updateProductInCart,
-    remove: removeProductFromCart
-}
+                            if (json['success']) {
+                                toasts.push(json['success'])
+                                //upd count
+                            }
+                        },
+                        error: ajaxErrorHandler
+                    })
+                },
+                updateCounter: (count) => {
+                    // ...
+                }
+            },
 
-// Voucher
+            //Voushcer
+            //TODO: ...
+            voucher: {},
 
-// ...
+            //Home
+            home: {
+                init: function () {
+                    //Brands carousel
+                    $('.carousel').slick({
+                        slidesToShow: 7,
+                        slidesToScroll: 5,
+                        autoplay: true,
+                        autoplaySpeed: 5000,
+                        speed: 1600
+                    })
 
-//Whishlist
-const addProductToWhishlist = (productId) => {
-    $.ajax({
-        url: 'index.php?route=account/wishlist/add',
-        type: 'post',
-        data: `product_id=${productId}`,
-        dataType: 'json',
-        beforeSend: () => {},
-        complete: () => {},
-        success: addToWhishlistResponseHander,
-        error: ajaxErrorHandler
-    })
-}
+                    //Slideshow
+                    $('.slideshow').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: true,
+                        arrows: false,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        speed: 900
+                    })
 
-const addToWhishlistResponseHander = (json) => {
-    console.log(json)
+                    //Featured
+                    $('.featured-carousel').slick({
+                        infinite: true,
+                        slidesToShow: 4,
+                        slidesToScroll: 3,
+                        centerPadding: 30
+                    })
+                }
+            },
 
-    if (json['redirect']) {
-        location = json['redirect']
-    }
+            //Product
+            product: {}
+        }
+    })()
+    common.init()
+})(jQuery)
 
-    if (json['success']) {
-        toastPush(json['success'])
-        updateWishlistCount(json['total'])
-    }
-}
-
-const updateWishlistCount = (count) => {
-    $('#wishlist').find('.button__badge').innerHtml = count
-}
-
-const whishlist = {
-    add: addProductToWhishlist
+const ajaxErrorHandler = (xhr, ajaxOptions, thrownError) => {
+    console.error(`${thrownError}\r\n${xhr.responseText}`)
 }
 
 //Compare
@@ -206,6 +232,8 @@ $.fn.modal = function (options) {
     el.find(settings.closeEl).on('click', toggle)
     el.find(settings.formEl).on('submit', settings.onSubmit.bind(el))
     $(settings.triggerEl).on('click', toggle)
+
+    console.log('fn.modal')
 
     return {
         toggle
@@ -257,5 +285,3 @@ function authRequestResponseHandler(json) {
 const authModal = $('.auth').modal({
     onSubmit: authFormSubmitHandler
 })
-
-authModal.toggle()

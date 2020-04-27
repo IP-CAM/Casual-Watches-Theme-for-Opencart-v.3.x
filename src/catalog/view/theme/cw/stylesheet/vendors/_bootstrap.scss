@@ -18,12 +18,12 @@ $container-max-widths: (
 
 // ...
 
-@import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
-@import './../../../../../../../node_modules/bootstrap/scss/custom-forms';
-//@import './../../../../../../../node_modules/bootstrap/scss/popover';
-
-
+@import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid';
 @import './../../../../../../../node_modules/bootstrap/scss/toasts';
+
+@import './../../../../../../../node_modules/bootstrap/scss/forms';
+@import './../../../../../../../node_modules/bootstrap/scss/custom-forms';
+
 
 //If you need the whole framework
 //@import './../../../../../../../node_modules/bootstrap/scss/bootstrap.scss';

@@ -49,18 +49,22 @@
 {% include "cw/template/common/auth.twig" %}
 {% include "cw/template/extension/module/callback.twig" %}
 
-{# Toasts #}
+<!-- Toasts -->
 <div class="toasts"></div>
-{# End Toasts #}
+<!-- End Toasts -->
 
+<!-- Sprites -->
 <div class="visually-hidden" hidden>
     {% include "cw/image/sprites.svg" %}
 </div>
+<!-- End Sprites -->
 
-<script src="catalog/view/theme/cw/javascript/common.js"></script>
+<!-- Scripts -->
 {% for script in scripts %}
-    <script src="{{ script }}"></script>
+    <script defer src="{{ script }}"></script>
 {% endfor %}
+<script defer src="catalog/view/theme/cw/javascript/common.js"></script>
+<!-- End Sripts -->
 
 </body>
 </html>

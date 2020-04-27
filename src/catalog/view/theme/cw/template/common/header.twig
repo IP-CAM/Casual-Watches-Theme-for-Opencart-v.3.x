@@ -22,18 +22,13 @@
     <!-- End Stylesheets -->
 
     <!-- Scripts -->
-    <script
-        src="https://code.jquery.com/jquery-3.5.0.min.js"
-        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-        crossorigin="anonymous"></script>
-    <script>
-        window.jQuery || document.write('<script src="catalog/view/theme/cw/javascript/vendors/jquery-3.5.0.min.js"><\/script>')
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script
-        src="catalog/view/theme/cw/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script defer src="catalog/view/theme/cw/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
     {% for script in scripts %}
-        <script src="{{ script }}"></script>
+        <script defer src="{{ script }}"></script>
     {% endfor %}
     <!-- End Scripts -->
 
