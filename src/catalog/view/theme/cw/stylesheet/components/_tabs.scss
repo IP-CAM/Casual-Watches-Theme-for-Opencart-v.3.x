@@ -1,0 +1,44 @@
+.tabs {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+
+    &__tab {
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 20px;
+        }
+    }
+}
+
+.tab {
+    display: block;
+    padding: 0 20px;
+
+    $this: &;
+
+    &__text {
+        display: block;
+        padding: 15px 0;
+        border-bottom-width: 3px;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+    }
+
+    &_current {
+        #{$this}__text {
+            border-bottom-color: black;
+        }
+    }
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+
+    &_current {
+        display: block;
+    }
+}

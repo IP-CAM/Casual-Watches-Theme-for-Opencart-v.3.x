@@ -1,0 +1,19 @@
+:root {
+    //Colors
+    --red: hsl(3, 86%, 64%);
+    --blue: hsl(201, 100%, 40%);
+    --white: hsl(0, 0%, 100%);
+    --pale-gray: hsl(0, 0%, 92%);
+    --gray: hsl(215, 10%, 62%);
+    --black: hsl(0, 0%, 20%);
+
+    --background-primary: var(--white);
+    --background-contrast: var(--black);
+    --text-primary: var(--black);
+    --text-secondary: var(--gray);
+    --text-contrast: var(--white);
+    --border: var(--pale-gray);
+
+    --button-action-text: var(--white);
+    --button-action-background: var(--blue);
+}

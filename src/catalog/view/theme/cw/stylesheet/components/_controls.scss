@@ -13,6 +13,7 @@
     @include control;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
 
     &__prepand {
@@ -31,12 +32,10 @@
         min-width: 1.2em;
         padding: 1px;
         text-align: center;
-        background-color: rgba(#cce6f4, .9);
+        background-color: rgba(#bd9a73, .9);
+        color: var(--text-contrast);
         border-radius: .5em;
         backdrop-filter: blur(1px);
-        &:empty {
-            display: none;
-        }
     }
 
     $this: &;
@@ -46,8 +45,8 @@
 
         &_action {
             border-color: transparent;
-            background-color: var(--button-background);
-            color: var(--button-text);
+            background-color: var(--button-action-background);
+            color: var(--button-action-text);
         }
 
         &_pseudo {
@@ -65,14 +64,13 @@
     }
 
     &_size {
-
         &_small {
-
-        }
-
-        &_big {
             font-size: 13px;
             padding: 4px 8px;
+
+            #{$this}__append {
+                margin-left: 4px;
+            }
         }
     }
 }
@@ -84,7 +82,7 @@
     align-items: center;
 
     .button {
-        margin-right: 8px;
+        margin-right: 15px;
     }
 
     .button:last-child {

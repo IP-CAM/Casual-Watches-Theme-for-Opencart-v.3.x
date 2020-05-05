@@ -1,33 +1,58 @@
-<div class="modal quick-order">
-    <button class="modal-close">
-        <svg class="modal-close__icon">
-            <use href="#icon-close" />
-        </svg>
-    </button>
-    <div class="modal__heading">
-        <h2 class="modal__title">{{ cw_quick_order_title }}</h2>
-    </div>
-    <div class="modal__messages"></div>
-    <div class="modal__body">
+<div class="modal" id="quickOrderModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal__title">{{ cw_quick_order_title }}</h5>
 
-        <img src="{{ thumb }}" />
-
-        <form class="callback__form" action="#">
-            <input type="hidden" name="product_id" value="{{ product_id }}" />
-
-            <div class="modal__input-group">
-                <label class="modal__label">{{ cw_quick_order_name }}</label>
-                <input name="name" class="modal__input" type="text" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
-            <div class="modal__input-group">
-                <label class="modal__label">{{ cw_quick_order_tel }}</label>
-                <input name="tel" class="modal__input" type="text" type="password" />
+            <div class="modal-messages"></div>
+
+            <div class="modal-body">
+
+                <p class="quick-order__intro">
+                    Наш менеджер свяжется с вами в ближайшее время для уточнения деталей заказа.
+                    Вы сможете задать любые вопросы.
+                </p>
+
+                <div class="quick-order__summary row">
+                    <div class="col-3">
+                        <img class="quick-order__photo" src="{{ thumb }}" />
+                    </div>
+                    <div class="col-9">
+                        <span class="quick-order__product-title">{{ heading_title }}</span>
+                        <span class="quick-order__price">
+                            {% if special %}{{ special }}{% else %}{{ price }}{% endif %}
+                        </span>
+                    </div>
+                </div>
+
+                <form class="quick-order__form" id="quickOrderForm">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="quickOrderName">{{ cw_callback_name }}</label>
+                        <div class="col-sm-9">
+                            <input class="input width-full" name="name" id="quickOrderName" type="text" placeholder="{{ cw_callback_name_placeholder }}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="quickOrderTel">{{ cw_callback_tel }}</label>
+                        <div class="col-sm-9">
+                            <input class="input width-full" name="tel" id="quickOrderTel" type="text" placeholder="{{ cw_callback_tel_placeholder }}" />
+                        </div>
+                    </div>
+                </form>
+
             </div>
 
-            <button class="button button_view_action width-full" type="submit">{{ cw_callback_send }}</button>
-        </form>
+            <div class="modal-footer">
+                <button type="button" class="button button_view_pseudo" data-dismiss="modal">Закрыть</button>
 
-        <p class="modal__footnote">{{ cw_callback_terms }}</p>
+                <button class="button button_view_action" type="submit" form="authForm">{{ cw_quick_order_submit }}</button>
+            </div>
+        </div>
     </div>
 </div>

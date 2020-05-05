@@ -1,0 +1,17 @@
+.filter {
+    &__selected {
+        margin-bottom: 16px;
+    }
+
+    &__options {
+        margin-bottom: 4px;
+    }
+
+    &__option {
+        margin-right: 4px;
+    }
+
+    &__badge {
+        padding: 2px 4px;
+    }
+}

@@ -1,8 +1,18 @@
 .icon {
-    display: block;
+    display: inline-block;
     width: 24px;
     height: 24px;
     fill: none;
     stroke-width: 3;
     stroke: currentColor;
+    vertical-align: middle;
+
+    //Mods
+    &_size {
+
+        &_small {
+            width: 16px;
+            height: 16px;
+        }
+    }
 }

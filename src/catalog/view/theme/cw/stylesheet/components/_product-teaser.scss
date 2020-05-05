@@ -1,20 +1,21 @@
 .product-teaser {
-    $padding-hover: 24px;
+    $hover-padding: 24px;
     $this: &;
 
     position: relative;
     box-sizing: border-box;
     padding: 18px 0;
 
-    &__thumb-holder {
+    &__photo-holder {
         position: relative;
         display: block;
         height: 0;
         padding-top: 100%;
         border: 0;
+        outline: none;
     }
 
-    &__thumb {
+    &__photo {
         position: absolute;
         top: 0;
         left: 0;
@@ -51,26 +52,26 @@
     &__hidden {
         position: absolute;
         top: 100%;
-        left: -$padding-hover;
+        left: -$hover-padding;
         width: 100%;
         display: none;
-        padding: $padding-hover;
+        padding: $hover-padding;
         box-sizing: content-box;
         border: 1px solid var(--border);
         border-top: 0;
-        background-color: var(--bg);
+        background-color: var(--background-primary);
     }
 
     &::before {
         content: '';
         position: absolute;
         z-index: -1;
-        top: -$padding-hover;
-        left: -$padding-hover;
+        top: -$hover-padding;
+        left: -$hover-padding;
         width: 100%;
         height: 100%;
         display: none;
-        padding: $padding-hover $padding-hover 0;
+        padding: $hover-padding $hover-padding 0;
         box-sizing: content-box;
         background-color: var(--bg);
         border: 1px solid var(--border);

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Extension adaptation</name>
+    <version>1.0.0</version>
+    <code>cw-extension-adaptation</code>
+
+    <!--
+    Live Search
+    - Removes default css stylesheet. Look for styles in stylesheet/vendors/_live_search.scss
+    - Load scripts before </body>
+    -->
+    <file path="catalog/controller/extension/module/live_search.php">
+        <operation>
+            <search index="0">
+                <![CDATA[
+$liveSearchJS = '<link href="catalog/view/javascript/live_search/live_search.css" rel="stylesheet" type="text/css">'."\n";
+                ]]>
+            </search>
+            <add position="replace" offset="9">
+                <![CDATA[
+$liveSearchJS = '<script>'."\n";
+$liveSearchJS .= 'var liveSearchOptions = '.json_encode($liveSearch).';'."\n";
+$liveSearchJS .= '</script>'."\n";
+$liveSearchJS .= '</body>'."\n";
+$output = str_replace('</body>', $liveSearchJS, $output);
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/catalog/controller/extension/module/live_search.php">
+        <operation>
+            <search index="0">
+                <![CDATA[
+$this->model_setting_event->addEvent('ajax_live_search', 'catalog/view/common/header/after', 'extension/module/live_search/injectLiveSearch');
+                ]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+$this->model_setting_event->addEvent('ajax_live_search', 'catalog/view/common/footer/after', 'extension/module/live_search/injectLiveSearch');
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <!--
+    Quick Checkout
+    -->
+    <file path="catalog/controller/extension/quickcheckout/checkout.php">
+        <operation>
+            <search index="0">
+                <![CDATA[
+$this->document->addScript('catalog/view/javascript/jquery/quickcheckout/quickcheckout.js');
+                ]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+$this->document->addStyle('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    <!--
+    OC Filter
+    * Fixes controls inside Bootstrap popover
+    * Removes default css. Look it in stylesheet/vendors/_nouislider.scss
+    -->
+    <file path="catalog/view/javascript/ocfilter/ocfilter.js">
+        <operation>
+            <search index="0">
+                <![CDATA[
+container: '#ocfilter',
+                ]]>
+            </search>
+            <add position="replace" offset="1">
+                <![CDATA[
+container: '#ocfilter',
+sanitize: false,
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="catalog/controller/extension/module/ocfilter.php">
+        <operation>
+            <search index="0">
+                <![CDATA[
+$this->document->addScript('catalog/view/javascript/ocfilter/ocfilter.js');
+                ]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+$this->document->addScript('system/storage/modification/catalog/view/javascript/ocfilter/ocfilter.js');
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0">
+                <![CDATA[
+$this->document->addScript('catalog/view/javascript/ocfilter/nouislider.min.js');
+                ]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+$this->document->addScript('catalog/view/theme/cw/vendors/nouislider/nouislider.min.js');
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0">
+                <![CDATA[
+$this->document->addStyle('catalog/view/javascript/ocfilter/nouislider.min.css');
+                ]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+$this->document->addStyle('catalog/view/theme/cw/vendors/nouislider/nouislider.min.css');
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+</modification>

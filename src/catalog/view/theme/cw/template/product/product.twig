@@ -14,32 +14,36 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <div class="product-gallery">
+                <div class="product-photo">
 
                     {% if images or thumb %}
-                        <div class="product-gallery__thumbnails">
-                            <div class="product-thumb-carousel">
+                        <div class="product-photo__carousel">
+                            <div class="product-photo-carousel">
                                 {% if thumb %}
-                                    <img class="product__thumbnail" src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                    <div class="product-photo-carousel__item">
+                                        <img class="product-photo-carousel__photo" src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                    </div>
                                 {% endif %}
                                 {% if images %}
                                     {% for image in images %}
-                                        <img class="product__thumbnail" src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                        <div class="product-photo-carousel__item">
+                                            <img class="product-photo-carousel__photo" src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                        </div>
                                     {% endfor %}
                                 {% endif %}
                             </div>
                         </div>
                     {% endif %}
 
-                    <div class="product-gallery__image">
-                        <div class="product-image-carousel">
+                    <div class="product-photo__slider">
+                        <div class="product-photo-slider">
                             {% if images or thumb %}
                                 {% if thumb %}
-                                    <img class="product__image" src="{{ popup }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                    <img class="product-photo-slider__photo" src="{{ popup }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
                                 {% endif %}
                                 {% if images %}
                                     {% for image in images %}
-                                        <img class="product__image" src="{{ image.popup }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
+                                        <img class="product-photo-slider__photo" src="{{ image.popup }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
                                     {% endfor %}
                                 {% endif %}
                             {% endif %}
@@ -48,127 +52,159 @@
 
                 </div>
 
-                <div class="product__attributes">
-                    <table class="attributes__table">
-                        {% for attribute_group in attribute_groups %}
-                            <thead>
-                                <tr>
-                                    <td class="attributes__subtitle" colspan="2">
-                                        {{ attribute_group.name }}
-                                    </td>
-                                </tr>
-                            </thead>
+                <div class="product-info">
+                    <ul class="tabs">
+                        <li class="tab tab_current" data-tab="tab-1">
+                            <span class="tab__text">Описание</span>
+                        </li>
+                        <li class="tab" data-tab="tab-2">
+                            <span class="tab__text">Характеристики</span>
+                        </li>
+                    </ul>
+                    <div id="tab-1" class="tab-content tab-content_current">
+                        {{ description }}
+                    </div>
+                    <div id="tab-2" class="tab-content">
+                        <table class="attributes">
+                            {% for attribute_group in attribute_groups %}
+                                <thead>
+                                    <tr>
+                                        <td class="attributes__subtitle" colspan="2">
+                                            {{ attribute_group.name }}
+                                        </td>
+                                    </tr>
+                                </thead>
 
-                            <tbody>
-                                {% for attribute in attribute_group.attribute %}
-                                <tr class="attributes__row">
-                                    <td class="attributes__col">{{ attribute.name }}</td>
-                                    <td class="attributes__col">
-                                        <span class="attributes__value">{{ attribute.text }}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        {% endfor %}
-                    </table>
+                                <tbody>
+                                    {% for attribute in attribute_group.attribute %}
+                                    <tr class="attributes__row">
+                                        <td class="attributes__col">{{ attribute.name }}</td>
+                                        <td class="attributes__col">
+                                            <span class="attributes__value">{{ attribute.text }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
-
-                {{ description }}
             </div>
 
-            <div class="col-4 align-self-start">
+            <div class="col-4">
+                    <div class="product__order-block">
+                    <!-- Brand -->
+                    {% if manufacturer %}
+                        <a class="product__brand product-brand" href="{{ manufacturers }}">
+                            {% if manufacturers_logo %}
+                                <img class="product-brand__logo" src="{{ manufacturers_logo }}" alt="{{ manufacturer }}" />
+                            {% else %}
+                                {{ manufacturer }}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                    <!-- End Brand  -->
 
-                {% if manufacturer %}
-                    <a class="product-manufacturer" href="{{ manufacturers }}">
-                        {% if manufacturers_logo %}
-                            <img class="manufacturer__logo" src="{{ manufacturers_logo }}" alt="{{ manufacturer }}" />
-                        {% else %}
-                            {{ manufacturer }}
-                        {% endif %}
-                    </a>
-                {% endif %}
+                    <!-- Title-->
+                    <h1 class="product__title">{{ heading_title }}</h1>
+                    <!-- End Title  -->
 
-                <h1 class="product__title">{{ heading_title }}</h1>
-
-                <div>
-                    <span class="product__stock mr-auto">{{ stock }}</span>
-
-                    <span class="product__sku">{{ sku }}</span>
-                </div>
-
-                {# Price #}
-                {% if price %}
-                    <div class="product-price">
-                        {% if not special %}
-                            <span class="product-price__current">{{ price }}</span>
-                        {% else %}
-                            <span class="product-price__current">{{ special }}</span>
-                            <span class="product-price__old">{{ price }}</span>
-                        {% endif %}
+                    <!-- Stock, SKU -->
+                    <div class="product__stock-sku">
+                        <span class="product__stock">{{ stock }}</span>
+                        <span class="product__sku">{{ sku }}</span>
                     </div>
-                {% endif %}
+                    <!-- End Stock, SKU -->
 
-                <ul>
-                    {% if tax %}
-                        <li>{{ text_tax }} {{ tax }}</li>
+                    <!-- Price -->
+                    {% if price %}
+                        <div class="product__price product-price">
+                            {% if not special %}
+                                <span class="product-price__current">{{ price }}</span>
+                            {% else %}
+                                <span class="product-price__current">{{ special }}</span>
+                                <span class="product-price__old">{{ price }}</span>
+                            {% endif %}
+                        </div>
                     {% endif %}
+                    <!-- End price -->
 
-                    {% if points %}
-                        <li>{{ text_points }} {{ points }}</li>
-                    {% endif %}
+                    <!--   -->
+                    <ul class="list-unstyled">
+                        {% if tax %}
+                            <li>{{ text_tax }} {{ tax }}</li>
+                        {% endif %}
 
-                    {% if discounts %}
-                        {% for discount in discounts %}
-                            <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
-                        {% endfor %}
-                    {% endif %}
-                </ul>
+                        {% if points %}
+                            <li>{{ text_points }} {{ points }}</li>
+                        {% endif %}
 
+                        {% if discounts %}
+                            {% for discount in discounts %}
+                                <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    <!--   -->
 
-                <div id="product">
-                    <input type="hidden" name="product_id" value="{{ product_id }}" />
-                    <input type="hidden" name="quantity" value="{{ minimum }}" />
+                    <!-- #Product with options, order controls-->
+                    <div class="product__buy-block" id="product">
+                        <input type="hidden" name="product_id" value="{{ product_id }}" />
+                        <input type="hidden" name="quantity" value="{{ minimum }}" />
 
-                    {% if minimum > 1 %}{{ text_minimum }}{% endif %}
+                        {% if minimum > 1 %}{{ text_minimum }}{% endif %}
 
-                    <div class="button-group button-group_gaps">
-                        <button class="button button_view_action grow" id="button-cart">
-                            <span class="button__body caps">{{ button_cart }}</span>
-                        </button>
+                        <div class="button-group">
 
-                        <button class="button button_view_plain">
-                            <div class="button__prepand">
-                                <svg class="icon">
-                                    <use href="#icon-favorite" />
-                                </svg>
-                            </div>
-                            <div class="button__body">В избранное</div>
-                        </button>
+                            <!-- Button cart -->
+                            <button class="button button_view_action product__button-cart" id="button-cart">
+                                <span class="button__body">{{ button_cart }}</span>
+                            </button>
+                            <!-- End Button cart -->
+
+                            <!-- Button favorite -->
+                            <button class="button button_view_plain">
+                                <span class="button__prepand">
+                                    <svg class="icon">
+                                        <use href="#icon-favorite" />
+                                    </svg>
+                                </span>
+                                <span class="button__body">В избранное</span>
+                            </button>
+                            <!-- End Button favorite -->
+                        </div>
+
+                        <!-- Button quick order -->
+                        <button class="button button_view_pseudo width-full product__button-quickorder" type="button" data-toggle="modal" data-target="#quickOrderModal">Быстрый заказ</button>
+                        <!-- End Button quick order -->
                     </div>
+                    <!-- #End Product -->
 
-                    <button class="button button_view_pseudo width-full" id="quick-order">Быстрый заказ</button>
-                </div>
+                    <!-- Seller features -->
+                    <div class="product__seller-features seller-features">
+                        <ul class="seller-features__list">
+                            <li class="seller-features__item">
+                                <strong>Только новые и оригинальные часы</strong>
+                            </li>
+                            <li class="seller-features__item">
+                                Оплата после получения и проверки
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End seller features -->
 
-                <div class="product__seller-features seller-features">
-                    <ul class="seller-features__list">
-                        <li class="seller-features__item">
-                            <strong>Только новые и оригинальные часы</strong>
-                        </li>
-                        <li class="seller-features__item">
-                            Оплата после получения и проверки
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="product__links">
-                    <ul class="product-links__list">
-                        <li class="product-links__item">
-                            <a class="product-links__link" href="">Гарантия</a>
-                        </li>
-                        <li class="product-links__item">
-                            <a class="product-links__link" href="">Доставка и оплата</a>
-                        </li>
-                    </ul>
+                    <!-- Additional links-->
+                    <div class="product__links">
+                        <ul class="product-links__list">
+                            <li class="product-links__item">
+                                <a class="product-links__link" href="">Гарантия</a>
+                            </li>
+                            <li class="product-links__item">
+                                <a class="product-links__link" href="">Доставка и оплата</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End additional links -->
                 </div>
             </div>
         </div>
@@ -177,7 +213,4 @@
 
 {% include "cw/template/product/quick_order.twig" %}
 
-<script src="catalog/view/theme/cw/javascript/product.js"></script>
-
 {{ footer }}
-

@@ -35,7 +35,7 @@ $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magni
             </search>
             <add position="replace" offset="6">
                 <![CDATA[
-$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js', 'footer');
+$this->document->addScript('catalog/view/theme/cw/vendors/slick/slick.min.js');
                 ]]>
             </add>
         </operation>
@@ -49,7 +49,7 @@ $this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.
             </search>
             <add position="replace" offset="2">
                 <![CDATA[
-$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js', 'footer');
+$this->document->addScript('catalog/view/theme/cw/vendors/slick/slick.min.js');
                 ]]>
             </add>
         </operation>
@@ -62,7 +62,7 @@ $this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.
                 ]]>
             </search>
             <add position="replace" offset="2"><![CDATA[
-$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js', 'footer');
+$this->document->addScript('catalog/view/theme/cw/vendors/slick/slick.min.js');
                 ]]>
             </add>
         </operation>
@@ -75,7 +75,7 @@ $this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.
                 ]]>
             </search>
             <add position="replace" offset="2"><![CDATA[
-$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js', 'footer');
+$this->document->addScript('catalog/view/theme/cw/vendors/slick/slick.min.js');
                 ]]>
             </add>
         </operation>
@@ -98,6 +98,7 @@ $language->load('extension/theme/casual_watches');
             </add>
         </operation>
     </file>
+
 
     <!--
     Remove sort orders
@@ -325,7 +326,7 @@ $data['open'] = $this->config->get('config_open');
 
 
     <!--
-    Manufacturer logo in product page
+    Brand logo in product page
     -->
     <file path="catalog/controller/product/product.php">
         <operation>
@@ -338,7 +339,7 @@ $this->load->model('tool/image');
 $manufacturer_image = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
 
 if ($manufacturer_image) {
-    $data['manufacturers_logo'] = $this->model_tool_image->resize($manufacturer_image['image'], 28, 28);
+    $data['manufacturers_logo'] = $this->model_tool_image->resize($manufacturer_image['image'], 64, 64);
 } else {
     $data['manufacturers_logo'] = false;
 }
@@ -347,53 +348,6 @@ if ($manufacturer_image) {
         </operation>
     </file>
 
-
-    <!--
-    Live Search
-    - Removes default css stylesheet. Look for styles in stylesheet/vendors/_live_search.scss
-    - Load scripts before </body>
-    -->
-    <file path="catalog/controller/extension/module/live_search.php">
-        <operation>
-            <search index="0">
-                <![CDATA[
-$liveSearchJS = '<link href="catalog/view/javascript/live_search/live_search.css" rel="stylesheet" type="text/css">'."\n";
-                ]]>
-            </search>
-            <add position="replace" offset="1">
-                <![CDATA[
-$liveSearchJS = '<script src="catalog/view/javascript/live_search/live_search.js"></script>'."\n";
-                ]]>
-            </add>
-        </operation>
-        <operation>
-            <search index="0">
-                <![CDATA[
-$liveSearchJS .= '</head>'."\n";
-                ]]>
-            </search>
-            <add position="replace" offset="1">
-                <![CDATA[
-$liveSearchJS .= '</body>'."\n";
-$output = str_replace('</body>', $liveSearchJS, $output);
-                ]]>
-            </add>
-        </operation>
-    </file>
-    <file path="admin/catalog/controller/extension/module/live_search.php">
-        <operation>
-            <search index="0">
-                <![CDATA[
-$this->model_setting_event->addEvent('ajax_live_search', 'catalog/view/common/header/after', 'extension/module/live_search/injectLiveSearch');
-                ]]>
-            </search>
-            <add position="replace">
-                <![CDATA[
-$this->model_setting_event->addEvent('ajax_live_search', 'catalog/view/common/footer/after', 'extension/module/live_search/injectLiveSearch');
-                ]]>
-            </add>
-        </operation>
-    </file>
 
     <!--
     Product
@@ -427,7 +381,7 @@ $data['products'] = array();
             ]]>
             </search>
             <add position="before"><![CDATA[
-$this->document->addScript('catalog/view/theme/cw/vendors/slick-carousel/slick/slick.min.js', 'footer');
+$this->document->addScript('catalog/view/theme/cw/vendors/slick/slick.min.js', 'footer');
 
 $data['heading_title'] = $setting['name'];
             ]]>
@@ -454,4 +408,31 @@ $_['text_home']             = 'Главная';
         </operation>
     </file>
 
+    <!--
+    Remove sort orders
+    -->
+    <file path="system/library/cache/file.php">
+        <operation>
+            <search index="0">
+            <![CDATA[
+public function delete($key) {
+            ]]>
+            </search>
+            <add position="replace" offset="10">
+                <![CDATA[
+public function delete($key) {
+    $files = glob(DIR_CACHE . 'cache.' . basename($key) . '.*');
+
+    if ($files) {
+        foreach ($files as $file) {
+            if (!@unlink($file)) {
+                clearstatcache(false, $file);
+            }
+        }
+    }
+}
+                ]]>
+            </add>
+        </operation>
+    </file>
 </modification>

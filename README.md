@@ -1,7 +1,6 @@
-## Dev environment
-Nginx, PHP-FPM, MariaDB
-### Using
-```
-$ docker-compose up [-d]
-$ docker-comose stop
-```
+npm start
+npm run buid
+
+### Require
+
+* GD with webp support

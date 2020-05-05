@@ -2,27 +2,36 @@
 @import './../../../../../../../node_modules/bootstrap/scss/variables';
 @import './../../../../../../../node_modules/bootstrap/scss/mixins';
 
-//Bootstrap customization
+//Use abstracts/_variables.scss to override default bootstrap vars
 
-$grid-breakpoints: (
-  xs: $breakpoint-xs,
-  sm: $breakpoint-sm,
-  md: $breakpoint-md,
-  lg: $breakpoint-lg,
-  xl: $breakpoint-xl,
-);
+//Modal paddings crutch
+.modal-content {
+    padding: $modal-content-padding;
+}
+.modal-header .close {
+    padding: $modal-header-padding;
+}
+.modal-body {
+    margin-top: $modal-body-margin-top;
+}
+.modal-footer {
+    margin-top: $modal-footer-margin-top;
+}
 
-$container-max-widths: (
-  xl: 1366px,
-);
-
-// ...
+//Forms crutch
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+}
 
 @import './../../../../../../../node_modules/bootstrap/scss/bootstrap-grid';
-@import './../../../../../../../node_modules/bootstrap/scss/toasts';
-
 @import './../../../../../../../node_modules/bootstrap/scss/forms';
 @import './../../../../../../../node_modules/bootstrap/scss/custom-forms';
+@import './../../../../../../../node_modules/bootstrap/scss/toasts';
+@import './../../../../../../../node_modules/bootstrap/scss/popover';
+@import './../../../../../../../node_modules/bootstrap/scss/buttons';
+@import './../../../../../../../node_modules/bootstrap/scss/modal';
+@import './../../../../../../../node_modules/bootstrap/scss/close';
 
 
 //If you need the whole framework

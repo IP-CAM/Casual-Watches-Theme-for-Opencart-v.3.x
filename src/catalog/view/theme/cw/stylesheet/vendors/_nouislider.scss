@@ -1,0 +1,54 @@
+// Override
+
+.noUi {
+    $this: &;
+
+    &-target {
+        height: 3px;
+        box-shadow: none;
+        border: 0;
+    }
+
+    &-connect {
+        background-color: black;
+    }
+
+    &-base {
+        background: var(--border);
+    }
+
+    &-handle {
+        background-color: black;
+        border-radius: 50%;
+        box-shadow: none;
+        border: 0;
+
+        &::before,
+        &::after {
+            height: 8px;
+            top: 6px;
+        }
+
+        &::before {
+            left: 8px;
+        }
+
+        &::after {
+            left: 12px;
+        }
+    }
+
+    &-horizontal .noUi {
+
+        &-handle {
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            top: -8px;
+        }
+    }
+
+    &-value-horizontal {
+        transform: translate(-50%, 100%);
+    }
+}

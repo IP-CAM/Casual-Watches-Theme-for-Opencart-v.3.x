@@ -1,8 +1,12 @@
-<nav class="link-group{% if class %} {{ class }}{% endif %}">
-    <ul class="link-group__list">
+<nav class="links{% if class %} {{ class }}{% endif %}">
+    <ul class="links__list">
         {% for link in links %}
-            <li class="link-group__item">
-                <a class="link-group__link" href="{{ link.href }}">{{ link.name }}</a>
+            <li class="links__item">
+                <a class="links__link" href="{{ link.href }}">
+                    <span class="links__text">
+                        {{ link.name }}
+                    </span>
+                </a>
             </li>
         {% endfor %}
     </ul>

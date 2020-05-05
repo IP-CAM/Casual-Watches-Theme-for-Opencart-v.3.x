@@ -1,30 +1,23 @@
-.header {
-    border-bottom: 1px solid var(--border);
-
-    &__row {
-        align-items: center;
-
-        //Mods
-        &_top {
-            background-color: #2b2b2b;
-            color: #fff;
-            text-align: center;
-            padding: 8px 0;
-        }
-
-        &_middle {
-            padding: 32px 0 16px;
-        }
-
-        &__bottom {
-
-        }
-    }
+.header-prepend {
+    background-color: #2b2b2b;
+    color: #fff;
+    text-align: center;
+    padding: 8px 0;
 
     &__tel {
         color: currentColor;
         text-decoration: none;
         letter-spacing: 1px;
+    }
+}
+
+.header {
+    &__main {
+        padding: 32px 0 16px;
+    }
+
+    &__menu {
+
     }
 }
 
@@ -45,39 +38,6 @@
     color: currentColor;
 }
 
-.search-box {
-    position: relative;
-    display: flex;
-    margin-right: 12px;
-    flex-grow: 1;
-
-    //Elements
-    &__icon {
-        width: 18px;
-        height: 18px;
-        margin: 4px;
-
-        fill: none;
-        stroke-width: 3;
-        stroke: #ccc;
-    }
-
-    &__input {
-        width: 200px;
-        padding: 2px 4px 4px;
-        margin-left: auto;
-        box-sizing: border-box;
-        border: 0;
-        border-bottom: 2px solid var(--border);
-        font-size: 12px;
-        font-family: inherit;
-        vertical-align: middle;
-
-        &:focus {
-            outline: none;
-        }
-    }
-}
 
 .callback-button {
     background-color: transparent;
@@ -87,4 +47,35 @@
     font-weight: bold;
     font-size: 16px;
     margin-left: 30px;
+}
+
+// Links module
+.links_in_header .links {
+
+    &__list {
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__item {
+        list-style: none;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__link {
+        display: block;
+        padding: 7px 10px;
+        text-decoration: none;
+        color: var(--text-secondary);
+
+        &:hover {
+            color: var(--text-primary);
+        }
+    }
 }

@@ -1,3 +1,17 @@
-<div class="search-box" id="search">
-    <input class="search-box__input" type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" aria-label="{{ search }}" />
+<div class="search-box">
+    <div class="container">
+        <div class="search-box__body" id="search">
+            <input class="search-box__input input" type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" aria-label="{{ search }}" />
+            <button class="search-box__submit button button_view_action" type="button">{{ text_search }}</button>
+        </div>
+
+        <!-- Live Search -->
+        <div class="live-search">
+            <div class="container"><ul></ul></div>
+            <div class="container">
+                <div class="result-text"></div>
+            </div>
+        </div>
+        <!-- End Live Search -->
+    </div>
 </div>

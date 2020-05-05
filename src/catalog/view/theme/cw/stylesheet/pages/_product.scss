@@ -1,28 +1,76 @@
 .product {
     margin: 64px 0;
 
-    //Elements
-    &__stock {
-        display: block;
+    &__order-block {
+        position: sticky;
+        top: 64px;
+        //bottom: 64px;
     }
 
-    &__button-wrapper {
-        margin-top: 32px;
-    }
+        &__brand {
+
+        }
+
+        &__title {
+            margin: 0;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        &__stock-sku {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        &__price {
+            margin-top: 12px;
+        }
+
+        &__stock {
+            display: block;
+            margin-right: 16px;
+        }
+
+        &__sku {
+            display: block;
+            color: var(--text-secondary);
+        }
+
+        &__title {
+            margin: 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        &__price {
+
+        }
+
+        &__buy-block {
+            margin-top: 18px;
+        }
+
+        &__button-cart {
+            margin-right: 24px !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        &__button-quickorder {
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
 
     &__seller-features {
         margin-top: 32px;
     }
 
-    &__title {
-        margin: 0;
-        font-size: 3em;
-        font-weight: bold;
-    }
-    &__price {
-        margin: 0;
-        font-size: 2em;
-        font-weight: bold;
+    &__links {
+        margin-top: 32px;
     }
 
     &__attributes {
@@ -30,34 +78,14 @@
         border-bottom: 1px solid var(--border);
     }
 
-    &__image {
-        display: block;
-        max-width: 100%;
-        max-height: 100vh;
-        margin: 0 auto;
-    }
-
-    &__sku {
-        display: block;
-        color: var(--secondary-text);
-    }
-
     &__description {
         max-width: 760px;
         margin: 0 auto;
     }
 
-    &__links {
-        margin-top: 32px;
-    }
-
-    &__buy-button {
-        margin-top: 16px;
-        width: 100%;
-    }
 }
 
-.product-manufacturer {
+.product-brand {
     color: currentColor;
     text-decoration: none;
 
@@ -67,6 +95,8 @@
 }
 
 .product-price {
+    font-size: 3em;
+    font-weight: bold;
 
     &__current {
         display: inline-block;
@@ -78,25 +108,58 @@
     }
 }
 
-.product-gallery {
+//Product photo
+.product-photo {
     display: flex;
     flex-flow: row nowrap;
 
-    &__thumbnails {
-        width: 64px;
-        margin-right: 32px;
+    $gap: 20px;
+    $carousel-width: 96px;
+
+    &__carousel {
+        width: $carousel-width;
+        margin-right: $gap;
+        flex-shrink: 0;
+        flex-grow: 0;
     }
 
-    &__image {
+    &__slider {
         box-sizing: border-box;
-        padding: 24px;
-        width: calc(100% - 96px);
+        width: calc(100% - #{$gap + $carousel-width});
+        flex-shrink: 1;
+        flex-grow: 0;
+    }
+}
+
+.product-photo-slider {
+
+    &__photo {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+
+.product-photo-carousel {
+
+    &__item {
+        margin: 10px 0;
+    }
+
+    &__item.slick-current {
+        border: 1px solid var(--border)
+    }
+
+    &__photo {
+        display: block;
+        max-width: 100%;
+        width: 100%;
     }
 }
 
 .seller-features {
 
-    //Elements
     &__list {
         padding: 0;
         margin: 0;
@@ -110,7 +173,6 @@
 
 .product-links {
 
-    //Elements
     &__list {
         padding: 0;
         margin: 0;
@@ -122,16 +184,17 @@
     }
 
     &__link {
-        color: var(--secondary-text);
+        color: var(--text-secondary);
     }
 }
 
-.attributes {
+.product-info {
+    margin-top: 20px;
+}
 
-    &__table {
-        border-collapse: collapse;
-        width: 100%;
-    }
+.attributes {
+    border-collapse: collapse;
+    width: 100%;
 
     &__subtitle {
         color: var(--secondary-text);

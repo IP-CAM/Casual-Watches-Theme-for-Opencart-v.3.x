@@ -1,37 +1,39 @@
 <nav class="menu">
     <div class="container">
-        <ul class="menu__list">
-            {% for item in items %}
-                <li class="menu__item{% if item.sub_items %} menu__item_has_children{% endif %}">
-                    <a class="menu__link" href="{{ item.href }}">{{ item.title }}</a>
+            <ul class="menu__list">
+                {% for item in items %}
+                    <li class="menu__item menu-item{% if item.sub_items %} menu-item_has_submenu{% endif %}">
+                        <a class="menu-item__link" href="{{ item.href }}">
+                            <span class="menu-item__text">{{ item.title }}</span>
+                        </a>
 
-                    {% if item.sub_items %}
-                        <div class="submenu">
-                            <div class="container">
-                                <div class="row">
-                                    {% for sub_item in item.sub_items %}
-                                        <div class="col-3">
-                                            <div class="sublinks">
-                                                <span class="sublinks__caption">{{ sub_item.title }}</span>
-                                                <ul class="sublinks__list">
-                                                    {% for sub_link in sub_item.sub_links %}
-                                                        <li class="sublinks__item">
-                                                            <a class="sublinks__link" href="{{ sub_link.href }}">
-                                                                {{ sub_link.title }}
-                                                            </a>
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
+                        {% if item.sub_items %}
+                            <div class="submenu">
+                                <div class="submenu__body container">
+                                    <div class="row">
+                                        {% for sub_item in item.sub_items %}
+                                            <div class="col-3">
+                                                <div class="sublinks">
+                                                    <span class="sublinks__caption">{{ sub_item.title }}</span>
+                                                    <ul class="sublinks__list">
+                                                        {% for sub_link in sub_item.sub_links %}
+                                                            <li class="sublinks__item">
+                                                                <a class="sublinks__link" href="{{ sub_link.href }}">
+                                                                    {{ sub_link.title }}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    {% endfor %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endif %}
+                        {% endif %}
 
-                </li>
-            {% endfor %}
-        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
     </div>
 </nav>

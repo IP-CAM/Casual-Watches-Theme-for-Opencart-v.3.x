@@ -1,63 +1,97 @@
+// Look for logic in javascript/common.js
+
 .menu {
     position: relative;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--border);
 
-    $this: &;
+    &__body {
+        display: flex;
+        justify-content: center;
+    }
 
     &__list {
         display: flex;
         padding: 0;
+        margin: 0;
         flex-flow: row wrap;
         justify-content: center;
     }
 
     &__item {
         list-style: none;
+        margin-right: 20px;
 
-        //Mods
-        &_has_children {
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
 
-            #{$this}__link {
-                padding-right: calc(20px - 1em);
+.menu-item {
+    $this: &;
 
-                &::after {
-                    content: '';
-                    display: inline-block;
-                    height: 1em;
-                    width: 1em;
-                    margin-left: .5em;
-                    background-image: url(../image/arrow.svg);
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    transform: rotate(90deg);
-                }
+    $arrow-height: 1em;
+    $arrow-width: 1em;
+
+    &__link {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0 20px;
+        text-decoration: none;
+    }
+
+    &__text {
+        display: block;
+        padding: 15px 0;
+        border-bottom-width: 3px;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+    }
+
+    //Mods
+    &_has_submenu {
+
+        #{$this}__link {
+            padding-right: calc(20px - #{$arrow-width});
+
+            &::after {
+                content: '';
+                display: block;
+                height: $arrow-height;
+                width: $arrow-width;
+                margin-left: .5 * $arrow-width;
+                background-image: url(../image/menu-arrow.svg);
+                background-repeat: no-repeat;
+                background-position: center;
             }
         }
     }
 
-    &__link {
-        display: inline-block;
-        padding: 4px 20px;
-        font-size: 16px;
-        text-decoration: none;
-        font-weight: bold;
-        color: currentColor;
+    &_active {
+        #{$this}__text {
+            border-bottom-color: var(--text-primary);
+        }
+
+       &#{$this}_has_submenu #{$this}__link::after {
+            transform: rotate(180deg);
+        }
     }
+
 }
+
 
 .submenu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 1px); // Parent border
     left: 0;
     z-index: 1;
     width: 100%;
     border-bottom: 1px solid var(--border);
-    background-color: rgba(#fff, .8);
-    backdrop-filter: blur(10px);
-}
-
-.menu__item:hover .submenu {
-    display: block;
+    background-color: var(--background-primary);
 }
 
 .sublinks {
@@ -67,20 +101,38 @@
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 1px;
-
     }
 
     &__list {
-        margin-top: 8px;
+        margin-top: 15px;
         padding: 0;
     }
 
     &__item {
         list-style: none;
+        display: block;
+        padding: 8px 0;
     }
 
     &__link {
-        color: currentColor;
+        color: var(--text-secondary);
         text-decoration: none;
+
+        &:hover {
+            color: var(--text-primary)
+        }
+    }
+}
+
+
+.menu-search {
+
+    &__link {
+        display: block;
+        padding: 15px 20px 15px 4px;
+    }
+
+    &__text {
+        color: var(--text-secondary);
     }
 }

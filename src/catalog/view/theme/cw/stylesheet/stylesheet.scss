@@ -7,12 +7,12 @@
 @import './base/typography';
 @import './base/helpers';
 
-@import './theme/bright';
-//@import './theme/dark';
+@import './theme/default';
 
 @import './vendors/bootstrap';
 @import './vendors/slick';
 @import './vendors/live_search';
+@import './vendors/nouislider';
 
 @import './components/controls';
 @import './components/icon';
@@ -22,19 +22,19 @@
 @import './components/featured';
 @import './components/carousel';
 @import './components/slideshow';
-@import './components/link-group';
 @import './components/banners';
 @import './components/brands';
-
+@import './components/filter';
+@import './components/tabs';
+@import './components/quick-order';
 
 @import './layout/header';
 @import './layout/menu';
 @import './layout/footer';
 @import './layout/modal';
-@import './layout/auth';
-@import './layout/callback';
 @import './layout/toasts';
 @import './layout/pagination';
+@import './layout/search';
 
 @import './pages/product';
 @import './pages/home';

@@ -1,0 +1,25 @@
+.search-box {
+    position: relative;
+    display: none;
+    border-bottom: 1px solid var(--border);
+
+    &__body {
+        display: flex;
+        align-items: center;
+    }
+
+        &__input {
+            flex-grow: 1;
+            box-sizing: border-box;
+            border: 0;
+            font-family: inherit;
+            font-size: 2em;
+            font-weight: bold;
+            outline: none;
+            text-align: center;
+        }
+
+        &__submit {
+            display: none;
+        }
+}

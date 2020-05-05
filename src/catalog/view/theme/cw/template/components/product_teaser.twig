@@ -1,8 +1,8 @@
 {% macro product_teaser(product, labels) %}
     <div class="product-teaser">
 
-        <a class="product-teaser__thumb-holder" href="{{ product.href }}">
-            <img src="{{ product.thumb }}" alt="{{ product.name }}" class="product-teaser__thumb" />
+        <a class="product-teaser__photo-holder" href="{{ product.href }}">
+            <img src="{{ product.thumb }}" alt="{{ product.name }}" class="product-teaser__photo" />
 
             <div class="product-teaser__badges">
                 {% if product.discount %}

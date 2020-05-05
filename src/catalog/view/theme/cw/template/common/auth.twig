@@ -1,47 +1,46 @@
-<div class="modal auth">
-    <button class="modal-close">
-        <svg class="modal-close__icon">
-            <use href="#icon-close" />
-        </svg>
-    </button>
+<div class="modal" id="authModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal__title">{{ cw_auth_title }}</h5>
 
-    <div class="modal__heading">
-        <h2 class="modal__title">{{ cw_auth_title }}</h2>
-    </div>
-
-    <div class="modal__messages"></div>
-
-    <div class="modal__body">
-
-        <form class="auth__form" action="#">
-            <div class="modal__input-group">
-                <label class="modal__label">Номер телефона или адрес почты</label>
-                <input name="email" class="modal__input" type="text" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
-            <div class="modal__input-group">
-                <label class="modal__label">Пароль</label>
-                <input name="password" class="modal__input" type="text" type="password" />
+            <div class="modal-messages"></div>
+
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="authEmail">{{ cw_auth_email }}</label>
+                        <input class="form-control" id="authEmail" name="email" type="text" placeholder="{{ cw_auth_email_placeholder }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authPassword">{{ cw_auth_password }}</label>
+                        <input class="form-control" id="authPassword" name="password" type="password" placeholder="{{ cw_auth_password_placeholder }}">
+                    </div>
+
+                    <div class="form-group">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="index.php?route=account/forgotten">{{ cw_auth_forgotten }}</a>
+                            </li>
+                            <li>
+                                <a href="index.php?route=account/register">{{ cw_auth_register }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
 
-            <button class="button button_view_action width-full" type="submit">Войти</button>
-        </form>
+            <div class="modal-footer">
+                <button type="button" class="button button_view_pseudo" data-dismiss="modal">Закрыть</button>
 
-        <ul class="auth-links">
-            <li class="auth-links__item">
-                <a class="auth-links__link" href="">
-                    Не помню пароль
-                </a>
-            </li>
-            <li class="auth-links__item">
-                <a class="auth-links__link">
-                    Я — новый покупатель
-                </a>
-            </li>
-        </ul>
-
-        <p class="modal__footnote">
-            Нажимаю кнопку «Войти», я принимаю условия конфидициальности
-        </p>
+                <button class="button button_view_action" type="submit" form="authForm">{{ cw_auth_submit }}</button>
+            </div>
+        </div>
     </div>
 </div>
