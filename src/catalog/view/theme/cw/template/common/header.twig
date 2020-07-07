@@ -79,10 +79,10 @@
                         <div class="button-group">
 
                             {% if logged %}
-                                <a class="button button_view_plain" href="{{ account }}">
-                                    <!--svg class="icon">
-                                        <use href="#icon-user" />
-                                    </svg-->
+                                <a class="button button_view_plain" href="">
+                                    <span class="button__body">
+                                        {{ customer }}
+                                    </span>
                                 </a>
                             {% else %}
                                 <button class="button button_view_plain" type="button" data-toggle="modal" data-target="#authModal">
@@ -94,18 +94,16 @@
 
                             {{ cart }}
 
-                            <a class="button button_view_plain" id="wishlist" href="{{ wishlist }}">
+                            <a class="button button_view_plain" href="{{ wishlist }}">
                                 <span class="button__body">
                                     <svg class="icon">
                                         <use href="#icon-favorite" />
                                     </svg>
                                 </span>
-                                {% if count_wishlist %}
-                                    <span class="button__badge">{{ count_wishlist }}</span>
-                                {% endif %}
+                                <span class="button__badge" id="badgeWishlist">{% if count_wishlist %}{{ count_wishlist }}{% endif %}</span>
                             </a>
 
-                            <button class="button button_view_plain" id="button-search">
+                            <button class="button button_view_plain" id="buttonSearch">
                                 <span class="button__body">
                                     <svg class="icon">
                                         <use href="#icon-search" />
@@ -119,9 +117,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        {{ search }}
+            {{ search }}
+        </div>
 
         {{ menu }}
     </header>

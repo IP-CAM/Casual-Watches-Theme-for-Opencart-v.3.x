@@ -27,15 +27,19 @@
     &__badge {
         position: absolute;
         bottom: -4px;
-        right: -4px;
+        right: -6px;
         display: block;
-        min-width: 1.2em;
-        padding: 1px;
-        text-align: center;
-        background-color: rgba(#bd9a73, .9);
+        height: 12px;
+        padding: 0 6px;
+        border-radius: 6px;
+        background-color: var(--background-contrast);
         color: var(--text-contrast);
-        border-radius: .5em;
-        backdrop-filter: blur(1px);
+        font-weight: bold;
+        font-size: 10px;
+
+        &:empty {
+            display: none;
+        }
     }
 
     $this: &;

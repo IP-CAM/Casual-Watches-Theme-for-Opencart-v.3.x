@@ -46,7 +46,7 @@
 
     &__badge {
         display: inline-block;
-        background-color: #bd9a73;
+        background-color: var(--blue);
     }
 
     &__hidden {
@@ -57,9 +57,9 @@
         display: none;
         padding: $hover-padding;
         box-sizing: content-box;
+        background-color: var(--background-primary);
         border: 1px solid var(--border);
         border-top: 0;
-        background-color: var(--background-primary);
     }
 
     &::before {
@@ -73,8 +73,9 @@
         display: none;
         padding: $hover-padding $hover-padding 0;
         box-sizing: content-box;
-        background-color: var(--bg);
+        background-color: var(--background-primary);
         border: 1px solid var(--border);
+        border-bottom: 0;
     }
 
     //Hover

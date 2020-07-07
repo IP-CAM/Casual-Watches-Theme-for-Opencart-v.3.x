@@ -194,7 +194,9 @@ $data['count_products'] = $this->cart->countProducts();
 
 
     <!--
-    Adds variables with the number of products in the wishlist
+    Header
+    * Adds variables with the number of products in the wishlist
+    * Adds customer name
     -->
     <file path="catalog/controller/common/header.php">
         <operation>
@@ -218,6 +220,20 @@ $data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($
             <add position="after">
                 <![CDATA[
 $data['count_wishlist'] = isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0">
+                <![CDATA[
+$data['home'] = $this->url->link('common/home');
+                ]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+if ($this->customer->isLogged()) {
+    $data['customer'] = $this->customer->getFirstName();
+}
                 ]]>
             </add>
         </operation>

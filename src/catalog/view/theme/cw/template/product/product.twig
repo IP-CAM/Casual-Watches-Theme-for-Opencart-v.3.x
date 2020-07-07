@@ -157,13 +157,13 @@
                         <div class="button-group">
 
                             <!-- Button cart -->
-                            <button class="button button_view_action product__button-cart" id="button-cart">
+                            <button class="button button_view_action product__button-cart" id="buttonCart">
                                 <span class="button__body">{{ button_cart }}</span>
                             </button>
                             <!-- End Button cart -->
 
                             <!-- Button favorite -->
-                            <button class="button button_view_plain">
+                            <button class="button button_view_plain" onclick="wishlist.add({{ product_id }})">
                                 <span class="button__prepand">
                                     <svg class="icon">
                                         <use href="#icon-favorite" />

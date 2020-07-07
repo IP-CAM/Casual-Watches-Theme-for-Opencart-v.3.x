@@ -1,7 +1,12 @@
 .search-box {
-    position: relative;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
     display: none;
     border-bottom: 1px solid var(--border);
+    background-color: var(--background-primary);
+    z-index: 100;
 
     &__body {
         display: flex;

@@ -8,6 +8,7 @@
                 this.product.init()
                 this.menu.init()
                 this.search.init()
+                this.wishlist.init()
             },
 
             //Menu
@@ -166,7 +167,7 @@
                 },
                 reload: () => {
                     $.get('index.php?route=common/cart/info', (html) => {
-                        $('#cart').replaceWith(html)
+                        $('#widgetCart').replaceWith(html)
                     })
                 }
             },
@@ -178,29 +179,30 @@
                         add: this.add.bind(this)
                     }
                 },
-                add: (productId) => {
+                add: function (productId) {
                     $.ajax({
                         url: 'index.php?route=account/wishlist/add',
                         type: 'post',
                         data: `product_id=${productId}`,
                         dataType: 'json',
+                        context: this,
                         beforeSend: () => {},
                         complete: () => {},
-                        success: (json) => {
+                        success: function (json) {
                             if (json['redirect']) {
                                 location = json['redirect']
                             }
 
                             if (json['success']) {
                                 toasts.push(json['success'])
-                                //upd count
+                                this.update(json['total'])
                             }
                         },
                         error: ajaxErrorHandler
                     })
                 },
-                updateCounter: (count) => {
-                    // ...
+                update: (total) => {
+                    $('#badgeWishlist').html(total)
                 }
             },
 
@@ -249,7 +251,7 @@
                 },
                 buttonCart: {
                     init: function () {
-                        $('#button-cart').click(() => this.clickHandler())
+                        $('#buttonCart').click(() => this.clickHandler())
                     },
                     clickHandler: function () {
                         $.ajax({
@@ -336,19 +338,19 @@
                 }
             },
 
-            //Live search
+            //Search
             search: {
                 init: function () {
                     this.liveSearch(liveSearchOptions)
-
-                    $('#button-search').on('click', () => {
+                    this.searchBox()
+                },
+                searchBox: function () {
+                    $('#buttonSearch').on('click', () => {
                         $('.search-box').show().find('input').focus()
-                        $('.menu').hide()
                     })
 
                     $('.search-box').focusout(() => {
                         $('.search-box').hide()
-                        $('.menu').show()
                     })
                 },
                 liveSearch: function (options) {
@@ -393,7 +395,7 @@
                                 }
 
                                 let html = `
-                                    <li style="text-align: center;height:10px;">
+                                    <li>
                                         <img class="loading" src="catalog/view/theme/cw/image/ajax-loader.gif" />
                                     </li>`
 
